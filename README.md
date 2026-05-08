@@ -1,5 +1,8 @@
 <h1 align="center">visx-vue</h1>
 
+> [!CAUTION]
+> This project is currently **experimental** and under active development. APIs may change significantly. The [demo application](packages/visx-demo) is used for internal testing and development.
+
 <p align="center">
   <b>Vue 3 visualization components, powered by visx primitives.</b><br>
   Low-level SVG building blocks. Composable. TypeScript-first. No opinions on styling.
@@ -157,7 +160,7 @@ pnpm typecheck
 pnpm check
 ```
 
-Demo app lives in `packages/visx-demo`.
+Demo app lives in `packages/visx-demo` (Experimental).
 
 ## Architecture
 
@@ -170,7 +173,7 @@ packages/
   visx-vue-tooltip/     - Tooltip + portal
   visx-vue-zoom/        - Pan/zoom
   visx-vue-brush/       - Brush selection
-  visx-demo/            - Interactive demo app
+  visx-demo/            - Interactive demo app (Experimental)
   ...
 ```
 
