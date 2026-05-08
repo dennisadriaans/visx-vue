@@ -1,8 +1,5 @@
 <h1 align="center">visx-vue</h1>
 
-> [!CAUTION]
-> This project is currently **experimental** and under active development. APIs may change significantly. The [demo application](packages/visx-demo) is used for internal testing and development.
-
 <p align="center">
   <b>Vue 3 visualization components, powered by visx primitives.</b><br>
   Low-level SVG building blocks. Composable. TypeScript-first. No opinions on styling.
@@ -21,6 +18,11 @@
   <a href="#development">Development</a> -
   <a href="#contributing">Contributing</a>
 </p>
+
+
+> [!WARNING]
+> This project is currently **experimental** and under active development. 
+
 
 ---
 

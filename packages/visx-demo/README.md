@@ -1,8 +1,5 @@
 # visx-vue-demo (Experimental)
 
-> [!CAUTION]
-> This package is experimental and under active development. It is used to showcase and test `visx-vue` components.
-
 This is a Nuxt-based demo application for the `visx-vue` project, porting [visx](https://github.com/airbnb/visx) to Vue.
 
 ## Setup
