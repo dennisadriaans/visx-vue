@@ -254,16 +254,16 @@ export default defineComponent({
         <g class="visx-bar-group">
           {barSeries.map(
             (series) =>
-              series && (
-                <BarsTag
-                  horizontal={horizontal}
-                  xScale={xScale}
-                  yScale={yScale}
-                  {...series}
-                  {...eventEmitters}
-                  key={series.key}
-                />
-              ),
+                series
+                  ? h(BarsTag, {
+                      horizontal,
+                      xScale,
+                      yScale,
+                      ...series,
+                      ...eventEmitters,
+                      key: series.key,
+                    })
+                  : null,
           )}
         </g>
       );

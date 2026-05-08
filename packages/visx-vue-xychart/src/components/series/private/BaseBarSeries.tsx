@@ -171,19 +171,19 @@ export default defineComponent({
 
       return (
         <g class="vx-bar-series">
-          <BarsTag
-            bars={bars}
-            horizontal={horizontal}
-            xScale={xScale}
-            yScale={yScale}
-            radius={props.radius}
-            radiusAll={props.radiusAll}
-            radiusTop={props.radiusTop}
-            radiusRight={props.radiusRight}
-            radiusBottom={props.radiusBottom}
-            radiusLeft={props.radiusLeft}
-            {...eventEmitters}
-          />
+            {h(BarsTag, {
+              bars,
+              horizontal,
+              xScale,
+              yScale,
+              radius: props.radius,
+              radiusAll: props.radiusAll,
+              radiusTop: props.radiusTop,
+              radiusRight: props.radiusRight,
+              radiusBottom: props.radiusBottom,
+              radiusLeft: props.radiusLeft,
+              ...eventEmitters,
+            })}
         </g>
       );
     };

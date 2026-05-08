@@ -51,5 +51,3 @@ defineProps<{
   packages?: string[];
 }>();
 </script>
-
-<style scoped></style>

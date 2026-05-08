@@ -4,7 +4,7 @@ import { Arc } from "@visx-vue/shape";
 import { Group } from "@visx-vue/group";
 import { GradientLightgreenGreen } from "@visx-vue/gradient";
 import { scaleBand, scaleRadial } from "@visx-vue/scale";
-import { VisxText } from "@visx-vue/text";
+import { Text as VisxText } from "@visx-vue/text";
 import { letterFrequency } from "@visx-vue/mock-data";
 import { useParentSize } from "@visx-vue/responsive";
 

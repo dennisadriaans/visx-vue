@@ -1,7 +1,10 @@
 <template>
-  <NuxtLink :to="to" class="gallery-tile" ref="tileRef" :style="tileStyle">
-    <div class="image">
-      <svg viewBox="0 0 400 300" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+  <NuxtLink
+    :to="to"
+    class="group relative flex h-[320px] flex-col overflow-hidden rounded-2xl border border-default bg-surface transition-all hover:-translate-y-1 hover:shadow-xl"
+  >
+    <div class="flex-1 overflow-hidden">
+      <svg viewBox="0 0 400 300" class="h-full w-full object-cover">
         <defs>
           <linearGradient :id="`tile-grad-${title}`" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" :stop-color="color1" />
@@ -31,100 +34,29 @@
         </template>
       </svg>
     </div>
-    <div class="details" v-if="title || description">
-      <div class="title" v-if="title">{{ title }}</div>
-      <div class="description" v-if="description">{{ description }}</div>
+
+    <div
+      class="absolute inset-x-0 bottom-0 flex flex-col items-center justify-center bg-black/60 p-4 text-center backdrop-blur-sm transition-colors group-hover:bg-black/70"
+    >
+      <div v-if="title" class="text-sm font-bold text-white">
+        {{ title }}
+      </div>
+      <div v-if="description" class="mt-0.5 text-[11px] font-medium text-white/70">
+        {{ description }}
+      </div>
     </div>
   </NuxtLink>
 </template>
 
 <script setup lang="ts">
-interface SvgElement {
-  type: "circle" | "rect";
-  cx?: number;
-  cy?: number;
-  r?: number;
-  x?: number;
-  y?: number;
-  width?: number;
-  height?: number;
-  fill: string;
-  opacity: number;
-  rx?: number;
-}
+import type { SvgElement } from "~/composables/useGalleryTiles";
 
-const props = withDefaults(
-  defineProps<{
-    title?: string;
-    description?: string;
-    to: string;
-    color1: string;
-    color2: string;
-    elements: SvgElement[];
-    tileStyle?: Record<string, string>;
-  }>(),
-  {
-    tileStyle: () => ({}),
-  },
-);
+const props = defineProps<{
+  title?: string;
+  description?: string;
+  to: string;
+  color1: string;
+  color2: string;
+  elements: SvgElement[];
+}>();
 </script>
-
-<style scoped>
-.gallery-tile {
-  background: var(--color-surface);
-  display: flex;
-  height: 360px;
-  flex-direction: column;
-  border-radius: var(--radius);
-  overflow: hidden;
-  cursor: pointer;
-  text-decoration: none;
-  color: inherit;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.gallery-tile:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-}
-
-.image {
-  flex: 1;
-  display: flex;
-  overflow: hidden;
-}
-
-.details {
-  text-align: center;
-  padding: 12px 16px;
-  background: rgba(0, 0, 0, 0.75);
-  color: #ffffff;
-}
-
-.title {
-  font-weight: 700;
-  font-size: 0.9rem;
-  line-height: 1.2;
-}
-
-.description {
-  font-weight: 300;
-  font-size: 12px;
-  margin-top: 2px;
-  opacity: 0.7;
-}
-
-@media (max-width: 960px) {
-  .gallery-tile {
-    height: 300px;
-  }
-}
-
-@media (max-width: 600px) {
-  .gallery-tile {
-    height: 260px;
-  }
-}
-</style>

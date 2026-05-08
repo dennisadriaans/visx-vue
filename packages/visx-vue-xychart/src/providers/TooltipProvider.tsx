@@ -11,7 +11,7 @@ export type TooltipProviderProps = {
 };
 
 /** Simple wrapper around useTooltip, to provide tooltip data via context. */
-const TooltipProvider = defineComponent({
+export const TooltipProvider = defineComponent({
   name: "TooltipProvider",
   props: {
     hideTooltipDebounceMs: {

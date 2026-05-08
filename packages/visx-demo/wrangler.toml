@@ -1,0 +1,16 @@
+name = "visx-vue-demo"
+main = ".output/server/index.mjs"
+compatibility_date = "2025-07-14"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = ".output/public"
+binding = "ASSETS"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "visx-vue-demo-db"
+database_id = "PASTE_YOUR_D1_DATABASE_ID_HERE"
+
+[observability]
+enabled = true

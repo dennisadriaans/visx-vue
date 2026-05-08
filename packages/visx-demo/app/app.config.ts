@@ -1,6 +1,6 @@
 export default defineAppConfig({
   github: {
-    url: "https://github.com/dennisofficial/visx-vue",
+    url: "https://github.com/dennisadriaans/visx-vue",
   },
   header: {
     title: "visx-vue",
@@ -10,7 +10,7 @@ export default defineAppConfig({
     description: "Visualization primitives for Vue, ported from visx.",
     image: "/og-image.png",
     socials: {
-      github: "dennisofficial/visx-vue",
+      github: "https://github.com/dennisadriaans/visx-vue",
     },
     github: {
       dir: "visx-vue/packages",

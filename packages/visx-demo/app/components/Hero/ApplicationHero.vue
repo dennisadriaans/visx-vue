@@ -47,14 +47,17 @@ const tabs = [
 
       <template #links>
         <UButton
-          label="Explore Nuxt Charts"
+          label="Browse Gallery"
+          to="/gallery"
           color="neutral"
           variant="solid"
           size="xl"
           class="px-8 py-3.5 font-medium"
         />
         <UButton
-          label="View Premium Blocks"
+          label="View on GitHub"
+          to="https://github.com/airbnb/visx"
+          target="_blank"
           color="neutral"
           variant="ghost"
           size="xl"

@@ -42,7 +42,7 @@ export { TooltipContextKey, useTooltipContext } from "./context/TooltipContext";
 export { default as DataProvider } from "./providers/DataProvider";
 export { default as EventEmitterProvider } from "./providers/EventEmitterProvider";
 export { default as ThemeProvider } from "./providers/ThemeProvider";
-export { default as TooltipProvider } from "./providers/TooltipProvider";
+export { TooltipProvider } from "./providers/TooltipProvider";
 
 // hooks
 export { default as useEventEmitter } from "./hooks/useEventEmitter";
