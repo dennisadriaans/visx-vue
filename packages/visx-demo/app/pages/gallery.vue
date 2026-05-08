@@ -1,0 +1,1221 @@
+<template>
+  <div class="gallery-page">
+    <h1 class="page-title">Gallery</h1>
+    <p class="page-description">
+      Examples will appear here as packages are ported. Each tile links to a demo page with full
+      source code.
+    </p>
+
+    <!-- Filter bar (placeholder for when packages exist) -->
+    <div class="filters" v-if="false">
+      <span class="filter-label">Filter</span>
+    </div>
+
+    <div class="grid">
+      <GalleryTile
+        v-for="tile in galleryTiles"
+        :key="tile.title"
+        :title="tile.title"
+        :description="tile.description"
+        :color1="tile.color1"
+        :color2="tile.color2"
+        :to="tile.to"
+        :elements="tile.elements"
+      />
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+useHead({ title: "Gallery — visx-vue" });
+
+interface SvgElement {
+  type: "circle" | "rect";
+  cx?: number;
+  cy?: number;
+  r?: number;
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
+  fill: string;
+  opacity: number;
+  rx?: number;
+}
+
+interface GalleryTileData {
+  title: string;
+  description: string;
+  to: string;
+  color1: string;
+  color2: string;
+  elements: SvgElement[];
+}
+
+const galleryTiles: GalleryTileData[] = [
+  {
+    title: "Bars",
+    description: "@visx-vue/shape",
+    to: "/bars",
+    color1: "#0f3460",
+    color2: "#533483",
+    elements: Array.from({ length: 12 }, (_, i) => ({
+      type: "rect" as const,
+      x: i * 33 + 4,
+      y: 280 - ((i % 5) + 1) * 40,
+      width: 28,
+      height: ((i % 5) + 1) * 40 + 20,
+      fill: `hsl(${260 + i * 8}, 65%, 60%)`,
+      opacity: 0.85,
+      rx: 3,
+    })),
+  },
+  {
+    title: "Spending Overview",
+    description: "VisBarChart composite component",
+    to: "/spending-overview",
+    color1: "#13131a",
+    color2: "#1a2e1a",
+    elements: Array.from({ length: 16 }, (_, i) => ({
+      type: "rect" as const,
+      x: i * 25 + 2,
+      y: 280 - [120, 70, 145, 195, 160, 215, 135, 170, 100, 190, 180, 60, 170, 185, 65, 170][i],
+      width: 20,
+      height: [120, 70, 145, 195, 160, 215, 135, 170, 100, 190, 180, 60, 170, 185, 65, 170][i],
+      fill: "#4ade80",
+      opacity: 0.85,
+      rx: 2,
+    })),
+  },
+  {
+    title: "Bar Group",
+    description: "@visx-vue/shape @visx-vue/scale",
+    to: "/bargroup",
+    color1: "#23395d",
+    color2: "#408ec6",
+    elements: Array.from({ length: 9 }, (_, i) => ({
+      type: "rect" as const,
+      x: Math.floor(i / 3) * 140 + (i % 3) * 43 + 5,
+      y: 280 - ((i % 3) + 1) * 60,
+      width: 36,
+      height: ((i % 3) + 1) * 60 + 10,
+      fill: `hsl(${200 + (i % 3) * 40}, 60%, 55%)`,
+      opacity: 0.85,
+      rx: 3,
+    })),
+  },
+  {
+    title: "Bar Group Horizontal",
+    description: "@visx-vue/shape @visx-vue/scale",
+    to: "/bargrouphorizontal",
+    color1: "#1b4332",
+    color2: "#52b788",
+    elements: Array.from({ length: 9 }, (_, i) => ({
+      type: "rect" as const,
+      x: 5,
+      y: Math.floor(i / 3) * 100 + (i % 3) * 28 + 5,
+      width: ((i % 3) + 1) * 90 + 20,
+      height: 22,
+      fill: `hsl(${140 + (i % 3) * 30}, 55%, 45%)`,
+      opacity: 0.85,
+      rx: 3,
+    })),
+  },
+  {
+    title: "Bar Stack",
+    description: "@visx-vue/shape @visx-vue/scale",
+    to: "/barstack",
+    color1: "#2c3e50",
+    color2: "#3498db",
+    elements: Array.from({ length: 4 }, (_, i) => [
+      {
+        type: "rect" as const,
+        x: i * 100 + 5,
+        y: 200,
+        width: 85,
+        height: 80,
+        fill: "#e74c3c",
+        opacity: 0.8,
+        rx: 3,
+      },
+      {
+        type: "rect" as const,
+        x: i * 100 + 5,
+        y: 130,
+        width: 85,
+        height: 70,
+        fill: "#3498db",
+        opacity: 0.8,
+        rx: 0,
+      },
+      {
+        type: "rect" as const,
+        x: i * 100 + 5,
+        y: 60,
+        width: 85,
+        height: 70,
+        fill: "#2ecc71",
+        opacity: 0.8,
+        rx: 0,
+      },
+    ]).flat(),
+  },
+  {
+    title: "Bar Stack Horizontal",
+    description: "@visx-vue/shape @visx-vue/scale",
+    to: "/barstackhorizontal",
+    color1: "#1a1a2e",
+    color2: "#16213e",
+    elements: Array.from({ length: 4 }, (_, i) => [
+      {
+        type: "rect" as const,
+        x: 5,
+        y: i * 75 + 5,
+        width: 120,
+        height: 55,
+        fill: "#e74c3c",
+        opacity: 0.8,
+        rx: 3,
+      },
+      {
+        type: "rect" as const,
+        x: 130,
+        y: i * 75 + 5,
+        width: 100,
+        height: 55,
+        fill: "#f39c12",
+        opacity: 0.8,
+        rx: 0,
+      },
+      {
+        type: "rect" as const,
+        x: 235,
+        y: i * 75 + 5,
+        width: 80,
+        height: 55,
+        fill: "#2ecc71",
+        opacity: 0.8,
+        rx: 0,
+      },
+    ]).flat(),
+  },
+  {
+    title: "Areas",
+    description: "@visx-vue/shape @visx-vue/curve",
+    to: "/areas",
+    color1: "#2d6a4f",
+    color2: "#40916c",
+    elements: Array.from({ length: 10 }, (_, i) => ({
+      type: "rect" as const,
+      x: 0,
+      y: 30 + i * 27,
+      width: 400,
+      height: 22,
+      fill: `hsl(${145 + i * 8}, 50%, ${40 + i * 5}%)`,
+      opacity: 0.5,
+      rx: 0,
+    })),
+  },
+  {
+    title: "Stacked Areas",
+    description: "@visx-vue/shape @visx-vue/scale",
+    to: "/stacked-areas",
+    color1: "#0d1b2a",
+    color2: "#1b4332",
+    elements: Array.from({ length: 5 }, (_, i) => ({
+      type: "rect" as const,
+      x: 0,
+      y: i * 60,
+      width: 400,
+      height: 55,
+      fill: `hsl(${160 + i * 20}, 50%, ${35 + i * 8}%)`,
+      opacity: 0.7,
+      rx: 0,
+    })),
+  },
+  {
+    title: "Gradients",
+    description: "@visx-vue/gradient",
+    to: "/gradients",
+    color1: "#ff6b6b",
+    color2: "#feca57",
+    elements: Array.from({ length: 4 }, (_, i) => ({
+      type: "circle" as const,
+      cx: 80 + i * 80,
+      cy: 150,
+      r: 50,
+      fill: `hsl(${i * 30}, 80%, 60%)`,
+      opacity: 0.7,
+    })),
+  },
+  {
+    title: "Patterns",
+    description: "@visx-vue/pattern",
+    to: "/patterns",
+    color1: "#e94560",
+    color2: "#0f3460",
+    elements: Array.from({ length: 6 }, (_, i) => ({
+      type: "rect" as const,
+      x: (i % 3) * 135,
+      y: Math.floor(i / 3) * 150,
+      width: 130,
+      height: 145,
+      fill: `hsl(${i * 50 + 340}, 60%, 55%)`,
+      opacity: 0.7,
+      rx: 8,
+    })),
+  },
+  {
+    title: "Heatmaps",
+    description: "@visx-vue/heatmap",
+    to: "/heatmaps",
+    color1: "#1d3557",
+    color2: "#457b9d",
+    elements: Array.from({ length: 36 }, (_, i) => ({
+      type: "rect" as const,
+      x: (i % 6) * 65 + 5,
+      y: Math.floor(i / 6) * 50 + 3,
+      width: 60,
+      height: 45,
+      fill: `hsl(${200 + ((i * 7) % 30)}, ${40 + ((i * 5) % 40)}%, ${30 + ((i * 3) % 40)}%)`,
+      opacity: 0.85,
+      rx: 4,
+    })),
+  },
+  {
+    title: "Axis",
+    description: "@visx-vue/axis @visx-vue/scale",
+    to: "/axis",
+    color1: "#16213e",
+    color2: "#0f3460",
+    elements: [
+      ...Array.from({ length: 6 }, (_, i) => ({
+        type: "rect" as const,
+        x: i * 65 + 5,
+        y: 240,
+        width: 3,
+        height: 8,
+        fill: "#888",
+        opacity: 0.8,
+        rx: 0,
+      })),
+      ...Array.from({ length: 5 }, (_, i) => ({
+        type: "rect" as const,
+        x: 5,
+        y: i * 50 + 10,
+        width: 8,
+        height: 3,
+        fill: "#888",
+        opacity: 0.8,
+        rx: 0,
+      })),
+      ...Array.from({ length: 6 }, (_, i) => ({
+        type: "rect" as const,
+        x: i * 65 + 5,
+        y: 30 + (i % 4) * 30,
+        width: 55,
+        height: 180 - (i % 4) * 30,
+        fill: `hsl(${210 + i * 15}, 60%, 55%)`,
+        opacity: 0.75,
+        rx: 3,
+      })),
+    ],
+  },
+  {
+    title: "Curves",
+    description: "@visx-vue/curve @visx-vue/shape",
+    to: "/curves",
+    color1: "#2b3a67",
+    color2: "#496a81",
+    elements: Array.from({ length: 20 }, (_, i) => ({
+      type: "circle" as const,
+      cx: i * 21 + 5,
+      cy: 150 + Math.sin(i * 0.5) * 100,
+      r: 4,
+      fill: `hsl(${200 + i * 8}, 65%, 60%)`,
+      opacity: 0.8,
+    })),
+  },
+  {
+    title: "Chord",
+    description: "@visx-vue/chord",
+    to: "/chord",
+    color1: "#3d348b",
+    color2: "#7678ed",
+    elements: Array.from({ length: 12 }, (_, i) => ({
+      type: "circle" as const,
+      cx: 200 + Math.cos((i / 12) * Math.PI * 2) * 100,
+      cy: 150 + Math.sin((i / 12) * Math.PI * 2) * 100,
+      r: 10,
+      fill: `hsl(${i * 30 + 240}, 70%, 65%)`,
+      opacity: 0.8,
+    })),
+  },
+  {
+    title: "Pies",
+    description: "@visx-vue/shape @visx-vue/scale",
+    to: "/pies",
+    color1: "#2b2d42",
+    color2: "#8d99ae",
+    elements: Array.from({ length: 8 }, (_, i) => ({
+      type: "circle" as const,
+      cx: 200 + Math.cos((i / 8) * Math.PI * 2) * 80,
+      cy: 150 + Math.sin((i / 8) * Math.PI * 2) * 80,
+      r: 30,
+      fill: `hsl(${i * 45}, 70%, 58%)`,
+      opacity: 0.8,
+    })),
+  },
+  {
+    title: "Treemap",
+    description: "@visx-vue/hierarchy",
+    to: "/treemap",
+    color1: "#264653",
+    color2: "#2a9d8f",
+    elements: [
+      {
+        type: "rect" as const,
+        x: 5,
+        y: 5,
+        width: 190,
+        height: 140,
+        fill: "#2a9d8f",
+        opacity: 0.8,
+        rx: 4,
+      },
+      {
+        type: "rect" as const,
+        x: 200,
+        y: 5,
+        width: 195,
+        height: 90,
+        fill: "#e9c46a",
+        opacity: 0.8,
+        rx: 4,
+      },
+      {
+        type: "rect" as const,
+        x: 200,
+        y: 100,
+        width: 95,
+        height: 45,
+        fill: "#f4a261",
+        opacity: 0.8,
+        rx: 4,
+      },
+      {
+        type: "rect" as const,
+        x: 300,
+        y: 100,
+        width: 95,
+        height: 45,
+        fill: "#e76f51",
+        opacity: 0.8,
+        rx: 4,
+      },
+      {
+        type: "rect" as const,
+        x: 5,
+        y: 150,
+        width: 130,
+        height: 140,
+        fill: "#264653",
+        opacity: 0.7,
+        rx: 4,
+      },
+      {
+        type: "rect" as const,
+        x: 140,
+        y: 150,
+        width: 130,
+        height: 140,
+        fill: "#287271",
+        opacity: 0.7,
+        rx: 4,
+      },
+      {
+        type: "rect" as const,
+        x: 275,
+        y: 150,
+        width: 120,
+        height: 140,
+        fill: "#e9c46a",
+        opacity: 0.6,
+        rx: 4,
+      },
+    ],
+  },
+  {
+    title: "Dendrograms",
+    description: "@visx-vue/hierarchy @visx-vue/shape",
+    to: "/dendrograms",
+    color1: "#1a1a2e",
+    color2: "#4a4e69",
+    elements: [
+      { type: "circle" as const, cx: 200, cy: 30, r: 8, fill: "#f72585", opacity: 0.9 },
+      ...Array.from({ length: 4 }, (_, i) => ({
+        type: "circle" as const,
+        cx: 60 + i * 100,
+        cy: 150,
+        r: 7,
+        fill: "#7209b7",
+        opacity: 0.85,
+      })),
+      ...Array.from({ length: 8 }, (_, i) => ({
+        type: "circle" as const,
+        cx: 20 + i * 50,
+        cy: 260,
+        r: 5,
+        fill: "#4cc9f0",
+        opacity: 0.8,
+      })),
+    ],
+  },
+  {
+    title: "Trees",
+    description: "@visx-vue/hierarchy @visx-vue/shape",
+    to: "/trees",
+    color1: "#2d4739",
+    color2: "#4caf50",
+    elements: [
+      { type: "circle" as const, cx: 30, cy: 150, r: 8, fill: "#4caf50", opacity: 0.9 },
+      ...Array.from({ length: 3 }, (_, i) => ({
+        type: "circle" as const,
+        cx: 150,
+        cy: 60 + i * 90,
+        r: 7,
+        fill: "#81c784",
+        opacity: 0.85,
+      })),
+      ...Array.from({ length: 6 }, (_, i) => ({
+        type: "circle" as const,
+        cx: 280 + (i % 2) * 50,
+        cy: 30 + Math.floor(i / 2) * 90 + 30,
+        r: 5,
+        fill: "#c8e6c9",
+        opacity: 0.8,
+      })),
+    ],
+  },
+  {
+    title: "Pack",
+    description: "@visx-vue/hierarchy",
+    to: "/pack",
+    color1: "#2c003e",
+    color2: "#6a0572",
+    elements: [
+      { type: "circle" as const, cx: 200, cy: 150, r: 120, fill: "#6a0572", opacity: 0.3 },
+      ...Array.from({ length: 8 }, (_, i) => ({
+        type: "circle" as const,
+        cx: 200 + Math.cos((i / 8) * Math.PI * 2) * 70,
+        cy: 150 + Math.sin((i / 8) * Math.PI * 2) * 70,
+        r: 25,
+        fill: `hsl(${280 + i * 20}, 70%, 55%)`,
+        opacity: 0.7,
+      })),
+    ],
+  },
+  {
+    title: "Voronoi",
+    description: "@visx-vue/voronoi @visx-vue/shape",
+    to: "/voronoi",
+    color1: "#1a1a2e",
+    color2: "#e94560",
+    elements: Array.from({ length: 25 }, (_, i) => ({
+      type: "circle" as const,
+      cx: (i % 5) * 80 + 20,
+      cy: Math.floor(i / 5) * 60 + 20,
+      r: 4,
+      fill: `hsl(${330 + i * 10}, 65%, 60%)`,
+      opacity: 0.85,
+    })),
+  },
+  {
+    title: "Dots",
+    description: "@visx-vue/group @visx-vue/scale",
+    to: "/dots",
+    color1: "#1a1a2e",
+    color2: "#16213e",
+    elements: Array.from({ length: 50 }, (_, i) => ({
+      type: "circle" as const,
+      cx: (i * 37) % 400,
+      cy: (i * 29 + i * 7) % 300,
+      r: (i % 5) + 2,
+      fill: `hsl(${(i * 20) % 360}, 65%, 60%)`,
+      opacity: 0.6 + (i % 4) * 0.1,
+    })),
+  },
+  {
+    title: "Glyphs",
+    description: "@visx-vue/glyph @visx-vue/shape",
+    to: "/glyphs",
+    color1: "#1e3a5f",
+    color2: "#3a86ff",
+    elements: Array.from({ length: 7 }, (_, i) => ({
+      type: "circle" as const,
+      cx: 30 + i * 55,
+      cy: 150,
+      r: 18,
+      fill: `hsl(${210 + i * 25}, 70%, 60%)`,
+      opacity: 0.8,
+    })),
+  },
+  {
+    title: "Link Types",
+    description: "@visx-vue/shape @visx-vue/hierarchy",
+    to: "/linktypes",
+    color1: "#1a1a2e",
+    color2: "#533483",
+    elements: [
+      ...Array.from({ length: 5 }, (_, i) => ({
+        type: "circle" as const,
+        cx: 40 + i * 80,
+        cy: 60,
+        r: 10,
+        fill: `hsl(${260 + i * 20}, 65%, 60%)`,
+        opacity: 0.9,
+      })),
+      ...Array.from({ length: 5 }, (_, i) => ({
+        type: "circle" as const,
+        cx: 40 + i * 80,
+        cy: 200,
+        r: 10,
+        fill: `hsl(${260 + i * 20}, 55%, 50%)`,
+        opacity: 0.8,
+      })),
+    ],
+  },
+  {
+    title: "Line Radial",
+    description: "@visx-vue/shape @visx-vue/scale",
+    to: "/lineradial",
+    color1: "#0d1b2a",
+    color2: "#1b4332",
+    elements: Array.from({ length: 24 }, (_, i) => ({
+      type: "circle" as const,
+      cx: 200 + Math.cos((i / 24) * Math.PI * 2) * (60 + (i % 5) * 20),
+      cy: 150 + Math.sin((i / 24) * Math.PI * 2) * (60 + (i % 5) * 20),
+      r: 4,
+      fill: `hsl(${140 + i * 8}, 60%, 55%)`,
+      opacity: 0.8,
+    })),
+  },
+  {
+    title: "Radar",
+    description: "@visx-vue/shape @visx-vue/scale @visx-vue/mock-data",
+    to: "/radar",
+    color1: "#3d2b1f",
+    color2: "#8b4513",
+    elements: Array.from({ length: 10 }, (_, i) => ({
+      type: "circle" as const,
+      cx: 200 + Math.cos((i / 10) * Math.PI * 2) * 100,
+      cy: 150 + Math.sin((i / 10) * Math.PI * 2) * 100,
+      r: 6,
+      fill: "#f5810c",
+      opacity: 0.8,
+    })),
+  },
+  {
+    title: "Radial Bars",
+    description: "@visx-vue/shape @visx-vue/scale @visx-vue/gradient",
+    to: "/radial-bars",
+    color1: "#1b4332",
+    color2: "#52b788",
+    elements: Array.from({ length: 12 }, (_, i) => ({
+      type: "circle" as const,
+      cx: 200 + Math.cos((i / 12) * Math.PI * 2) * (40 + i * 5),
+      cy: 150 + Math.sin((i / 12) * Math.PI * 2) * (40 + i * 5),
+      r: 5,
+      fill: `hsl(${140 + i * 10}, 65%, 55%)`,
+      opacity: 0.75,
+    })),
+  },
+  {
+    title: "Polygons",
+    description: "@visx-vue/shape",
+    to: "/polygons",
+    color1: "#4a4e69",
+    color2: "#7f82e3",
+    elements: Array.from({ length: 4 }, (_, i) => ({
+      type: "circle" as const,
+      cx: 80 + i * 80,
+      cy: 150,
+      r: 35,
+      fill: `hsl(${240 + i * 40}, 65%, 65%)`,
+      opacity: 0.75,
+    })),
+  },
+  {
+    title: "Legends",
+    description: "@visx-vue/legend",
+    to: "/legends",
+    color1: "#2c003e",
+    color2: "#6a0572",
+    elements: Array.from({ length: 5 }, (_, i) => [
+      {
+        type: "rect" as const,
+        x: 20,
+        y: 30 + i * 55,
+        width: 20,
+        height: 20,
+        fill: `hsl(${280 + i * 20}, 65%, 60%)`,
+        opacity: 0.9,
+        rx: 3,
+      },
+      {
+        type: "rect" as const,
+        x: 50,
+        y: 32 + i * 55,
+        width: 100,
+        height: 16,
+        fill: `hsl(${280 + i * 20}, 40%, 75%)`,
+        opacity: 0.5,
+        rx: 2,
+      },
+    ]).flat(),
+  },
+  {
+    title: "Threshold",
+    description: "@visx-vue/threshold @visx-vue/shape",
+    to: "/threshold",
+    color1: "#1a1a2e",
+    color2: "#533483",
+    elements: [
+      ...Array.from({ length: 8 }, (_, i) => ({
+        type: "rect" as const,
+        x: i * 50,
+        y: 120,
+        width: 50,
+        height: 80,
+        fill: "#f4a261",
+        opacity: 0.4 + (i % 3) * 0.2,
+        rx: 0,
+      })),
+      ...Array.from({ length: 8 }, (_, i) => ({
+        type: "rect" as const,
+        x: i * 50,
+        y: 50,
+        width: 50,
+        height: 70,
+        fill: "#2a9d8f",
+        opacity: 0.4 + (i % 3) * 0.15,
+        rx: 0,
+      })),
+    ],
+  },
+  {
+    title: "Annotation",
+    description: "@visx-vue/annotation",
+    to: "/annotation",
+    color1: "#1e3a5f",
+    color2: "#3a86ff",
+    elements: [
+      ...Array.from({ length: 20 }, (_, i) => ({
+        type: "circle" as const,
+        cx: ((i * 37) % 380) + 10,
+        cy: ((i * 53 + 50) % 230) + 20,
+        r: 4,
+        fill: `hsl(${200 + i * 15}, 65%, 60%)`,
+        opacity: 0.7,
+      })),
+      { type: "circle" as const, cx: 200, cy: 130, r: 10, fill: "#ff006e", opacity: 1 },
+    ],
+  },
+  {
+    title: "Drag I",
+    description: "@visx-vue/drag",
+    to: "/drag-i",
+    color1: "#2c3e50",
+    color2: "#3498db",
+    elements: Array.from({ length: 6 }, (_, i) => ({
+      type: "circle" as const,
+      cx: 40 + i * 65,
+      cy: 150 + ((i % 3) - 1) * 60,
+      r: 25,
+      fill: `hsl(${200 + i * 30}, 65%, 58%)`,
+      opacity: 0.75,
+    })),
+  },
+  {
+    title: "Drag II",
+    description: "@visx-vue/drag",
+    to: "/drag-ii",
+    color1: "#1a1a2e",
+    color2: "#e63946",
+    elements: Array.from({ length: 10 }, (_, i) => ({
+      type: "circle" as const,
+      cx: ((i * 41) % 380) + 10,
+      cy: ((i * 59) % 260) + 10,
+      r: 5,
+      fill: `hsl(${0 + i * 20}, 70%, 58%)`,
+      opacity: 0.8,
+    })),
+  },
+  {
+    title: "Zoom I",
+    description: "@visx-vue/zoom",
+    to: "/zoom-i",
+    color1: "#1a1a2e",
+    color2: "#22333b",
+    elements: [
+      {
+        type: "rect" as const,
+        x: 10,
+        y: 10,
+        width: 380,
+        height: 280,
+        fill: "#22333b",
+        opacity: 0.5,
+        rx: 8,
+      },
+      ...Array.from({ length: 15 }, (_, i) => ({
+        type: "circle" as const,
+        cx: 30 + (i % 5) * 75,
+        cy: 40 + Math.floor(i / 5) * 90,
+        r: 20,
+        fill: `hsl(${190 + i * 15}, 60%, 55%)`,
+        opacity: 0.7,
+      })),
+    ],
+  },
+  {
+    title: "Brush",
+    description: "@visx-vue/brush @visx-vue/shape",
+    to: "/brush",
+    color1: "#0d1b2a",
+    color2: "#415a77",
+    elements: [
+      {
+        type: "rect" as const,
+        x: 80,
+        y: 130,
+        width: 200,
+        height: 100,
+        fill: "#778da9",
+        opacity: 0.2,
+        rx: 0,
+      },
+      ...Array.from({ length: 30 }, (_, i) => ({
+        type: "circle" as const,
+        cx: i * 13 + 5,
+        cy: 100 + Math.sin(i * 0.7) * 60,
+        r: 3,
+        fill: "#4cc9f0",
+        opacity: 0.7,
+      })),
+    ],
+  },
+  {
+    title: "Network",
+    description: "@visx-vue/network @visx-vue/shape",
+    to: "/network",
+    color1: "#1a1a2e",
+    color2: "#4a4e69",
+    elements: Array.from({ length: 8 }, (_, i) => ({
+      type: "circle" as const,
+      cx: 40 + (i % 4) * 110,
+      cy: 80 + Math.floor(i / 4) * 140,
+      r: 18,
+      fill: `hsl(${240 + i * 25}, 60%, 58%)`,
+      opacity: 0.8,
+    })),
+  },
+  {
+    title: "Sankey",
+    description: "@visx-vue/sankey",
+    to: "/sankey",
+    color1: "#1a4f3a",
+    color2: "#84dccf",
+    elements: [
+      ...Array.from({ length: 4 }, (_, i) => ({
+        type: "rect" as const,
+        x: 10,
+        y: 20 + i * 70,
+        width: 18,
+        height: 55,
+        fill: "#392f5a",
+        opacity: 0.8,
+        rx: 3,
+      })),
+      ...Array.from({ length: 3 }, (_, i) => ({
+        type: "rect" as const,
+        x: 150,
+        y: 40 + i * 80,
+        width: 18,
+        height: 65,
+        fill: "#392f5a",
+        opacity: 0.75,
+        rx: 3,
+      })),
+      ...Array.from({ length: 4 }, (_, i) => ({
+        type: "rect" as const,
+        x: 290,
+        y: 20 + i * 70,
+        width: 18,
+        height: 55,
+        fill: "#392f5a",
+        opacity: 0.8,
+        rx: 3,
+      })),
+    ],
+  },
+  {
+    title: "Wordcloud",
+    description: "@visx-vue/wordcloud",
+    to: "/wordcloud",
+    color1: "#1a1a2e",
+    color2: "#16213e",
+    elements: Array.from({ length: 12 }, (_, i) => ({
+      type: "rect" as const,
+      x: ((i * 45) % 350) + 5,
+      y: ((i * 55 + 20) % 250) + 10,
+      width: 30 + (i % 4) * 20,
+      height: 12 + (i % 3) * 6,
+      fill: `hsl(${180 + i * 15}, 65%, 55%)`,
+      opacity: 0.7,
+      rx: 2,
+    })),
+  },
+  {
+    title: "Geo Mercator",
+    description: "@visx-vue/geo",
+    to: "/geo-mercator",
+    color1: "#1d3461",
+    color2: "#376996",
+    elements: [
+      {
+        type: "rect" as const,
+        x: 0,
+        y: 0,
+        width: 400,
+        height: 300,
+        fill: "#1d3461",
+        opacity: 0.4,
+        rx: 10,
+      },
+      ...Array.from({ length: 12 }, (_, i) => ({
+        type: "circle" as const,
+        cx: 40 + (i % 4) * 110,
+        cy: 50 + Math.floor(i / 4) * 100,
+        r: 20 + (i % 3) * 10,
+        fill: `hsl(${200 + i * 15}, 50%, 50%)`,
+        opacity: 0.5,
+      })),
+    ],
+  },
+  {
+    title: "Geo Albers USA",
+    description: "@visx-vue/geo",
+    to: "/geo-albers-usa",
+    color1: "#0b132b",
+    color2: "#1c3f6e",
+    elements: [
+      {
+        type: "rect" as const,
+        x: 5,
+        y: 50,
+        width: 390,
+        height: 200,
+        fill: "#1c3f6e",
+        opacity: 0.3,
+        rx: 6,
+      },
+      ...Array.from({ length: 8 }, (_, i) => ({
+        type: "rect" as const,
+        x: 10 + i * 50,
+        y: 60 + (i % 3) * 40,
+        width: 40,
+        height: 35,
+        fill: `hsl(${210 + i * 10}, 55%, 50%)`,
+        opacity: 0.6,
+        rx: 2,
+      })),
+    ],
+  },
+  {
+    title: "Geo Custom",
+    description: "@visx-vue/geo @visx-vue/zoom",
+    to: "/geo-custom",
+    color1: "#0b0c2a",
+    color2: "#252b7e",
+    elements: [
+      {
+        type: "rect" as const,
+        x: 0,
+        y: 0,
+        width: 400,
+        height: 300,
+        fill: "#252b7e",
+        opacity: 0.4,
+        rx: 10,
+      },
+      ...Array.from({ length: 10 }, (_, i) => ({
+        type: "circle" as const,
+        cx: 30 + i * 38,
+        cy: 150 + Math.sin(i * 0.9) * 80,
+        r: 12 + (i % 3) * 8,
+        fill: `hsl(${220 + i * 15}, 60%, 55%)`,
+        opacity: 0.45,
+      })),
+    ],
+  },
+  {
+    title: "Streamgraph",
+    description: "@visx-vue/shape @visx-vue/pattern",
+    to: "/streamgraph",
+    color1: "#774936",
+    color2: "#d4a373",
+    elements: Array.from({ length: 16 }, (_, i) => ({
+      type: "rect" as const,
+      x: i * 25,
+      y: 100 + Math.sin(i * 0.5) * 50,
+      width: 22,
+      height: 100 + Math.cos(i * 0.7) * 40,
+      fill: `hsl(${30 + i * 10}, 50%, ${50 + i * 3}%)`,
+      opacity: 0.65,
+      rx: 4,
+    })),
+  },
+  {
+    title: "Stats Plot",
+    description: "@visx-vue/stats",
+    to: "/statsplot",
+    color1: "#2c003e",
+    color2: "#6a0572",
+    elements: Array.from({ length: 5 }, (_, i) => [
+      {
+        type: "rect" as const,
+        x: 20 + i * 75,
+        y: 60,
+        width: 12,
+        height: 180,
+        fill: "#8b6ce7",
+        opacity: 0.4,
+        rx: 2,
+      },
+      {
+        type: "rect" as const,
+        x: 10 + i * 75,
+        y: 100,
+        width: 32,
+        height: 100,
+        fill: "#fff",
+        opacity: 0.25,
+        rx: 2,
+      },
+    ]).flat(),
+  },
+  {
+    title: "Split Line Path",
+    description: "@visx-vue/shape",
+    to: "/splitlinepath",
+    color1: "#045275",
+    color2: "#089099",
+    elements: Array.from({ length: 20 }, (_, i) => ({
+      type: "circle" as const,
+      cx: i * 21 + 5,
+      cy: 150 + Math.sin(i * 0.8) * 80,
+      r: 4,
+      fill: `hsl(${160 + i * 5}, 60%, 60%)`,
+      opacity: 0.75,
+    })),
+  },
+  {
+    title: "Delaunay Triangulation",
+    description: "@visx-vue/delaunay",
+    to: "/delaunay-triangulation",
+    color1: "#0b0c2a",
+    color2: "#4a0072",
+    elements: Array.from({ length: 20 }, (_, i) => ({
+      type: "circle" as const,
+      cx: ((i * 47) % 380) + 10,
+      cy: ((i * 61) % 260) + 20,
+      r: 4,
+      fill: `hsl(${270 + i * 12}, 65%, 60%)`,
+      opacity: 0.75,
+    })),
+  },
+  {
+    title: "Delaunay Voronoi",
+    description: "@visx-vue/delaunay",
+    to: "/delaunay-voronoi",
+    color1: "#2c003e",
+    color2: "#9d0208",
+    elements: Array.from({ length: 16 }, (_, i) => ({
+      type: "circle" as const,
+      cx: ((i * 43) % 360) + 20,
+      cy: ((i * 57) % 240) + 30,
+      r: 6,
+      fill: `hsl(${0 + i * 20}, 70%, 58%)`,
+      opacity: 0.7,
+    })),
+  },
+  {
+    title: "Responsive",
+    description: "@visx-vue/responsive",
+    to: "/responsive",
+    color1: "#111827",
+    color2: "#1f2937",
+    elements: [
+      {
+        type: "rect" as const,
+        x: 5,
+        y: 5,
+        width: 80,
+        height: 290,
+        fill: "#374151",
+        opacity: 0.5,
+        rx: 4,
+      },
+      {
+        type: "rect" as const,
+        x: 90,
+        y: 5,
+        width: 305,
+        height: 290,
+        fill: "#222",
+        opacity: 0.6,
+        rx: 4,
+      },
+      ...Array.from({ length: 10 }, (_, i) => ({
+        type: "circle" as const,
+        cx: 100 + i * 29,
+        cy: 150 + Math.sin(i * 0.6) * 70,
+        r: 4,
+        fill: "#fff",
+        opacity: 0.6,
+      })),
+    ],
+  },
+  {
+    title: "Tooltip",
+    description: "@visx-vue/tooltip",
+    to: "/tooltip",
+    color1: "#6c5b7b",
+    color2: "#f67280",
+    elements: [
+      {
+        type: "rect" as const,
+        x: 100,
+        y: 80,
+        width: 160,
+        height: 90,
+        fill: "rgba(53,71,125,0.6)",
+        opacity: 0.9,
+        rx: 6,
+      },
+      {
+        type: "rect" as const,
+        x: 0,
+        y: 150,
+        width: 400,
+        height: 2,
+        fill: "#35477d",
+        opacity: 0.4,
+        rx: 0,
+      },
+      {
+        type: "rect" as const,
+        x: 180,
+        y: 0,
+        width: 2,
+        height: 300,
+        fill: "#35477d",
+        opacity: 0.4,
+        rx: 0,
+      },
+      { type: "circle" as const, cx: 181, cy: 150, r: 6, fill: "#35477d", opacity: 0.9 },
+    ],
+  },
+  {
+    title: "Text",
+    description: "@visx-vue/text",
+    to: "/text",
+    color1: "#1a1a2e",
+    color2: "#16213e",
+    elements: Array.from({ length: 5 }, (_, i) => ({
+      type: "rect" as const,
+      x: 20 + i * 10,
+      y: 60 + i * 30,
+      width: 300 - i * 30,
+      height: 20,
+      fill: `hsl(${200 + i * 30}, 60%, 60%)`,
+      opacity: 0.7,
+      rx: 3,
+    })),
+  },
+  {
+    title: "XYChart",
+    description: "@visx-vue/xychart",
+    to: "/xychart",
+    color1: "#161b33",
+    color2: "#0a3d62",
+    elements: Array.from({ length: 12 }, (_, i) => ({
+      type: "rect" as const,
+      x: i * 33 + 4,
+      y: 280 - ((i % 6) + 1) * 35,
+      width: 28,
+      height: ((i % 6) + 1) * 35 + 10,
+      fill: `hsl(${210 + i * 10}, 60%, ${45 + (i % 3) * 10}%)`,
+      opacity: 0.75,
+      rx: 2,
+    })),
+  },
+];
+</script>
+
+<style scoped>
+.gallery-page {
+  padding: 0 1rem;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.5rem;
+}
+
+.page-description {
+  color: var(--color-text-secondary);
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
+}
+
+.filters {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.filter-label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 10px;
+  padding-bottom: 40px;
+}
+
+@media (max-width: 800px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .page-title {
+    font-size: 1.75rem;
+  }
+}
+</style>

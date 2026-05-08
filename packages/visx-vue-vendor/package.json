@@ -1,0 +1,58 @@
+{
+  "name": "@visx-vue/vendor",
+  "version": "0.1.0",
+  "description": "vendored packages for visx-vue",
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    "./d3-*": {
+      "import": {
+        "types": "./dist/d3-*.d.mts",
+        "default": "./dist/d3-*.mjs"
+      },
+      "require": {
+        "types": "./dist/d3-*.d.cts",
+        "default": "./dist/d3-*.cjs"
+      }
+    },
+    "./internmap": {
+      "import": {
+        "types": "./dist/internmap.d.mts",
+        "default": "./dist/internmap.mjs"
+      },
+      "require": {
+        "types": "./dist/internmap.d.cts",
+        "default": "./dist/internmap.cjs"
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsdown",
+    "test": "vp test"
+  },
+  "dependencies": {
+    "@types/d3-array": "3.0.3",
+    "@types/d3-color": "3.1.0",
+    "@types/d3-delaunay": "6.0.1",
+    "@types/d3-format": "3.0.1",
+    "@types/d3-geo": "3.1.0",
+    "@types/d3-interpolate": "3.0.1",
+    "@types/d3-path": "3.1.1",
+    "@types/d3-scale": "4.0.2",
+    "@types/d3-shape": "3.1.7",
+    "@types/d3-time": "3.0.0",
+    "@types/d3-time-format": "2.1.0",
+    "d3-array": "3.2.1",
+    "d3-color": "3.1.0",
+    "d3-delaunay": "6.0.2",
+    "d3-format": "3.1.0",
+    "d3-geo": "3.1.0",
+    "d3-interpolate": "3.0.1",
+    "d3-path": "3.1.0",
+    "d3-scale": "4.0.2",
+    "d3-shape": "3.2.0",
+    "d3-time": "3.1.0",
+    "d3-time-format": "4.1.0",
+    "internmap": "2.0.3"
+  }
+}

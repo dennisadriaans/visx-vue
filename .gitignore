@@ -1,0 +1,12 @@
+node_modules/
+**/dist/
+.output/
+.nuxt/
+.nitro/
+.cache/
+coverage/
+.turbo/
+vitest.config.ts.timestamp-*
+*.log
+.DS_Store
+.env*

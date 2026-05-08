@@ -1,0 +1,30 @@
+{
+  "name": "visx-vue-monorepo",
+  "private": true,
+  "scripts": {
+    "dev": "turbo dev --filter @visx-vue/demo",
+    "build": "vp run build -r",
+    "test": "vp test",
+    "check": "vp check",
+    "lint": "vp lint",
+    "fmt": "vp fmt",
+    "typecheck": "turbo check-types",
+    "ready": "vp check && vp test && vp run build -r"
+  },
+  "dependencies": {
+    "rolldown": "1.0.0-rc.9"
+  },
+  "devDependencies": {
+    "@vue/eslint-config-typescript": "^13.0.0",
+    "@vue/test-utils": "^2.4.5",
+    "eslint": "^8.57.0",
+    "jsdom": "^24.0.0",
+    "playwright": "^1.58.2",
+    "timezone-mock": "^1.4.2",
+    "turbo": "^2.8.17",
+    "typescript": "^5.9.3",
+    "vite-plus": "file:/opt/hostedtoolcache/node/24.14.0/x64/lib/node_modules/vite-plus",
+    "vue": "^3.4.21"
+  },
+  "packageManager": "pnpm@9.15.3"
+}
