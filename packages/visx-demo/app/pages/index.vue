@@ -21,12 +21,13 @@
           :description="tile.description"
           :to="tile.to"
           :elements="tile.elements"
+          :color="tile.fill"
         />
       </div>
 
       <div class="mt-12 flex justify-center">
         <NuxtLink
-          to="/gallery"
+          to="/charts"
           class="group flex items-center gap-3 font-mono text-sm text-muted transition-colors hover:text-highlighted"
         >
           <span class="text-primary">→</span>
@@ -38,8 +39,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
-const { galleryTiles } = useGalleryTiles();
+<script setup lang="ts">const { galleryTiles } = useGalleryTiles();
 
 // Select 6 featured tiles for the home page
 const featuredTiles = computed(() => {

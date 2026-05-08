@@ -120,7 +120,7 @@ export default defineComponent({
     );
 
     const { dataKeys, stackedData } = useStackedData({
-      seriesConfigs: seriesConfigs.value,
+      seriesConfigs,
       order: props.order,
       offset: props.offset,
     });

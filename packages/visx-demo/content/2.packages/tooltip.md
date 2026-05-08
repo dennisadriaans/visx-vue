@@ -27,8 +27,7 @@ pnpm add @visx-vue/tooltip
 ## Usage Example
 
 ```vue
-<script setup lang="ts">
-import { useTooltip, Tooltip } from "@visx-vue/tooltip";
+<script setup lang="ts">import { useTooltip, Tooltip } from "@visx-vue/tooltip";
 
 const { tooltipData, tooltipLeft, tooltipTop, tooltipOpen, showTooltip, hideTooltip } =
   useTooltip();

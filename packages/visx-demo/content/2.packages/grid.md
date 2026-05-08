@@ -30,8 +30,7 @@ pnpm add @visx-vue/grid
 ## Usage Example
 
 ```vue
-<script setup lang="ts">
-import { GridRows, GridColumns } from "@visx-vue/grid";
+<script setup lang="ts">import { GridRows, GridColumns } from "@visx-vue/grid";
 import { scaleLinear } from "@visx-vue/scale";
 
 const width = 500;

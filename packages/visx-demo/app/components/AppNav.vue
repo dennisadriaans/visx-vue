@@ -14,7 +14,7 @@
 
       <div class="flex items-center gap-2 sm:gap-6">
         <UButton to="/" variant="ghost" color="neutral" class="hidden sm:flex"> Home </UButton>
-        <UButton to="/gallery" variant="ghost" color="neutral"> Gallery </UButton>
+        <UButton to="/charts" variant="ghost" color="neutral"> Gallery </UButton>
         <div class="h-4 w-px bg-default mx-1 hidden sm:block" />
         <UButton
           to="https://github.com/dennisadriaans/visx-vue"

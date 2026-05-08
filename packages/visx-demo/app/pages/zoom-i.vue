@@ -73,7 +73,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
 import { useZoom } from "@visx-vue/zoom";
 import { RectClipPath } from "@visx-vue/clip-path";
 import { scaleLinear } from "@visx-vue/scale";

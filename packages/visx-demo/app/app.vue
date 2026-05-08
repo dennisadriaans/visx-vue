@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import type { ContentNavigationItem, PageCollections } from "@nuxt/content";
+<script setup lang="ts">import type { ContentNavigationItem, PageCollections } from "@nuxt/content";
 
 const { data: navigation } = await useAsyncData("navigation", () =>
   queryCollectionNavigation("docs" as keyof PageCollections),

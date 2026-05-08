@@ -1,4 +1,5 @@
-import { computed, inject, onScopeDispose, watchEffect } from "vue";
+import { computed, inject, onScopeDispose, toValue, watchEffect } from "vue";
+import type { MaybeRefOrGetter } from "vue";
 import type { SeriesPoint } from "@visx-vue/vendor/d3-shape";
 import { stack as d3stack } from "@visx-vue/vendor/d3-shape";
 import { stackOffset, stackOrder } from "@visx-vue/shape";
@@ -28,7 +29,7 @@ type UseStackedDataOptions<
   YScale extends AxisScale,
   Datum extends object,
 > = {
-  seriesConfigs: StackedSeriesConfig<XScale, YScale, Datum>[];
+  seriesConfigs: MaybeRefOrGetter<StackedSeriesConfig<XScale, YScale, Datum>[]>;
   order?: StackOrder;
   offset?: StackOffset;
 };
@@ -46,12 +47,12 @@ export default function useStackedData<
   ) as DataContextType<XScale, YScale, StackDatum>;
 
   // extract data keys from series configs
-  const dataKeys = computed(() => seriesConfigs.map((config) => config.dataKey));
+  const dataKeys = computed(() => toValue(seriesConfigs).map((config) => config.dataKey));
 
   // group all series data by stack value — format needed by d3Stack
   const combinedData = computed(() =>
     combineBarStackData<XScale, YScale, Datum>(
-      seriesConfigs as BarStackSeriesConfig<XScale, YScale, Datum>[],
+      toValue(seriesConfigs) as BarStackSeriesConfig<XScale, YScale, Datum>[],
       horizontal,
     ),
   );

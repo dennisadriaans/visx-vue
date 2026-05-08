@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import { ref } from "vue";
+<script setup lang="ts">import { ref } from "vue";
 import { Text as VisxText } from "@visx-vue/text";
 
 const exampleText = ref("This is really long text");

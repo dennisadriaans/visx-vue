@@ -31,8 +31,7 @@ pnpm add @visx-vue/axis
 ## Usage Example
 
 ```vue
-<script setup lang="ts">
-import { AxisBottom, AxisLeft } from "@visx-vue/axis";
+<script setup lang="ts">import { AxisBottom, AxisLeft } from "@visx-vue/axis";
 import { scaleLinear } from "@visx-vue/scale";
 
 const xScale = scaleLinear({ domain: [0, 10], range: [0, 400] });

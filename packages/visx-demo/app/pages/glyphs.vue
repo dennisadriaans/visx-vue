@@ -58,8 +58,7 @@
   </ExamplePage>
 </template>
 
-<script setup lang="ts">
-import { computed } from "vue";
+<script setup lang="ts">import { computed } from "vue";
 import { Group } from "@visx-vue/group";
 import {
   GlyphCircle,

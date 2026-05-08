@@ -94,7 +94,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
 import { Group } from "@visx-vue/group";
 import { AreaClosed } from "@visx-vue/shape";
 import { LinearGradient } from "@visx-vue/gradient";

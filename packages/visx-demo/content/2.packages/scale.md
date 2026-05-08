@@ -33,8 +33,7 @@ The package provides factory functions for creating various types of scales:
 ## Usage Example
 
 ```vue
-<script setup lang="ts">
-import { scaleLinear, scaleBand } from "@visx-vue/scale";
+<script setup lang="ts">import { scaleLinear, scaleBand } from "@visx-vue/scale";
 
 const width = 500;
 const height = 300;

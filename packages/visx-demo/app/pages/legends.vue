@@ -130,8 +130,7 @@
   </ExamplePage>
 </template>
 
-<script setup lang="ts">
-import { scaleLinear, scaleOrdinal, scaleThreshold, scaleQuantile } from "@visx-vue/scale";
+<script setup lang="ts">import { scaleLinear, scaleOrdinal, scaleThreshold, scaleQuantile } from "@visx-vue/scale";
 import {
   LegendLinear,
   LegendQuantile,

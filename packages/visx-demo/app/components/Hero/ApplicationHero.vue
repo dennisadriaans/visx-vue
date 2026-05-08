@@ -34,7 +34,7 @@
       <template #links>
         <UButton
           label="Browse Gallery"
-          to="/gallery"
+          to="/charts"
           color="neutral"
           variant="solid"
           size="xl"

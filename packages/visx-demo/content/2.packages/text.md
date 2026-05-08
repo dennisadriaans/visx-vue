@@ -20,8 +20,7 @@ pnpm add @visx-vue/text
 ## Usage Example
 
 ```vue
-<script setup lang="ts">
-import { Text } from "@visx-vue/text";
+<script setup lang="ts">import { Text } from "@visx-vue/text";
 </script>
 
 <template>

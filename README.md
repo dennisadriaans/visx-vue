@@ -115,8 +115,7 @@ Each package is standalone. Peer dependency: `vue ^3.4.0`.
 ## Usage
 
 ```vue
-<script setup lang="ts">
-import { BarStack } from '@visx-vue/shape'
+<script setup lang="ts">import { BarStack } from '@visx-vue/shape'
 import { AxisBottom, AxisLeft } from '@visx-vue/axis'
 import { createScale } from '@visx-vue/scale'
 import { Grid } from '@visx-vue/grid'

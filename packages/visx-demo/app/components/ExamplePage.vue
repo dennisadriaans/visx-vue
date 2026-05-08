@@ -2,11 +2,11 @@
   <UContainer class="py-8 md:py-16">
     <div class="mb-6">
       <ULink
-        to="/gallery"
+        :to="backTo ?? '/charts'"
         class="text-sm text-muted inline-flex items-center gap-1 mb-3 hover:text-highlighted transition-colors"
       >
-        <span class="i-lucide-arrow-left size-4" />
-        Gallery
+        <UIcon name="i-lucide-chevron-left"></UIcon>
+        {{ backLabel ?? 'Gallery' }}
       </ULink>
       <h1
         class="text-[clamp(2rem,5vw,3.25rem)] font-bold tracking-tight leading-none text-highlighted"
@@ -44,10 +44,11 @@
   </UContainer>
 </template>
 
-<script setup lang="ts">
-defineProps<{
+<script setup lang="ts">defineProps<{
   title: string;
   description?: string;
   packages?: string[];
+  backTo?: string;
+  backLabel?: string;
 }>();
 </script>

@@ -26,7 +26,7 @@ export const useGalleryTiles = () => {
     {
       title: "Bars",
       description: "@visx-vue/shape",
-      to: "/bars",
+      to: "/charts/bar",
       elements: Array.from({ length: 8 }, (_, i) => ({
         type: "rect" as const,
         x: i * 45 + 20,
@@ -41,7 +41,7 @@ export const useGalleryTiles = () => {
     {
       title: "Bar Group",
       description: "@visx-vue/shape @visx-vue/scale",
-      to: "/bargroup",
+      to: "/charts/bargroup",
       elements: Array.from({ length: 9 }, (_, i) => ({
         type: "rect" as const,
         x: Math.floor(i / 3) * 120 + (i % 3) * 32 + 20,
@@ -56,7 +56,7 @@ export const useGalleryTiles = () => {
     {
       title: "Bar Stack",
       description: "@visx-vue/shape @visx-vue/scale",
-      to: "/barstack",
+      to: "/charts/barstack",
       elements: Array.from({ length: 4 }, (_, i) => [
         {
           type: "rect" as const,
@@ -93,7 +93,7 @@ export const useGalleryTiles = () => {
     {
       title: "Areas",
       description: "@visx-vue/shape @visx-vue/curve",
-      to: "/areas",
+      to: "/charts/area",
       elements: Array.from({ length: 5 }, (_, i) => ({
         type: "rect" as const,
         x: 0,
@@ -108,7 +108,7 @@ export const useGalleryTiles = () => {
     {
       title: "Heatmaps",
       description: "@visx-vue/heatmap",
-      to: "/heatmaps",
+      to: "/charts/heatmap",
       elements: Array.from({ length: 25 }, (_, i) => ({
         type: "rect" as const,
         x: (i % 5) * 70 + 25,
@@ -123,7 +123,7 @@ export const useGalleryTiles = () => {
     {
       title: "Axis",
       description: "@visx-vue/axis @visx-vue/scale",
-      to: "/axis",
+      to: "/charts/axis",
       elements: [
         ...Array.from({ length: 6 }, (_, i) => ({
           type: "rect" as const,
@@ -150,7 +150,7 @@ export const useGalleryTiles = () => {
     {
       title: "Curves",
       description: "@visx-vue/curve @visx-vue/shape",
-      to: "/curves",
+      to: "/charts/curves",
       elements: Array.from({ length: 15 }, (_, i) => ({
         type: "circle" as const,
         cx: i * 26 + 20,
@@ -163,7 +163,7 @@ export const useGalleryTiles = () => {
     {
       title: "Pies",
       description: "@visx-vue/shape @visx-vue/scale",
-      to: "/pies",
+      to: "/charts/pies",
       elements: Array.from({ length: 6 }, (_, i) => ({
         type: "circle" as const,
         cx: 200 + Math.cos((i / 6) * Math.PI * 2) * 90,
@@ -176,7 +176,7 @@ export const useGalleryTiles = () => {
     {
       title: "Treemap",
       description: "@visx-vue/hierarchy",
-      to: "/treemap",
+      to: "/charts/treemap",
       elements: [
         { type: "rect" as const, x: 20, y: 20, width: 220, height: 160, fill: neonColor, opacity: 0.8, rx: 6 },
         { type: "rect" as const, x: 250, y: 20, width: 130, height: 100, fill: neonColor, opacity: 0.5, rx: 6 },
@@ -188,7 +188,7 @@ export const useGalleryTiles = () => {
     {
       title: "Dots",
       description: "@visx-vue/group @visx-vue/scale",
-      to: "/dots",
+      to: "/charts/dots",
       elements: Array.from({ length: 40 }, (_, i) => ({
         type: "circle" as const,
         cx: ((i * 137) % 360) + 20,
@@ -201,7 +201,7 @@ export const useGalleryTiles = () => {
     {
       title: "XYChart",
       description: "@visx-vue/xychart",
-      to: "/xychart",
+      to: "/charts/xychart",
       elements: Array.from({ length: 10 }, (_, i) => ({
         type: "rect" as const,
         x: i * 36 + 25,

@@ -53,8 +53,7 @@ The following components are available in `@visx-vue/shape`:
 ## Usage Example
 
 ```vue
-<script setup lang="ts">
-import { Bar } from "@visx-vue/shape";
+<script setup lang="ts">import { Bar } from "@visx-vue/shape";
 
 const width = 500;
 const height = 100;

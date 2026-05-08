@@ -20,8 +20,7 @@ pnpm add @visx-vue/group
 ## Usage Example
 
 ```vue
-<script setup lang="ts">
-import { Group } from "@visx-vue/group";
+<script setup lang="ts">import { Group } from "@visx-vue/group";
 </script>
 
 <template>

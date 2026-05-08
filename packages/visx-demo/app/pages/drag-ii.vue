@@ -54,7 +54,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
 import { LinePath } from "@visx-vue/shape";
 import { useDrag } from "@visx-vue/drag";
 import { curveBasis } from "@visx-vue/curve";

@@ -1,7 +1,7 @@
 <template>
   <NuxtLink
     :to="to"
-    class="group relative flex h-[320px] flex-col overflow-hidden rounded-xl border border-transparent bg-[#4CAF82] transition-all duration-300"
+    class="group relative flex h-[320px] flex-col overflow-hidden rounded-xl border border-transparent transition-all duration-300 bg-elevated/20"
   >
     <!-- Background subtle pattern -->
     <div
@@ -36,7 +36,7 @@
               :cx="el.cx"
               :cy="el.cy"
               :r="el.r"
-              fill="white"
+              fill="#00DC82"
               class="transition-all duration-500 ease-in-out"
               :style="{ opacity: el.opacity }"
             />
@@ -46,7 +46,7 @@
               :y="el.y"
               :width="el.width"
               :height="el.height"
-              fill="white"
+              fill="#00DC82"
               :rx="el.rx"
               class="transition-all duration-500 ease-in-out"
               :style="{ opacity: el.opacity }"
@@ -77,13 +77,13 @@
   </NuxtLink>
 </template>
 
-<script setup lang="ts">
-import type { SvgElement } from "~/composables/useGalleryTiles";
+<script setup lang="ts">import type { SvgElement } from "~/composables/useGalleryTiles";
 
 defineProps<{
   title?: string;
   description?: string;
   to: string;
   elements: SvgElement[];
+  color?: string;
 }>();
 </script>
