@@ -188,7 +188,7 @@ const XYChart = defineComponent({
             horizontal={props.horizontal}
             resizeObserverPolyfill={props.resizeObserverPolyfill}
           >
-            <XYChart {...props}>{slots.default?.()}</XYChart>
+            {{ default: () => <XYChart {...props}>{{ default: slots.default }}</XYChart> }}
           </DataProvider>
         );
       }
@@ -204,7 +204,7 @@ const XYChart = defineComponent({
                   width={props.width == null ? dims.width : props.width}
                   height={props.height == null ? dims.height : props.height}
                 >
-                  {slots.default?.()}
+                  {{ default: slots.default }}
                 </XYChart>
               ),
             }}
@@ -215,7 +215,7 @@ const XYChart = defineComponent({
       if (!hasTooltipContext) {
         return (
           <TooltipProvider>
-            <XYChart {...props}>{slots.default?.()}</XYChart>
+            {{ default: () => <XYChart {...props}>{{ default: slots.default }}</XYChart> }}
           </TooltipProvider>
         );
       }
@@ -224,7 +224,7 @@ const XYChart = defineComponent({
       if (!hasEmitterContext) {
         return (
           <EventEmitterProvider>
-            <XYChart {...props}>{slots.default?.()}</XYChart>
+            {{ default: () => <XYChart {...props}>{{ default: slots.default }}</XYChart> }}
           </EventEmitterProvider>
         );
       }

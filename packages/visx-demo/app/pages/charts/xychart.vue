@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { h } from "vue";
 import {
   XYChart,
   Axis,
@@ -13,6 +14,7 @@ import {
   lightTheme,
   darkTheme,
 } from "@visx-vue/xychart";
+import type { RenderTooltipParams } from "@visx-vue/xychart";
 import { cityTemperature } from "@visx-vue/mock-data";
 import { curveLinear, curveCardinal, curveStep } from "@visx-vue/curve";
 import { useParentSize } from "@visx-vue/responsive";
@@ -42,6 +44,17 @@ const curveMap = { linear: curveLinear, cardinal: curveCardinal, step: curveStep
 
 const showGrid = ref(true);
 const showTooltip = ref(true);
+
+function renderTooltip({ tooltipData, colorScale }: RenderTooltipParams<CityTemperature>) {
+  const nearest = tooltipData?.nearestDatum;
+  if (!nearest) return null;
+  return h("div", { style: "fontSize:13px;padding:4px 8px;background:#fff;border-radius:4px;boxShadow:0 2px 8px rgba(0,0,0,.15)" }, [
+    h("div", { style: "fontWeight:600;marginBottom:4px" }, nearest.datum.date),
+    ...Object.entries(tooltipData?.datumByKey ?? {}).map(([key, entry]) =>
+      h("div", { key, style: `color:${colorScale?.(key) ?? "#222"}` }, `${key}: ${entry.datum[key as keyof CityTemperature]}`)
+    ),
+  ]);
+}
 </script>
 
 <template>
@@ -137,6 +150,7 @@ const showTooltip = ref(true);
 
         <Tooltip
           v-if="showTooltip"
+          :render-tooltip="renderTooltip"
           :show-vertical-crosshair="true"
           :snap-tooltip-to-datum-x="true"
           :snap-tooltip-to-datum-y="true"

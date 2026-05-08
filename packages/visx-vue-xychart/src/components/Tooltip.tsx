@@ -124,6 +124,7 @@ function defaultRenderGlyph<Datum extends object>(props: RenderTooltipGlyphProps
 
 const TooltipInner = defineComponent({
   name: "TooltipInner",
+  inheritAttrs: false,
   props: {
     detectBounds: { type: Boolean as PropType<boolean>, default: undefined },
     horizontalCrosshairStyle: {
@@ -383,6 +384,7 @@ const TooltipInner = defineComponent({
  */
 const Tooltip = defineComponent({
   name: "Tooltip",
+  inheritAttrs: false,
   props: {
     ...TooltipInner.props,
   },
