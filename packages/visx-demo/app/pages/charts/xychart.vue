@@ -52,41 +52,26 @@ const showTooltip = ref(true);
     description="A full-featured chart system with axes, grid, multiple series types, and tooltips."
     :packages="['@visx-vue/xychart', '@visx-vue/mock-data', '@visx-vue/curve']"
   >
-    <div class="controls">
-      <div class="control-group">
-        <strong>series:</strong>
-        <label
-          v-for="t in ['area', 'areastack', 'line', 'bar', 'bargroup', 'barstack']"
-          :key="t"
-          class="flex items-center gap-1"
-        >
-          <input type="radio" :value="t" v-model="seriesType" />
-          {{ t }}
-        </label>
+    <div class="flex flex-wrap items-center gap-4 mb-4">
+      <div class="flex items-center gap-2">
+        <span class="text-xs text-default font-medium">series:</span>
+        <USelect
+          v-model="seriesType"
+          :items="['area', 'areastack', 'line', 'bar', 'bargroup', 'barstack']"
+          size="sm"
+        />
       </div>
-      <div class="control-group">
-        <strong>curve:</strong>
-        <label
-          v-for="c in ['linear', 'cardinal', 'step']"
-          :key="c"
-          class="flex items-center gap-1"
-        >
-          <input type="radio" :value="c" v-model="curveType" />
-          {{ c }}
-        </label>
+      <div class="flex items-center gap-2">
+        <span class="text-xs text-default font-medium">curve:</span>
+        <USelect
+          v-model="curveType"
+          :items="['linear', 'cardinal', 'step']"
+          size="sm"
+        />
       </div>
-      <label class="flex items-center gap-1">
-        <input type="checkbox" v-model="useDark" />
-        dark
-      </label>
-      <label class="flex items-center gap-1">
-        <input type="checkbox" v-model="showGrid" />
-        grid
-      </label>
-      <label class="flex items-center gap-1">
-        <input type="checkbox" v-model="showTooltip" />
-        tooltip
-      </label>
+      <UCheckbox v-model="useDark" label="dark" />
+      <UCheckbox v-model="showGrid" label="grid" />
+      <UCheckbox v-model="showTooltip" label="tooltip" />
     </div>
     <div ref="parentRef" class="w-full bg-elevated/40 rounded-xl" style="height: 450px">
       <XYChart
@@ -106,11 +91,15 @@ const showTooltip = ref(true);
         </template>
 
         <template v-else-if="seriesType === 'areastack'">
-          <AreaStack :curve="curveMap[curveType]" :render-line="true">
-            <AreaSeries data-key="Austin" :data="data" :x-accessor="getDate" :y-accessor="getAustin" :fill-opacity="0.4" />
-            <AreaSeries data-key="New York" :data="data" :x-accessor="getDate" :y-accessor="getNy" :fill-opacity="0.4" />
-            <AreaSeries data-key="San Francisco" :data="data" :x-accessor="getDate" :y-accessor="getSf" :fill-opacity="0.4" />
-          </AreaStack>
+          <AreaStack
+            :curve="curveMap[curveType]"
+            :render-line="true"
+            :series="[
+              { dataKey: 'Austin', data, xAccessor: getDate, yAccessor: getAustin },
+              { dataKey: 'New York', data, xAccessor: getDate, yAccessor: getNy },
+              { dataKey: 'San Francisco', data, xAccessor: getDate, yAccessor: getSf },
+            ]"
+          />
         </template>
 
         <template v-else-if="seriesType === 'line'">
@@ -124,19 +113,23 @@ const showTooltip = ref(true);
         </template>
 
         <template v-else-if="seriesType === 'bargroup'">
-          <BarGroup>
-            <BarSeries data-key="Austin" :data="data" :x-accessor="getDate" :y-accessor="getAustin" />
-            <BarSeries data-key="New York" :data="data" :x-accessor="getDate" :y-accessor="getNy" />
-            <BarSeries data-key="San Francisco" :data="data" :x-accessor="getDate" :y-accessor="getSf" />
-          </BarGroup>
+          <BarGroup
+            :series="[
+              { dataKey: 'Austin', data, xAccessor: getDate, yAccessor: getAustin },
+              { dataKey: 'New York', data, xAccessor: getDate, yAccessor: getNy },
+              { dataKey: 'San Francisco', data, xAccessor: getDate, yAccessor: getSf },
+            ]"
+          />
         </template>
 
         <template v-else-if="seriesType === 'barstack'">
-          <BarStack>
-            <BarSeries data-key="Austin" :data="data" :x-accessor="getDate" :y-accessor="getAustin" />
-            <BarSeries data-key="New York" :data="data" :x-accessor="getDate" :y-accessor="getNy" />
-            <BarSeries data-key="San Francisco" :data="data" :x-accessor="getDate" :y-accessor="getSf" />
-          </BarStack>
+          <BarStack
+            :series="[
+              { dataKey: 'Austin', data, xAccessor: getDate, yAccessor: getAustin },
+              { dataKey: 'New York', data, xAccessor: getDate, yAccessor: getNy },
+              { dataKey: 'San Francisco', data, xAccessor: getDate, yAccessor: getSf },
+            ]"
+          />
         </template>
 
         <Axis orientation="bottom" :num-ticks="4" />
@@ -154,20 +147,3 @@ const showTooltip = ref(true);
   </ExamplePage>
 </template>
 
-<style scoped>
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.5rem 0 1rem;
-  font-size: 13px;
-  color: #ffffff88;
-}
-.control-group {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.controls label { display: flex; align-items: center; gap: 0.3rem; }
-</style>

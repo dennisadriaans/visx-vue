@@ -3,19 +3,14 @@
     title="Wordcloud"
     :packages="['@visx-vue/wordcloud', '@visx-vue/text', '@visx-vue/scale']"
   >
-    <div class="controls">
-      <label>
-        Spiral type &nbsp;
-        <select v-model="spiralType">
-          <option value="archimedean">archimedean</option>
-          <option value="rectangular">rectangular</option>
-        </select>
-      </label>
-      &nbsp;
-      <label>
-        With rotation &nbsp;
-        <input type="checkbox" v-model="withRotation" />
-      </label>
+    <div class="flex flex-wrap items-center gap-4 mb-4">
+      <span class="text-xs text-default font-medium">Spiral type:</span>
+      <USelect
+        v-model="spiralType"
+        :items="['archimedean', 'rectangular']"
+        size="sm"
+      />
+      <UCheckbox v-model="withRotation" label="With rotation" />
     </div>
     <div ref="parentRef" class="chart-container bg-elevated/40 rounded-xl">
       <svg v-if="width > 0" :width="width" :height="height">
@@ -106,18 +101,5 @@ const fixedValueGenerator = () => 0.5;
 .chart-container {
   width: 100%;
   min-height: 400px;
-}
-.controls {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.5rem 0;
-  font-size: 13px;
-  flex-wrap: wrap;
-}
-select {
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
-  padding: 0.2rem;
 }
 </style>
