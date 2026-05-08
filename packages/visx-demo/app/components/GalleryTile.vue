@@ -1,48 +1,77 @@
 <template>
   <NuxtLink
     :to="to"
-    class="group relative flex h-[320px] flex-col overflow-hidden rounded-2xl border border-default bg-surface transition-all hover:-translate-y-1 hover:shadow-xl"
+    class="group relative flex h-[320px] flex-col overflow-hidden rounded-xl border border-transparent bg-[#4CAF82] transition-all duration-300"
   >
-    <div class="flex-1 overflow-hidden">
-      <svg viewBox="0 0 400 300" class="h-full w-full object-cover">
-        <defs>
-          <linearGradient :id="`tile-grad-${title}`" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" :stop-color="color1" />
-            <stop offset="100%" :stop-color="color2" />
-          </linearGradient>
-        </defs>
-        <rect width="400" height="300" :fill="`url(#tile-grad-${title})`" />
-        <template v-for="(el, i) in elements" :key="i">
-          <circle
-            v-if="el.type === 'circle'"
-            :cx="el.cx"
-            :cy="el.cy"
-            :r="el.r"
-            :fill="el.fill"
-            :opacity="el.opacity"
-          />
-          <rect
-            v-else-if="el.type === 'rect'"
-            :x="el.x"
-            :y="el.y"
-            :width="el.width"
-            :height="el.height"
-            :fill="el.fill"
-            :opacity="el.opacity"
-            :rx="el.rx"
-          />
-        </template>
-      </svg>
+    <!-- Background subtle pattern -->
+    <div
+      class="absolute inset-0 opacity-[0.03] transition-opacity group-hover:opacity-[0.05]"
+      style="background-image: radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0); background-size: 24px 24px;"
+    />
+
+    <!-- SVG Preview Area -->
+    <div class="relative flex-1 overflow-hidden p-6">
+      <div
+        class="h-full w-full transform transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+      >
+          <!-- Blueprint crosshair overlay — full tile -->
+          <svg class="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 400 320" fill="none">
+            <!-- Set a very subtle opacity for the grid -->
+            <g stroke="white" stroke-opacity="0.50" stroke-width="0.75" stroke-dasharray="2 4">
+              <!-- Horizontal lines -->
+              <line x1="0" y1="80" x2="400" y2="80" />
+              <line x1="0" y1="160" x2="400" y2="160" />
+              <line x1="0" y1="240" x2="400" y2="240" />
+              <!-- Vertical lines -->
+              <line x1="100" y1="0" x2="100" y2="320" />
+              <line x1="200" y1="0" x2="200" y2="320" />
+              <line x1="300" y1="0" x2="300" y2="320" />
+            </g>
+          </svg>
+
+        <svg viewBox="0 0 400 300" class="h-full w-full overflow-visible" preserveAspectRatio="xMidYMid meet">
+          <template v-for="(el, i) in elements" :key="i">
+            <circle
+              v-if="el.type === 'circle'"
+              :cx="el.cx"
+              :cy="el.cy"
+              :r="el.r"
+              fill="white"
+              class="transition-all duration-500 ease-in-out"
+              :style="{ opacity: el.opacity }"
+            />
+            <rect
+              v-else-if="el.type === 'rect'"
+              :x="el.x"
+              :y="el.y"
+              :width="el.width"
+              :height="el.height"
+              fill="white"
+              :rx="el.rx"
+              class="transition-all duration-500 ease-in-out"
+              :style="{ opacity: el.opacity }"
+            />
+          </template>
+        </svg>
+      </div>
     </div>
 
-    <div
-      class="absolute inset-x-0 bottom-0 flex flex-col items-center justify-center bg-black/60 p-4 text-center backdrop-blur-sm transition-colors group-hover:bg-black/70"
-    >
-      <div v-if="title" class="text-sm font-bold text-white">
-        {{ title }}
-      </div>
-      <div v-if="description" class="mt-0.5 text-[11px] font-medium text-white/70">
-        {{ description }}
+    <!-- Content Area -->
+    <div class="relative p-5 pt-0">
+      <div class="flex items-end justify-between">
+        <div>
+          <h3 class="text-sm font-semibold tracking-tight text-highlighted">
+            {{ title }}
+          </h3>
+          <p class="mt-0.5 text-xs text-highlighted/80">
+            {{ description }}
+          </p>
+        </div>
+        <div
+          class="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 opacity-0 transition-all duration-300 group-hover:opacity-100"
+        >
+          <UIcon name="i-heroicons-arrow-up-right" class="h-4 w-4 text-white" />
+        </div>
       </div>
     </div>
   </NuxtLink>
@@ -51,12 +80,10 @@
 <script setup lang="ts">
 import type { SvgElement } from "~/composables/useGalleryTiles";
 
-const props = defineProps<{
+defineProps<{
   title?: string;
   description?: string;
   to: string;
-  color1: string;
-  color2: string;
   elements: SvgElement[];
 }>();
 </script>

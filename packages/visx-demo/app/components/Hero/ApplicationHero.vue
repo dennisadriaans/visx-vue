@@ -1,17 +1,3 @@
-<script setup lang="ts">
-import { ref } from "vue";
-
-const activeTab = ref("design-systems");
-
-const tabs = [
-  { id: "charts", label: "Chart primitives", icon: "i-heroicons-chart-bar" },
-  { id: "templates", label: "Layouts & specialized", icon: "i-heroicons-squares-2x2" },
-  { id: "blocks", label: "Interactions", icon: "i-heroicons-cube" },
-  { id: "dashboards", label: "SVG utilities", icon: "i-heroicons-window" },
-  { id: "launch", label: "Data utilities", icon: "i-heroicons-rocket-launch" },
-];
-</script>
-
 <template>
   <div class="relative overflow-hidden">
     <UPageHero
@@ -71,29 +57,5 @@ const tabs = [
       </div>
     </UPageHero>
 
-    <!-- Segmented Navigation Box -->
-    <div class="max-w-7xl mx-auto border border-default">
-      <div class="grid grid-cols-2 md:grid-cols-5 divide-x divide-default max-w-350 mx-auto">
-        <button
-          v-for="tab in tabs"
-          :key="tab.id"
-          class="relative flex items-center justify-center gap-2 py-6 text-sm font-medium transition-colors"
-          :class="[
-            activeTab === tab.id ? '' : 'text-muted hover:text-default hover:bg-muted',
-            tab.id === 'launch' ? 'hidden md:flex' : '',
-          ]"
-          @click="activeTab = tab.id"
-        >
-          <UIcon :name="tab.icon" class="h-5 w-5" />
-          {{ tab.label }}
-
-          <!-- Active Indicator Line -->
-          <div
-            v-if="activeTab === tab.id"
-            class="absolute bottom-0 left-0 h-px w-full bg-primary transition-all duration-300"
-          />
-        </button>
-      </div>
-    </div>
   </div>
 </template>

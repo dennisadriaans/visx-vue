@@ -9,8 +9,16 @@ binding = "ASSETS"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "visx-vue-demo-db"
-database_id = "PASTE_YOUR_D1_DATABASE_ID_HERE"
+database_name = "visx-demo"
+database_id = "485cf5aa-c730-4704-a3a6-c052cc0466dc"
+
+[[routes]]
+pattern = "nuxtcharts.com/visx-vue"
+zone_name = "nuxtcharts.com"
+
+[[routes]]
+pattern = "nuxtcharts.com/visx-vue/*"
+zone_name = "nuxtcharts.com"
 
 [observability]
 enabled = true

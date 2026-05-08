@@ -1,7 +1,7 @@
 <template>
-  <UContainer class="py-16">
-    <div class="mb-16 max-w-3xl">
-      <h1 class="mb-4 text-5xl font-extrabold tracking-tight text-highlighted sm:text-6xl">
+  <UContainer class="py-24">
+    <div class="mb-20 max-w-3xl">
+      <h1 class="mb-6 text-5xl font-semibold tracking-tight text-highlighted sm:text-6xl">
         Gallery
       </h1>
       <p class="text-xl leading-relaxed text-muted">
@@ -10,14 +10,12 @@
       </p>
     </div>
 
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
       <GalleryTile
         v-for="tile in galleryTiles"
         :key="tile.title"
         :title="tile.title"
         :description="tile.description"
-        :color1="tile.color1"
-        :color2="tile.color2"
         :to="tile.to"
         :elements="tile.elements"
       />

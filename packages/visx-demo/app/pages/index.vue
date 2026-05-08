@@ -2,9 +2,9 @@
   <div class="pb-16">
     <HeroApplicationHero />
 
-    <UContainer class="py-20">
-      <div class="mb-12 text-center">
-        <h2 class="mb-4 text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
+    <UContainer class="py-24">
+      <div class="mb-16 text-center">
+        <h2 class="mb-4 text-4xl font-semibold tracking-tight text-highlighted sm:text-5xl">
           Featured Examples
         </h2>
         <p class="mx-auto max-w-2xl text-lg text-muted">
@@ -13,30 +13,26 @@
         </p>
       </div>
 
-      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
         <GalleryTile
           v-for="tile in featuredTiles"
           :key="tile.title"
           :title="tile.title"
           :description="tile.description"
-          :color1="tile.color1"
-          :color2="tile.color2"
           :to="tile.to"
           :elements="tile.elements"
         />
       </div>
 
       <div class="mt-12 flex justify-center">
-        <UButton
+        <NuxtLink
           to="/gallery"
-          label="View all examples"
-          color="neutral"
-          variant="outline"
-          size="xl"
-          icon="i-heroicons-arrow-right"
-          trailing
-          class="px-8"
-        />
+          class="group flex items-center gap-3 font-mono text-sm text-muted transition-colors hover:text-highlighted"
+        >
+          <span class="text-primary">→</span>
+          <span>explore all {{ galleryTiles.length }} primitives</span>
+          <span class="inline-block translate-x-0 transition-transform duration-200 group-hover:translate-x-1">_</span>
+        </NuxtLink>
       </div>
     </UContainer>
   </div>
