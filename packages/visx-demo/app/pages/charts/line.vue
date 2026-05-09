@@ -22,13 +22,15 @@
         color="primary"
         size="sm"
         @click="variant = 'single'"
-      >Single Line</UButton>
+        >Single Line</UButton
+      >
       <UButton
         :variant="variant === 'multi' ? 'solid' : 'ghost'"
         color="primary"
         size="sm"
         @click="variant = 'multi'"
-      >Multi-line</UButton>
+        >Multi-line</UButton
+      >
     </div>
 
     <!-- Single line -->
@@ -161,8 +163,15 @@
           </Group>
         </svg>
         <div class="flex flex-wrap gap-4 mt-3 pl-[55px]">
-          <span v-for="city in cities" :key="city" class="flex items-center gap-2 text-xs text-default">
-            <span class="inline-block w-5 h-0.5 rounded" :style="{ background: cityColors[city] }" />
+          <span
+            v-for="city in cities"
+            :key="city"
+            class="flex items-center gap-2 text-xs text-default"
+          >
+            <span
+              class="inline-block w-5 h-0.5 rounded"
+              :style="{ background: cityColors[city] }"
+            />
             {{ city }}
           </span>
         </div>
@@ -217,7 +226,13 @@ const priceScale = computed(() =>
 );
 
 const xTickProps = { fill: "#ffffff55", fontSize: 11, textAnchor: "middle" as const };
-const yTickProps = { fill: "#ffffff55", fontSize: 11, textAnchor: "end" as const, dx: "-0.3em", dy: "0.33em" };
+const yTickProps = {
+  fill: "#ffffff55",
+  fontSize: 11,
+  textAnchor: "end" as const,
+  dx: "-0.3em",
+  dy: "0.33em",
+};
 
 const ttStyle = {
   background: "#1a1a2e",
@@ -238,7 +253,8 @@ function handleMouseMove(e: MouseEvent) {
   const idx = bisectDate(stock, x0, 1);
   const d0 = stock[idx - 1];
   const d1 = stock[idx];
-  const d = d1 && x0.valueOf() - getDate(d0).valueOf() > getDate(d1).valueOf() - x0.valueOf() ? d1 : d0;
+  const d =
+    d1 && x0.valueOf() - getDate(d0).valueOf() > getDate(d1).valueOf() - x0.valueOf() ? d1 : d0;
   showTooltip({ tooltipData: d, tooltipLeft: pt.x, tooltipTop: pt.y });
 }
 
@@ -271,16 +287,11 @@ const xScaleM = computed(() =>
   }),
 );
 
-const allTemps = computed(() =>
-  cityData.flatMap((d) => cities.map((c) => Number(d[c]))),
-);
+const allTemps = computed(() => cityData.flatMap((d) => cities.map((c) => Number(d[c]))));
 const yScaleM = computed(() =>
   scaleLinear({
     range: [yMaxM.value, 0],
-    domain: [
-      (Math.min(...allTemps.value)) - 5,
-      (Math.max(...allTemps.value)) + 5,
-    ],
+    domain: [Math.min(...allTemps.value) - 5, Math.max(...allTemps.value) + 5],
     nice: true,
   }),
 );
@@ -293,6 +304,14 @@ const yScaleM = computed(() =>
   position: relative;
   cursor: crosshair;
 }
-.tt-label { font-size: 11px; color: #ffffff88; margin-bottom: 2px; }
-.tt-value { font-size: 15px; font-weight: 600; color: #00DC82; }
+.tt-label {
+  font-size: 11px;
+  color: #ffffff88;
+  margin-bottom: 2px;
+}
+.tt-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: #00dc82;
+}
 </style>

@@ -1,4 +1,5 @@
-<script setup lang="ts">import { computed, ref } from "vue";
+<script setup lang="ts">
+import { computed, ref } from "vue";
 import { CustomProjection, Graticule } from "@visx-vue/geo";
 import { useZoom } from "@visx-vue/zoom";
 import { scaleQuantize } from "@visx-vue/scale";

@@ -208,7 +208,11 @@ const axes = computed(() => {
   font-size: 13px;
   color: #ffffff88;
 }
-.controls label { display: flex; align-items: center; gap: 0.4rem; }
+.controls label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
 .controls button {
   padding: 2px 8px;
   border: 1px solid #ffffff22;

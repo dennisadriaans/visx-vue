@@ -1,4 +1,5 @@
-<script setup lang="ts">import { computed } from "vue";
+<script setup lang="ts">
+import { computed } from "vue";
 import { LinePath, SplitLinePath } from "@visx-vue/shape";
 import { LinearGradient } from "@visx-vue/gradient";
 import { curveCardinal } from "@visx-vue/curve";
@@ -69,14 +70,7 @@ const allPoints = computed(() => segments.value.flat());
   >
     <div ref="parentRef" class="w-full bg-elevated/40 rounded-xl" style="height: 500px">
       <svg v-if="width > 10" :width="width" :height="height">
-        <rect
-          x="0"
-          y="0"
-          :width="width"
-          :height="height"
-          fill="transparent"
-          rx="14"
-        />
+        <rect x="0" y="0" :width="width" :height="height" fill="transparent" rx="14" />
 
         <!-- Background ghost line -->
         <g :transform="`translate(${PADDING}, ${height / 4})`">

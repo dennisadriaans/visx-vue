@@ -14,8 +14,12 @@
     ]"
   >
     <div class="controls">
-      <button :class="{ active: variant === 'rect' }" @click="variant = 'rect'">Rect Heatmap</button>
-      <button :class="{ active: variant === 'circle' }" @click="variant = 'circle'">Circle Heatmap</button>
+      <button :class="{ active: variant === 'rect' }" @click="variant = 'rect'">
+        Rect Heatmap
+      </button>
+      <button :class="{ active: variant === 'circle' }" @click="variant = 'circle'">
+        Circle Heatmap
+      </button>
     </div>
 
     <div ref="parentRef" class="chart-outer bg-elevated/40 rounded-xl" @mouseleave="hideTooltip">
@@ -106,7 +110,7 @@
         :style="ttStyle"
       >
         <div class="tt-label">col {{ tooltipData.column }}, row {{ tooltipData.row }}</div>
-        <div class="tt-value">{{ tooltipData.count?.toFixed(2) ?? '—' }}</div>
+        <div class="tt-value">{{ tooltipData.count?.toFixed(2) ?? "—" }}</div>
       </Tooltip>
     </div>
 
@@ -140,19 +144,20 @@ const margin = { top: 20, right: 20, bottom: 40, left: 55 };
 const COLS = 14;
 const ROWS = 10;
 const seededRandom = getSeededRandom(0.41);
-const binData = genBins(COLS, ROWS, () => seededRandom() * 10, () => seededRandom() * 10);
+const binData = genBins(
+  COLS,
+  ROWS,
+  () => seededRandom() * 10,
+  () => seededRandom() * 10,
+);
 
 const xMax = computed(() => width.value - margin.left - margin.right);
 const yMax = computed(() => height.value - margin.top - margin.bottom);
 
 const binWidth = computed(() => Math.floor(xMax.value / COLS));
 
-const xScale = computed(() =>
-  scaleLinear<number>({ range: [0, xMax.value], domain: [0, COLS] }),
-);
-const yScale = computed(() =>
-  scaleLinear<number>({ range: [yMax.value, 0], domain: [0, ROWS] }),
-);
+const xScale = computed(() => scaleLinear<number>({ range: [0, xMax.value], domain: [0, COLS] }));
+const yScale = computed(() => scaleLinear<number>({ range: [yMax.value, 0], domain: [0, ROWS] }));
 
 const xAxisScale = computed(() =>
   scaleLinear<number>({ range: [0, xMax.value], domain: [0, COLS] }),
@@ -161,7 +166,9 @@ const yAxisScale = computed(() =>
   scaleLinear<number>({ range: [yMax.value, 0], domain: [0, ROWS] }),
 );
 
-const maxCount = computed(() => Math.max(...binData.flatMap((col) => col.bins.map((b) => b.count ?? 0))));
+const maxCount = computed(() =>
+  Math.max(...binData.flatMap((col) => col.bins.map((b) => b.count ?? 0))),
+);
 
 const rectColorScale = computed(() =>
   scaleLinear<string>({
@@ -180,13 +187,20 @@ const opacityScale = computed(() =>
 );
 
 const gradientStyle = computed(() => ({
-  background: variant.value === "rect"
-    ? "linear-gradient(to right, #0a2a1a, #00DC82)"
-    : "linear-gradient(to right, #0a2a1a, #33e394)",
+  background:
+    variant.value === "rect"
+      ? "linear-gradient(to right, #0a2a1a, #00DC82)"
+      : "linear-gradient(to right, #0a2a1a, #33e394)",
 }));
 
 const xTickProps = { fill: "#ffffff55", fontSize: 10, textAnchor: "middle" as const };
-const yTickProps = { fill: "#ffffff55", fontSize: 10, textAnchor: "end" as const, dx: "-0.3em", dy: "0.33em" };
+const yTickProps = {
+  fill: "#ffffff55",
+  fontSize: 10,
+  textAnchor: "end" as const,
+  dx: "-0.3em",
+  dy: "0.33em",
+};
 
 const ttStyle = {
   background: "#1e1e2e",
@@ -233,12 +247,20 @@ function handleCellHover(e: MouseEvent, bin: any) {
   transition: all 0.15s;
 }
 .controls button.active {
-  background: #00DC82;
-  border-color: #00DC82;
+  background: #00dc82;
+  border-color: #00dc82;
   color: #fff;
 }
-.tt-label { font-size: 11px; color: #ffffff88; margin-bottom: 2px; }
-.tt-value { font-size: 15px; font-weight: 600; color: #00DC82; }
+.tt-label {
+  font-size: 11px;
+  color: #ffffff88;
+  margin-bottom: 2px;
+}
+.tt-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: #00dc82;
+}
 .color-legend {
   display: flex;
   align-items: center;
@@ -246,7 +268,10 @@ function handleCellHover(e: MouseEvent, bin: any) {
   margin-top: 12px;
   padding-left: 55px;
 }
-.legend-label { font-size: 11px; color: #ffffff55; }
+.legend-label {
+  font-size: 11px;
+  color: #ffffff55;
+}
 .gradient-bar {
   width: 120px;
   height: 8px;

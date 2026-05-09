@@ -33,7 +33,8 @@
   </ExamplePage>
 </template>
 
-<script setup lang="ts">import { computed } from "vue";
+<script setup lang="ts">
+import { computed } from "vue";
 import { Mercator, Graticule } from "@visx-vue/geo";
 import { scaleQuantize } from "@visx-vue/scale";
 import { useParentSize } from "@visx-vue/responsive";

@@ -1,4 +1,5 @@
-<script setup lang="ts">import { computed, ref } from "vue";
+<script setup lang="ts">
+import { computed, ref } from "vue";
 import { Group } from "@visx-vue/group";
 import { LinePath } from "@visx-vue/shape";
 import { genDateValue } from "@visx-vue/mock-data";

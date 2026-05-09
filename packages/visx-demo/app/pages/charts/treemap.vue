@@ -13,13 +13,9 @@
         color="primary"
         size="sm"
         @click="variant = v as 'treemap' | 'pack'"
-      >{{ v === 'treemap' ? 'Treemap' : 'Pack' }}</UButton>
-      <USelect
-        v-if="variant === 'treemap'"
-        v-model="tileMethod"
-        :items="tileKeys"
-        size="sm"
-      />
+        >{{ v === "treemap" ? "Treemap" : "Pack" }}</UButton
+      >
+      <USelect v-if="variant === 'treemap'" v-model="tileMethod" :items="tileKeys" size="sm" />
     </div>
 
     <!-- Treemap -->
@@ -36,7 +32,10 @@
           >
             <template #default="{ data: tmData }">
               <Group>
-                <template v-for="(node, i) in [...tmData.descendants()].reverse()" :key="`node-${i}`">
+                <template
+                  v-for="(node, i) in [...tmData.descendants()].reverse()"
+                  :key="`node-${i}`"
+                >
                   <Group :top="node.y0 + margin.top" :left="node.x0 + margin.left">
                     <rect
                       v-if="node.depth === 1"

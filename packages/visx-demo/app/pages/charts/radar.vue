@@ -1,4 +1,5 @@
-<script setup lang="ts">import { computed } from "vue";
+<script setup lang="ts">
+import { computed } from "vue";
 import { Group } from "@visx-vue/group";
 import { letterFrequency } from "@visx-vue/mock-data";
 import { scaleLinear } from "@visx-vue/scale";

@@ -57,7 +57,13 @@
             :num-ticks="5"
             stroke="#ffffff22"
             tick-stroke="#ffffff22"
-            :tick-label-props="{ fill: '#ffffff55', fontSize: 11, textAnchor: 'end', dx: '-0.25em', dy: '0.33em' }"
+            :tick-label-props="{
+              fill: '#ffffff55',
+              fontSize: 11,
+              textAnchor: 'end',
+              dx: '-0.25em',
+              dy: '0.33em',
+            }"
           />
           <LinePath
             :curve="allCurves[curveType]"
@@ -152,7 +158,11 @@ const yScale = computed(() =>
   flex-wrap: wrap;
   color: #ffffff88;
 }
-.controls label { display: flex; align-items: center; gap: 0.4rem; }
+.controls label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
 .controls select {
   border: 1px solid #ffffff22;
   border-radius: 4px;

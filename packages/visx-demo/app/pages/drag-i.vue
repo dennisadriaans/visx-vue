@@ -37,7 +37,8 @@
   </ExamplePage>
 </template>
 
-<script setup lang="ts">import { ref, computed, watch } from "vue";
+<script setup lang="ts">
+import { ref, computed, watch } from "vue";
 import { LinearGradient } from "@visx-vue/gradient";
 import { Drag, raise } from "@visx-vue/drag";
 import { scaleOrdinal } from "@visx-vue/scale";

@@ -32,14 +32,18 @@
         >
           <span class="text-primary">→</span>
           <span>explore all {{ galleryTiles.length }} primitives</span>
-          <span class="inline-block translate-x-0 transition-transform duration-200 group-hover:translate-x-1">_</span>
+          <span
+            class="inline-block translate-x-0 transition-transform duration-200 group-hover:translate-x-1"
+            >_</span
+          >
         </NuxtLink>
       </div>
     </UContainer>
   </div>
 </template>
 
-<script setup lang="ts">const { galleryTiles } = useGalleryTiles();
+<script setup lang="ts">
+const { galleryTiles } = useGalleryTiles();
 
 // Select 6 featured tiles for the home page
 const featuredTiles = computed(() => {

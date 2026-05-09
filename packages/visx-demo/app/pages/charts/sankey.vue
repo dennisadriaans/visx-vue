@@ -1,4 +1,5 @@
-<script setup lang="ts">import { computed, ref } from "vue";
+<script setup lang="ts">
+import { computed, ref } from "vue";
 import { Sankey, sankeyCenter, sankeyRight, sankeyLeft, sankeyJustify } from "@visx-vue/sankey";
 import { Group } from "@visx-vue/group";
 import { BarRounded, LinkHorizontal } from "@visx-vue/shape";

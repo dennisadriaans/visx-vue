@@ -17,18 +17,43 @@
     ]"
   >
     <div class="controls">
-      <button :class="{ active: variant === 'scatter' }" @click="variant = 'scatter'">Scatter Plot</button>
-      <button :class="{ active: variant === 'bubble' }" @click="variant = 'bubble'">Bubble Chart</button>
+      <button :class="{ active: variant === 'scatter' }" @click="variant = 'scatter'">
+        Scatter Plot
+      </button>
+      <button :class="{ active: variant === 'bubble' }" @click="variant = 'bubble'">
+        Bubble Chart
+      </button>
     </div>
 
     <!-- Scatter plot -->
     <template v-if="variant === 'scatter'">
       <div ref="parentRef" class="chart-outer bg-elevated/40 rounded-xl" @mouseleave="hideTooltip">
-        <svg v-if="width > 0" :width="width" :height="height" ref="svgEl" @mousemove="handleMouseMove" @mouseleave="hideTooltip">
+        <svg
+          v-if="width > 0"
+          :width="width"
+          :height="height"
+          ref="svgEl"
+          @mousemove="handleMouseMove"
+          @mouseleave="hideTooltip"
+        >
           <rect :width="width" :height="height" fill="transparent" :rx="12" />
           <Group :left="margin.left" :top="margin.top">
-            <GridRows :scale="yScale" :width="xMax" stroke="#ffffff" :stroke-opacity="0.05" :num-ticks="5" pointer-events="none" />
-            <GridColumns :scale="xScale" :height="yMax" stroke="#ffffff" :stroke-opacity="0.05" :num-ticks="5" pointer-events="none" />
+            <GridRows
+              :scale="yScale"
+              :width="xMax"
+              stroke="#ffffff"
+              :stroke-opacity="0.05"
+              :num-ticks="5"
+              pointer-events="none"
+            />
+            <GridColumns
+              :scale="xScale"
+              :height="yMax"
+              stroke="#ffffff"
+              :stroke-opacity="0.05"
+              :num-ticks="5"
+              pointer-events="none"
+            />
             <circle
               v-for="(pt, i) in scatterPoints"
               :key="`pt-${i}`"
@@ -72,20 +97,44 @@
           :top="(tooltipTop ?? 0) - 36"
           :style="ttStyle"
         >
-          <div class="tt-row"><span class="tt-label">x</span><span class="tt-value">{{ tooltipData[0].toFixed(3) }}</span></div>
-          <div class="tt-row"><span class="tt-label">y</span><span class="tt-value">{{ tooltipData[1].toFixed(3) }}</span></div>
+          <div class="tt-row">
+            <span class="tt-label">x</span
+            ><span class="tt-value">{{ tooltipData[0].toFixed(3) }}</span>
+          </div>
+          <div class="tt-row">
+            <span class="tt-label">y</span
+            ><span class="tt-value">{{ tooltipData[1].toFixed(3) }}</span>
+          </div>
         </Tooltip>
       </div>
     </template>
 
     <!-- Bubble chart -->
     <template v-else>
-      <div ref="parentRef2" class="chart-outer bg-elevated/40 rounded-xl" @mouseleave="hideTooltip2">
+      <div
+        ref="parentRef2"
+        class="chart-outer bg-elevated/40 rounded-xl"
+        @mouseleave="hideTooltip2"
+      >
         <svg v-if="width2 > 0" :width="width2" :height="height2">
           <rect :width="width2" :height="height2" fill="transparent" :rx="12" />
           <Group :left="marginB.left" :top="marginB.top">
-            <GridRows :scale="yScaleB" :width="xMaxB" stroke="#ffffff" :stroke-opacity="0.05" :num-ticks="5" pointer-events="none" />
-            <GridColumns :scale="xScaleB" :height="yMaxB" stroke="#ffffff" :stroke-opacity="0.05" :num-ticks="5" pointer-events="none" />
+            <GridRows
+              :scale="yScaleB"
+              :width="xMaxB"
+              stroke="#ffffff"
+              :stroke-opacity="0.05"
+              :num-ticks="5"
+              pointer-events="none"
+            />
+            <GridColumns
+              :scale="xScaleB"
+              :height="yMaxB"
+              stroke="#ffffff"
+              :stroke-opacity="0.05"
+              :num-ticks="5"
+              pointer-events="none"
+            />
             <circle
               v-for="(p, i) in planets"
               :key="`planet-${i}`"
@@ -125,9 +174,17 @@
           :top="(tooltipTop2 ?? 0) - 36"
           :style="ttStyle"
         >
-          <div class="tt-row"><span class="tt-label">name</span><span class="tt-value">{{ tooltipData2.name }}</span></div>
-          <div class="tt-row"><span class="tt-label">mass</span><span class="tt-value">{{ tooltipData2.mass.toFixed(1) }}M⊕</span></div>
-          <div class="tt-row"><span class="tt-label">dist</span><span class="tt-value">{{ tooltipData2.distance.toFixed(2) }} AU</span></div>
+          <div class="tt-row">
+            <span class="tt-label">name</span><span class="tt-value">{{ tooltipData2.name }}</span>
+          </div>
+          <div class="tt-row">
+            <span class="tt-label">mass</span
+            ><span class="tt-value">{{ tooltipData2.mass.toFixed(1) }}M⊕</span>
+          </div>
+          <div class="tt-row">
+            <span class="tt-label">dist</span
+            ><span class="tt-value">{{ tooltipData2.distance.toFixed(2) }} AU</span>
+          </div>
         </Tooltip>
       </div>
     </template>
@@ -178,7 +235,13 @@ const voronoiLayout = computed(() =>
 );
 
 const xTickProps = { fill: "#ffffff55", fontSize: 11, textAnchor: "middle" as const };
-const yTickProps = { fill: "#ffffff55", fontSize: 11, textAnchor: "end" as const, dx: "-0.3em", dy: "0.33em" };
+const yTickProps = {
+  fill: "#ffffff55",
+  fontSize: 11,
+  textAnchor: "end" as const,
+  dx: "-0.3em",
+  dy: "0.33em",
+};
 const ttStyle = {
   background: "#1e1e2e",
   border: "1px solid #00DC8233",
@@ -217,7 +280,16 @@ const planets: Planet[] = [
   { name: "Neptune", mass: 17.1, radius: 24622, distance: 30.05 },
 ];
 
-const planetColors = ["#00DC82", "#00b368", "#33e394", "#007a47", "#00f59a", "#009a5c", "#006b3f", "#4db890"];
+const planetColors = [
+  "#00DC82",
+  "#00b368",
+  "#33e394",
+  "#007a47",
+  "#00f59a",
+  "#009a5c",
+  "#006b3f",
+  "#4db890",
+];
 
 const xMaxB = computed(() => width2.value - marginB.left - marginB.right);
 const yMaxB = computed(() => height2.value - marginB.top - marginB.bottom);
@@ -228,12 +300,16 @@ const xScaleB = computed(() =>
 const yScaleB = computed(() =>
   scaleLinear<number>({ domain: [0, 350], range: [yMaxB.value, 0], nice: true }),
 );
-const rScale = computed(() =>
-  scaleSqrt<number>({ domain: [2440, 69911], range: [4, 40] }),
-);
+const rScale = computed(() => scaleSqrt<number>({ domain: [2440, 69911], range: [4, 40] }));
 
-const { showTooltip: showTooltip2, hideTooltip: hideTooltip2, tooltipOpen: tooltipOpen2, tooltipData: tooltipData2, tooltipLeft: tooltipLeft2, tooltipTop: tooltipTop2 } =
-  useTooltip<Planet>();
+const {
+  showTooltip: showTooltip2,
+  hideTooltip: hideTooltip2,
+  tooltipOpen: tooltipOpen2,
+  tooltipData: tooltipData2,
+  tooltipLeft: tooltipLeft2,
+  tooltipTop: tooltipTop2,
+} = useTooltip<Planet>();
 
 function handlePlanetHover(e: MouseEvent, p: Planet) {
   const pt = localPoint(e) ?? { x: 0, y: 0 };
@@ -264,8 +340,8 @@ function handlePlanetHover(e: MouseEvent, p: Planet) {
   transition: all 0.15s;
 }
 .controls button.active {
-  background: #00DC82;
-  border-color: #00DC82;
+  background: #00dc82;
+  border-color: #00dc82;
   color: #fff;
 }
 .tt-row {
@@ -274,6 +350,13 @@ function handlePlanetHover(e: MouseEvent, p: Planet) {
   gap: 12px;
   align-items: center;
 }
-.tt-label { font-size: 11px; color: #ffffff66; }
-.tt-value { font-size: 13px; font-weight: 600; color: #00DC82; }
+.tt-label {
+  font-size: 11px;
+  color: #ffffff66;
+}
+.tt-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: #00dc82;
+}
 </style>

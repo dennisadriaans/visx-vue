@@ -6,7 +6,10 @@
     <!-- Background subtle pattern -->
     <div
       class="absolute inset-0 opacity-[0.03] transition-opacity group-hover:opacity-[0.05]"
-      style="background-image: radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0); background-size: 24px 24px;"
+      style="
+        background-image: radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0);
+        background-size: 24px 24px;
+      "
     />
 
     <!-- SVG Preview Area -->
@@ -14,22 +17,25 @@
       <div
         class="h-full w-full transform transition-transform duration-500 ease-out group-hover:scale-[1.02]"
       >
-          <!-- Blueprint crosshair overlay — full tile -->
-          <svg class="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 400 320" fill="none">
-            <!-- Set a very subtle opacity for the grid -->
-            <g stroke="white" stroke-opacity="0.50" stroke-width="0.75" stroke-dasharray="2 4">
-              <!-- Horizontal lines -->
-              <line x1="0" y1="80" x2="400" y2="80" />
-              <line x1="0" y1="160" x2="400" y2="160" />
-              <line x1="0" y1="240" x2="400" y2="240" />
-              <!-- Vertical lines -->
-              <line x1="100" y1="0" x2="100" y2="320" />
-              <line x1="200" y1="0" x2="200" y2="320" />
-              <line x1="300" y1="0" x2="300" y2="320" />
-            </g>
-          </svg>
+        <svg
+          viewBox="0 0 400 320"
+          class="h-full w-full overflow-visible"
+          preserveAspectRatio="xMidYMid meet"
+          fill="none"
+        >
+          <!-- 1. BACKGROUND GRID: Rendered first = bottom layer -->
+          <g stroke="white" stroke-opacity="0.30" stroke-width="0.75" stroke-dasharray="2 4">
+            <!-- Horizontal lines -->
+            <line x1="0" y1="80" x2="400" y2="80" />
+            <line x1="0" y1="160" x2="400" y2="160" />
+            <line x1="0" y1="240" x2="400" y2="240" />
+            <!-- Vertical lines -->
+            <line x1="100" y1="0" x2="100" y2="320" />
+            <line x1="200" y1="0" x2="200" y2="320" />
+            <line x1="300" y1="0" x2="300" y2="320" />
+          </g>
 
-        <svg viewBox="0 0 400 300" class="h-full w-full overflow-visible" preserveAspectRatio="xMidYMid meet">
+          <!-- 2. DYNAMIC ELEMENTS: Rendered second = top layer -->
           <template v-for="(el, i) in elements" :key="i">
             <circle
               v-if="el.type === 'circle'"
@@ -77,7 +83,8 @@
   </NuxtLink>
 </template>
 
-<script setup lang="ts">import type { SvgElement } from "~/composables/useGalleryTiles";
+<script setup lang="ts">
+import type { SvgElement } from "~/composables/useGalleryTiles";
 
 defineProps<{
   title?: string;

@@ -8,7 +8,12 @@
         <h2 class="text-lg font-semibold text-white">Yearly Contributions</h2>
         <div class="flex items-center gap-2 text-xs text-white/50">
           <span>Less</span>
-          <div v-for="color in colorRange" :key="color" :style="{ backgroundColor: color }" class="w-3 h-3 rounded-sm" />
+          <div
+            v-for="color in colorRange"
+            :key="color"
+            :style="{ backgroundColor: color }"
+            class="w-3 h-3 rounded-sm"
+          />
           <span>More</span>
         </div>
       </div>
@@ -20,7 +25,7 @@
             v-for="(day, i) in ['Mon', 'Wed', 'Fri']"
             :key="day"
             :x="-10"
-            :y="((i * 2 + 1) * (cellSize + cellPadding)) + cellSize / 2"
+            :y="(i * 2 + 1) * (cellSize + cellPadding) + cellSize / 2"
             text-anchor="end"
             alignment-baseline="middle"
             class="text-[10px] fill-current opacity-50"
@@ -63,9 +68,7 @@
         :left="tooltipLeft"
         class="tooltip-container"
       >
-        <div class="text-xs font-medium">
-          {{ tooltipData.count }} contributions
-        </div>
+        <div class="text-xs font-medium">{{ tooltipData.count }} contributions</div>
         <div class="text-[10px] text-white/50">
           {{ formatDate(tooltipData.date) }}
         </div>
@@ -74,7 +77,8 @@
   </ExamplePage>
 </template>
 
-<script setup lang="ts">import { computed, ref } from "vue";
+<script setup lang="ts">
+import { computed, ref } from "vue";
 import { Group } from "@visx-vue/group";
 import { Bar } from "@visx-vue/shape";
 import { scaleThreshold } from "@visx-vue/scale";
@@ -153,14 +157,8 @@ const monthLabels = computed(() => {
 
 const formatDate = timeFormat("%B %d, %Y");
 
-const {
-  tooltipOpen,
-  tooltipLeft,
-  tooltipTop,
-  tooltipData,
-  showTooltip,
-  hideTooltip,
-} = useTooltip<Datum>();
+const { tooltipOpen, tooltipLeft, tooltipTop, tooltipData, showTooltip, hideTooltip } =
+  useTooltip<Datum>();
 
 function handleMouseMove(event: MouseEvent | TouchEvent, datum: Datum) {
   const coords = localPoint(event);
@@ -185,7 +183,7 @@ function handleMouseMove(event: MouseEvent | TouchEvent, datum: Datum) {
   color: white;
   padding: 8px 12px;
   border-radius: 6px;
-  border: 1px solid #00DC8233;
+  border: 1px solid #00dc8233;
   pointer-events: none;
 }
 </style>

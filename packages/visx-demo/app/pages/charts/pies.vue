@@ -100,15 +100,7 @@ const browsers: BrowserUsage[] = browserNames.map((name) => ({
 
 const getBrowserColor = scaleOrdinal<string, string>({
   domain: browserNames as string[],
-  range: [
-    "#00DC82",
-    "#00b368",
-    "#33e394",
-    "#007a47",
-    "#00f59a",
-    "#009a5c",
-    "#006b3f",
-  ],
+  range: ["#00DC82", "#00b368", "#33e394", "#007a47", "#00f59a", "#009a5c", "#006b3f"],
 });
 const getLetterColor = scaleOrdinal<string, string>({
   domain: letters.map((l) => l.letter),

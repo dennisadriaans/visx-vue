@@ -20,7 +20,7 @@
       />
     </div>
 
-      <div class="mt-24 mb-8 max-w-3xl">
+    <div class="mt-24 mb-8 max-w-3xl">
       <h2 class="mb-4 text-3xl font-semibold tracking-tight text-highlighted sm:text-4xl">
         Specialized Demos
       </h2>
@@ -47,32 +47,109 @@
   </UContainer>
 </template>
 
-<script setup lang="ts">const { galleryTiles } = useGalleryTiles();
+<script setup lang="ts">
+const { galleryTiles } = useGalleryTiles();
 
 const chartTiles = computed(() =>
   galleryTiles.map((t) => (t.to === "/charts/treemap" ? { ...t, to: "/charts/treemap" } : t)),
 );
 
 const additionalCharts = [
-  { title: "Calendar Heatmap", to: "/charts/calendar-heatmap", description: "Date-based heatmap cells across a calendar grid." },
-  { title: "Chord", to: "/charts/chord", description: "Circular relationship ribbons between connected groups." },
-  { title: "Delaunay Triangulation", to: "/charts/delaunay-triangulation", description: "Point meshes and nearest-neighbor triangulation overlays." },
-  { title: "Delaunay Voronoi", to: "/charts/delaunay-voronoi", description: "Dual Voronoi cells and Delaunay structures for point sets." },
-  { title: "Dendrograms", to: "/charts/dendrograms", description: "Clustered hierarchical trees with branch depth emphasis." },
-  { title: "Geo Albers USA", to: "/charts/geo-albers-usa", description: "US map rendering with the Albers USA projection." },
-  { title: "Geo Custom", to: "/charts/geo-custom", description: "Custom map projection and zoomable geographic rendering." },
-  { title: "Geo Mercator", to: "/charts/geo-mercator", description: "Mercator projection for choropleth-style world maps." },
-  { title: "Line Radial", to: "/charts/lineradial", description: "Radial line chart around a circular coordinate system." },
-  { title: "Link Types", to: "/charts/linktypes", description: "Tree link variants for hierarchical diagrams." },
-  { title: "Network", to: "/charts/network", description: "Node-link diagrams for graph and relationship data." },
-  { title: "Radial Bars", to: "/charts/radial-bars", description: "Bar chart values arranged around a polar axis." },
-  { title: "Split Line Path", to: "/charts/splitlinepath", description: "Segmented line paths with style changes per section." },
-  { title: "Stats Plot", to: "/charts/statsplot", description: "Box plots and violin plots for statistical distributions." },
-  { title: "Streamgraph", to: "/charts/streamgraph", description: "Stacked flowing areas for temporal composition changes." },
-  { title: "Threshold", to: "/charts/threshold", description: "Threshold regions and area fills above or below a cut line." },
-  { title: "Trees", to: "/charts/trees", description: "Tree layouts for rooted hierarchical structures." },
-  { title: "Voronoi", to: "/charts/voronoi", description: "Voronoi partitions for interaction over scattered points." },
-  { title: "Wordcloud", to: "/charts/wordcloud", description: "Weighted word placement driven by frequency and angle." },
+  {
+    title: "Calendar Heatmap",
+    to: "/charts/calendar-heatmap",
+    description: "Date-based heatmap cells across a calendar grid.",
+  },
+  {
+    title: "Chord",
+    to: "/charts/chord",
+    description: "Circular relationship ribbons between connected groups.",
+  },
+  {
+    title: "Delaunay Triangulation",
+    to: "/charts/delaunay-triangulation",
+    description: "Point meshes and nearest-neighbor triangulation overlays.",
+  },
+  {
+    title: "Delaunay Voronoi",
+    to: "/charts/delaunay-voronoi",
+    description: "Dual Voronoi cells and Delaunay structures for point sets.",
+  },
+  {
+    title: "Dendrograms",
+    to: "/charts/dendrograms",
+    description: "Clustered hierarchical trees with branch depth emphasis.",
+  },
+  {
+    title: "Geo Albers USA",
+    to: "/charts/geo-albers-usa",
+    description: "US map rendering with the Albers USA projection.",
+  },
+  {
+    title: "Geo Custom",
+    to: "/charts/geo-custom",
+    description: "Custom map projection and zoomable geographic rendering.",
+  },
+  {
+    title: "Geo Mercator",
+    to: "/charts/geo-mercator",
+    description: "Mercator projection for choropleth-style world maps.",
+  },
+  {
+    title: "Line Radial",
+    to: "/charts/lineradial",
+    description: "Radial line chart around a circular coordinate system.",
+  },
+  {
+    title: "Link Types",
+    to: "/charts/linktypes",
+    description: "Tree link variants for hierarchical diagrams.",
+  },
+  {
+    title: "Network",
+    to: "/charts/network",
+    description: "Node-link diagrams for graph and relationship data.",
+  },
+  {
+    title: "Radial Bars",
+    to: "/charts/radial-bars",
+    description: "Bar chart values arranged around a polar axis.",
+  },
+  {
+    title: "Split Line Path",
+    to: "/charts/splitlinepath",
+    description: "Segmented line paths with style changes per section.",
+  },
+  {
+    title: "Stats Plot",
+    to: "/charts/statsplot",
+    description: "Box plots and violin plots for statistical distributions.",
+  },
+  {
+    title: "Streamgraph",
+    to: "/charts/streamgraph",
+    description: "Stacked flowing areas for temporal composition changes.",
+  },
+  {
+    title: "Threshold",
+    to: "/charts/threshold",
+    description: "Threshold regions and area fills above or below a cut line.",
+  },
+  {
+    title: "Trees",
+    to: "/charts/trees",
+    description: "Tree layouts for rooted hierarchical structures.",
+  },
+  {
+    title: "Voronoi",
+    to: "/charts/voronoi",
+    description: "Voronoi partitions for interaction over scattered points.",
+  },
+  {
+    title: "Wordcloud",
+    to: "/charts/wordcloud",
+    description: "Weighted word placement driven by frequency and angle.",
+  },
 ] as const;
 
 useHead({ title: "Charts — visx-vue" });

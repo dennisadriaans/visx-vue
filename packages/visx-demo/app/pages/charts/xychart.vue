@@ -48,12 +48,23 @@ const showTooltip = ref(true);
 function renderTooltip({ tooltipData, colorScale }: RenderTooltipParams<CityTemperature>) {
   const nearest = tooltipData?.nearestDatum;
   if (!nearest) return null;
-  return h("div", { style: "fontSize:13px;padding:4px 8px;background:#fff;border-radius:4px;boxShadow:0 2px 8px rgba(0,0,0,.15)" }, [
-    h("div", { style: "fontWeight:600;marginBottom:4px" }, nearest.datum.date),
-    ...Object.entries(tooltipData?.datumByKey ?? {}).map(([key, entry]) =>
-      h("div", { key, style: `color:${colorScale?.(key) ?? "#222"}` }, `${key}: ${entry.datum[key as keyof CityTemperature]}`)
-    ),
-  ]);
+  return h(
+    "div",
+    {
+      style:
+        "fontSize:13px;padding:4px 8px;background:#fff;border-radius:4px;boxShadow:0 2px 8px rgba(0,0,0,.15)",
+    },
+    [
+      h("div", { style: "fontWeight:600;marginBottom:4px" }, nearest.datum.date),
+      ...Object.entries(tooltipData?.datumByKey ?? {}).map(([key, entry]) =>
+        h(
+          "div",
+          { key, style: `color:${colorScale?.(key) ?? "#222"}` },
+          `${key}: ${entry.datum[key as keyof CityTemperature]}`,
+        ),
+      ),
+    ],
+  );
 }
 </script>
 
@@ -76,11 +87,7 @@ function renderTooltip({ tooltipData, colorScale }: RenderTooltipParams<CityTemp
       </div>
       <div class="flex items-center gap-2">
         <span class="text-xs text-default font-medium">curve:</span>
-        <USelect
-          v-model="curveType"
-          :items="['linear', 'cardinal', 'step']"
-          size="sm"
-        />
+        <USelect v-model="curveType" :items="['linear', 'cardinal', 'step']" size="sm" />
       </div>
       <UCheckbox v-model="useDark" label="dark" />
       <UCheckbox v-model="showGrid" label="grid" />
@@ -98,9 +105,30 @@ function renderTooltip({ tooltipData, colorScale }: RenderTooltipParams<CityTemp
         <Grid v-if="showGrid" :rows="true" :columns="false" :num-ticks="4" />
 
         <template v-if="seriesType === 'area'">
-          <AreaSeries data-key="Austin" :data="data" :x-accessor="getDate" :y-accessor="getAustin" :fill-opacity="0.4" :curve="curveMap[curveType]" />
-          <AreaSeries data-key="New York" :data="data" :x-accessor="getDate" :y-accessor="getNy" :fill-opacity="0.4" :curve="curveMap[curveType]" />
-          <AreaSeries data-key="San Francisco" :data="data" :x-accessor="getDate" :y-accessor="getSf" :fill-opacity="0.4" :curve="curveMap[curveType]" />
+          <AreaSeries
+            data-key="Austin"
+            :data="data"
+            :x-accessor="getDate"
+            :y-accessor="getAustin"
+            :fill-opacity="0.4"
+            :curve="curveMap[curveType]"
+          />
+          <AreaSeries
+            data-key="New York"
+            :data="data"
+            :x-accessor="getDate"
+            :y-accessor="getNy"
+            :fill-opacity="0.4"
+            :curve="curveMap[curveType]"
+          />
+          <AreaSeries
+            data-key="San Francisco"
+            :data="data"
+            :x-accessor="getDate"
+            :y-accessor="getSf"
+            :fill-opacity="0.4"
+            :curve="curveMap[curveType]"
+          />
         </template>
 
         <template v-else-if="seriesType === 'areastack'">
@@ -116,9 +144,27 @@ function renderTooltip({ tooltipData, colorScale }: RenderTooltipParams<CityTemp
         </template>
 
         <template v-else-if="seriesType === 'line'">
-          <LineSeries data-key="Austin" :data="data" :x-accessor="getDate" :y-accessor="getAustin" :curve="curveMap[curveType]" />
-          <LineSeries data-key="New York" :data="data" :x-accessor="getDate" :y-accessor="getNy" :curve="curveMap[curveType]" />
-          <LineSeries data-key="San Francisco" :data="data" :x-accessor="getDate" :y-accessor="getSf" :curve="curveMap[curveType]" />
+          <LineSeries
+            data-key="Austin"
+            :data="data"
+            :x-accessor="getDate"
+            :y-accessor="getAustin"
+            :curve="curveMap[curveType]"
+          />
+          <LineSeries
+            data-key="New York"
+            :data="data"
+            :x-accessor="getDate"
+            :y-accessor="getNy"
+            :curve="curveMap[curveType]"
+          />
+          <LineSeries
+            data-key="San Francisco"
+            :data="data"
+            :x-accessor="getDate"
+            :y-accessor="getSf"
+            :curve="curveMap[curveType]"
+          />
         </template>
 
         <template v-else-if="seriesType === 'bar'">
@@ -160,4 +206,3 @@ function renderTooltip({ tooltipData, colorScale }: RenderTooltipParams<CityTemp
     </div>
   </ExamplePage>
 </template>
-

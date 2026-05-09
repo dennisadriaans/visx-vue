@@ -1,4 +1,5 @@
-<script setup lang="ts">import { computed } from "vue";
+<script setup lang="ts">
+import { computed } from "vue";
 import { Group } from "@visx-vue/group";
 import { ViolinPlot, BoxPlot } from "@visx-vue/stats";
 import { LinearGradient } from "@visx-vue/gradient";

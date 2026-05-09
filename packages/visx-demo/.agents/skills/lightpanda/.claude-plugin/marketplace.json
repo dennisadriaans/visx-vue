@@ -19,26 +19,15 @@
         "name": "Lightpanda"
       },
       "category": "automation",
-      "keywords": [
-        "browser",
-        "headless",
-        "web-scraping",
-        "mcp",
-        "automation",
-        "lightpanda"
-      ],
+      "keywords": ["browser", "headless", "web-scraping", "mcp", "automation", "lightpanda"],
       "homepage": "https://lightpanda.io/docs",
       "strict": false,
-      "skills": [
-        "./SKILL.md"
-      ],
+      "skills": ["./SKILL.md"],
       "mcpServers": [
         {
           "lightpanda": {
             "command": "$HOME/.local/bin/lightpanda",
-            "args": [
-              "mcp"
-            ]
+            "args": ["mcp"]
           }
         }
       ]

@@ -5,11 +5,7 @@
   >
     <div class="flex flex-wrap items-center gap-4 mb-4">
       <span class="text-xs text-default font-medium">Spiral type:</span>
-      <USelect
-        v-model="spiralType"
-        :items="['archimedean', 'rectangular']"
-        size="sm"
-      />
+      <USelect v-model="spiralType" :items="['archimedean', 'rectangular']" size="sm" />
       <UCheckbox v-model="withRotation" label="With rotation" />
     </div>
     <div ref="parentRef" class="chart-container bg-elevated/40 rounded-xl">

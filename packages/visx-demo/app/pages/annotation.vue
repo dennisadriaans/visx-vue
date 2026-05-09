@@ -39,7 +39,8 @@
   </ExamplePage>
 </template>
 
-<script setup lang="ts">import { computed } from "vue";
+<script setup lang="ts">
+import { computed } from "vue";
 import { Annotation, Connector, Label, CircleSubject } from "@visx-vue/annotation";
 import { LinePath } from "@visx-vue/shape";
 import { scaleTime, scaleLinear } from "@visx-vue/scale";

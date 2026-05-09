@@ -16,8 +16,12 @@
     ]"
   >
     <div class="controls">
-      <button :class="{ active: variant === 'vertical' }" @click="variant = 'vertical'">Vertical</button>
-      <button :class="{ active: variant === 'horizontal' }" @click="variant = 'horizontal'">Horizontal</button>
+      <button :class="{ active: variant === 'vertical' }" @click="variant = 'vertical'">
+        Vertical
+      </button>
+      <button :class="{ active: variant === 'horizontal' }" @click="variant = 'horizontal'">
+        Horizontal
+      </button>
     </div>
 
     <!-- Vertical bar chart -->
@@ -78,7 +82,11 @@
 
     <!-- Horizontal bar chart -->
     <template v-else>
-      <div ref="parentRef2" class="chart-outer bg-elevated/40 rounded-xl" @mouseleave="hideTooltip2">
+      <div
+        ref="parentRef2"
+        class="chart-outer bg-elevated/40 rounded-xl"
+        @mouseleave="hideTooltip2"
+      >
         <svg v-if="width2 > 0" :width="width2" :height="height2">
           <rect :width="width2" :height="height2" fill="transparent" :rx="12" />
           <Group :left="marginH.left" :top="marginH.top">
@@ -178,7 +186,13 @@ const yScale = computed(() =>
 );
 
 const xTickProps = { fill: "#ffffff55", fontSize: 11, textAnchor: "middle" as const };
-const yTickProps = { fill: "#ffffff55", fontSize: 11, textAnchor: "end" as const, dx: "-0.3em", dy: "0.33em" };
+const yTickProps = {
+  fill: "#ffffff55",
+  fontSize: 11,
+  textAnchor: "end" as const,
+  dx: "-0.3em",
+  dy: "0.33em",
+};
 
 const ttStyle = {
   background: "#1e1e2e",
@@ -224,10 +238,22 @@ const yScaleH = computed(() =>
     padding: 0.3,
   }),
 );
-const yTickPropsH = { fill: "#ffffff55", fontSize: 11, textAnchor: "end" as const, dx: "-0.3em", dy: "0.33em" };
+const yTickPropsH = {
+  fill: "#ffffff55",
+  fontSize: 11,
+  textAnchor: "end" as const,
+  dx: "-0.3em",
+  dy: "0.33em",
+};
 
-const { showTooltip: showTooltip2, hideTooltip: hideTooltip2, tooltipOpen: tooltipOpen2, tooltipData: tooltipData2, tooltipLeft: tooltipLeft2, tooltipTop: tooltipTop2 } =
-  useTooltip<LetterFrequency>();
+const {
+  showTooltip: showTooltip2,
+  hideTooltip: hideTooltip2,
+  tooltipOpen: tooltipOpen2,
+  tooltipData: tooltipData2,
+  tooltipLeft: tooltipLeft2,
+  tooltipTop: tooltipTop2,
+} = useTooltip<LetterFrequency>();
 
 function handleBarHover2(e: MouseEvent, d: LetterFrequency) {
   const pt = localPoint(e) ?? { x: 0, y: 0 };
@@ -257,11 +283,21 @@ function handleBarHover2(e: MouseEvent, d: LetterFrequency) {
   transition: all 0.15s;
 }
 .controls button.active {
-  background: #00DC82;
-  border-color: #00DC82;
+  background: #00dc82;
+  border-color: #00dc82;
   color: #fff;
 }
-.tt-label { font-size: 11px; color: #ffffff88; margin-bottom: 2px; }
-.tt-value { font-size: 15px; font-weight: 600; color: #00DC82; }
-.tt-green { color: #00DC82; }
+.tt-label {
+  font-size: 11px;
+  color: #ffffff88;
+  margin-bottom: 2px;
+}
+.tt-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: #00dc82;
+}
+.tt-green {
+  color: #00dc82;
+}
 </style>

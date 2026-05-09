@@ -55,7 +55,8 @@
   </ExamplePage>
 </template>
 
-<script setup lang="ts">import { computed } from "vue";
+<script setup lang="ts">
+import { computed } from "vue";
 import { Arc } from "@visx-vue/shape";
 import { Group } from "@visx-vue/group";
 import { Chord, Ribbon } from "@visx-vue/chord";

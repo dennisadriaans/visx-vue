@@ -55,11 +55,11 @@ claude mcp add lightpanda -- $HOME/.local/bin/lightpanda mcp
 
 ## Three Ways to Use Lightpanda
 
-| Interface | Best for | Command |
-|-----------|----------|---------|
-| **MCP server** | Agent workflows, interactive browsing | `lightpanda mcp` |
-| **CLI fetch** | Quick one-off page extraction | `lightpanda fetch --dump markdown URL` |
-| **CDP server** | Custom Playwright/Puppeteer automation | `lightpanda serve --port 9222` |
+| Interface      | Best for                               | Command                                |
+| -------------- | -------------------------------------- | -------------------------------------- |
+| **MCP server** | Agent workflows, interactive browsing  | `lightpanda mcp`                       |
+| **CLI fetch**  | Quick one-off page extraction          | `lightpanda fetch --dump markdown URL` |
+| **CDP server** | Custom Playwright/Puppeteer automation | `lightpanda serve --port 9222`         |
 
 ## Platform Support
 

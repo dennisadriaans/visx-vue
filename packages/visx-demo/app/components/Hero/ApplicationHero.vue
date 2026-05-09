@@ -28,7 +28,7 @@
       <template #title> visx-vue </template>
 
       <template #description>
-        visx-vue a collection of expressive, low-level visualization primitives for Vue     
+        visx-vue a collection of expressive, low-level visualization primitives for Vue
       </template>
 
       <template #links>
@@ -56,6 +56,5 @@
         </div>
       </div>
     </UPageHero>
-
   </div>
 </template>

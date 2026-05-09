@@ -6,7 +6,7 @@
         class="text-sm text-muted inline-flex items-center gap-1 mb-3 hover:text-highlighted transition-colors"
       >
         <UIcon name="i-lucide-chevron-left"></UIcon>
-        {{ backLabel ?? 'Gallery' }}
+        {{ backLabel ?? "Gallery" }}
       </ULink>
       <h1
         class="text-[clamp(2rem,5vw,3.25rem)] font-bold tracking-tight leading-none text-highlighted"
@@ -44,7 +44,8 @@
   </UContainer>
 </template>
 
-<script setup lang="ts">defineProps<{
+<script setup lang="ts">
+defineProps<{
   title: string;
   description?: string;
   packages?: string[];

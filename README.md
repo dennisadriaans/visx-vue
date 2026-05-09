@@ -19,10 +19,8 @@
   <a href="#contributing">Contributing</a>
 </p>
 
-
 > [!WARNING]
-> This project is currently **experimental** and under active development. 
-
+> This project is currently **experimental** and under active development.
 
 ---
 
@@ -42,86 +40,87 @@ Each package is standalone. Peer dependency: `vue ^3.4.0`.
 
 ### Primitives
 
-| Package | Components |
-|---|---|
-| `@visx-vue/shape` | `Arc`, `Area`, `AreaClosed`, `AreaStack`, `Bar`, `BarGroup`, `BarGroupHorizontal`, `BarRounded`, `BarStack`, `BarStackHorizontal`, `Circle`, `Line`, `LinePath`, `LineRadial`, `Pie`, `Polygon`, `SplitLinePath`, `Stack` |
-| `@visx-vue/group` | `Group` |
-| `@visx-vue/text` | SVG text with word-wrap |
-| `@visx-vue/clip-path` | `ClipPath` |
-| `@visx-vue/marker` | SVG marker definitions |
-| `@visx-vue/glyph` | Glyph shapes for scatterplots |
+| Package               | Components                                                                                                                                                                                                                |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@visx-vue/shape`     | `Arc`, `Area`, `AreaClosed`, `AreaStack`, `Bar`, `BarGroup`, `BarGroupHorizontal`, `BarRounded`, `BarStack`, `BarStackHorizontal`, `Circle`, `Line`, `LinePath`, `LineRadial`, `Pie`, `Polygon`, `SplitLinePath`, `Stack` |
+| `@visx-vue/group`     | `Group`                                                                                                                                                                                                                   |
+| `@visx-vue/text`      | SVG text with word-wrap                                                                                                                                                                                                   |
+| `@visx-vue/clip-path` | `ClipPath`                                                                                                                                                                                                                |
+| `@visx-vue/marker`    | SVG marker definitions                                                                                                                                                                                                    |
+| `@visx-vue/glyph`     | Glyph shapes for scatterplots                                                                                                                                                                                             |
 
 ### Axes & Grids
 
-| Package | Components |
-|---|---|
-| `@visx-vue/axis` | `Axis`, `AxisBottom`, `AxisTop`, `AxisLeft`, `AxisRight` |
+| Package          | Components                                                                |
+| ---------------- | ------------------------------------------------------------------------- |
+| `@visx-vue/axis` | `Axis`, `AxisBottom`, `AxisTop`, `AxisLeft`, `AxisRight`                  |
 | `@visx-vue/grid` | `Grid`, `GridRows`, `GridColumns`, `GridAngle`, `GridPolar`, `GridRadial` |
 
 ### Scale
 
-| Package | Exports |
-|---|---|
+| Package           | Exports                                           |
+| ----------------- | ------------------------------------------------- |
 | `@visx-vue/scale` | `createScale`, scale operators, D3 scale wrappers |
-| `@visx-vue/curve` | D3 curve presets |
+| `@visx-vue/curve` | D3 curve presets                                  |
 
 ### Chart Types
 
-| Package | Components |
-|---|---|
-| `@visx-vue/xychart` | Full XY chart system with context, hooks, themes |
-| `@visx-vue/hierarchy` | `Tree`, `Treemap`, `Pack`, `Cluster`, `Partition` |
-| `@visx-vue/network` | `Graph`, `Nodes`, `Links` |
-| `@visx-vue/heatmap` | `HeatmapRect`, `HeatmapCircle` |
-| `@visx-vue/chord` | Chord diagrams |
-| `@visx-vue/sankey` | Sankey diagrams |
-| `@visx-vue/geo` | `Mercator`, `Albers`, `AlbersUsa`, `Orthographic`, `NaturalEarth`, `EqualEarth`, `CustomProjection`, `Graticule` |
-| `@visx-vue/wordcloud` | `Wordcloud` |
-| `@visx-vue/delaunay` | Delaunay triangulation |
-| `@visx-vue/voronoi` | Voronoi diagrams |
-| `@visx-vue/stats` | Statistical charts |
-| `@visx-vue/threshold` | Threshold areas |
+| Package               | Components                                                                                                       |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `@visx-vue/xychart`   | Full XY chart system with context, hooks, themes                                                                 |
+| `@visx-vue/hierarchy` | `Tree`, `Treemap`, `Pack`, `Cluster`, `Partition`                                                                |
+| `@visx-vue/network`   | `Graph`, `Nodes`, `Links`                                                                                        |
+| `@visx-vue/heatmap`   | `HeatmapRect`, `HeatmapCircle`                                                                                   |
+| `@visx-vue/chord`     | Chord diagrams                                                                                                   |
+| `@visx-vue/sankey`    | Sankey diagrams                                                                                                  |
+| `@visx-vue/geo`       | `Mercator`, `Albers`, `AlbersUsa`, `Orthographic`, `NaturalEarth`, `EqualEarth`, `CustomProjection`, `Graticule` |
+| `@visx-vue/wordcloud` | `Wordcloud`                                                                                                      |
+| `@visx-vue/delaunay`  | Delaunay triangulation                                                                                           |
+| `@visx-vue/voronoi`   | Voronoi diagrams                                                                                                 |
+| `@visx-vue/stats`     | Statistical charts                                                                                               |
+| `@visx-vue/threshold` | Threshold areas                                                                                                  |
 
 ### Interaction
 
-| Package | Exports |
-|---|---|
-| `@visx-vue/tooltip` | `Tooltip`, `TooltipWithBounds`, `TooltipInPortal`, `useTooltip`, `useTooltipInPortal` |
-| `@visx-vue/zoom` | `Zoom`, `useZoom` |
-| `@visx-vue/brush` | `Brush`, `BaseBrush` |
-| `@visx-vue/drag` | `Drag`, `useDrag` |
-| `@visx-vue/event` | Mouse/touch event utilities |
-| `@visx-vue/bounds` | Element bounds composable |
-| `@visx-vue/responsive` | Responsive container composable |
+| Package                | Exports                                                                               |
+| ---------------------- | ------------------------------------------------------------------------------------- |
+| `@visx-vue/tooltip`    | `Tooltip`, `TooltipWithBounds`, `TooltipInPortal`, `useTooltip`, `useTooltipInPortal` |
+| `@visx-vue/zoom`       | `Zoom`, `useZoom`                                                                     |
+| `@visx-vue/brush`      | `Brush`, `BaseBrush`                                                                  |
+| `@visx-vue/drag`       | `Drag`, `useDrag`                                                                     |
+| `@visx-vue/event`      | Mouse/touch event utilities                                                           |
+| `@visx-vue/bounds`     | Element bounds composable                                                             |
+| `@visx-vue/responsive` | Responsive container composable                                                       |
 
 ### Decoration
 
-| Package | Exports |
-|---|---|
-| `@visx-vue/legend` | `Legend`, `Linear`, `Ordinal`, `Quantile`, `Size`, `Threshold` |
-| `@visx-vue/gradient` | SVG gradient definitions |
-| `@visx-vue/pattern` | SVG pattern definitions |
-| `@visx-vue/annotation` | Chart annotations |
+| Package                | Exports                                                        |
+| ---------------------- | -------------------------------------------------------------- |
+| `@visx-vue/legend`     | `Legend`, `Linear`, `Ordinal`, `Quantile`, `Size`, `Threshold` |
+| `@visx-vue/gradient`   | SVG gradient definitions                                       |
+| `@visx-vue/pattern`    | SVG pattern definitions                                        |
+| `@visx-vue/annotation` | Chart annotations                                              |
 
 ### Utilities
 
-| Package | Exports |
-|---|---|
-| `@visx-vue/point` | Point math |
-| `@visx-vue/spring` | Spring animation helpers |
+| Package               | Exports                         |
+| --------------------- | ------------------------------- |
+| `@visx-vue/point`     | Point math                      |
+| `@visx-vue/spring`    | Spring animation helpers        |
 | `@visx-vue/mock-data` | Sample datasets for development |
-| `@visx-vue/vendor` | Vendored D3 internals |
+| `@visx-vue/vendor`    | Vendored D3 internals           |
 
 ## Usage
 
 ```vue
-<script setup lang="ts">import { BarStack } from '@visx-vue/shape'
-import { AxisBottom, AxisLeft } from '@visx-vue/axis'
-import { createScale } from '@visx-vue/scale'
-import { Grid } from '@visx-vue/grid'
-import { useTooltip, TooltipWithBounds } from '@visx-vue/tooltip'
+<script setup lang="ts">
+import { BarStack } from "@visx-vue/shape";
+import { AxisBottom, AxisLeft } from "@visx-vue/axis";
+import { createScale } from "@visx-vue/scale";
+import { Grid } from "@visx-vue/grid";
+import { useTooltip, TooltipWithBounds } from "@visx-vue/tooltip";
 
-const { tooltipData, tooltipLeft, tooltipTop, showTooltip, hideTooltip } = useTooltip()
+const { tooltipData, tooltipLeft, tooltipTop, showTooltip, hideTooltip } = useTooltip();
 </script>
 
 <template>

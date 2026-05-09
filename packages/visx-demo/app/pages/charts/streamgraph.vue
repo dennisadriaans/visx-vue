@@ -1,4 +1,5 @@
-<script setup lang="ts">import { computed, ref } from "vue";
+<script setup lang="ts">
+import { computed, ref } from "vue";
 import { Stack } from "@visx-vue/shape";
 import { PatternCircles, PatternWaves } from "@visx-vue/pattern";
 import { scaleLinear, scaleOrdinal } from "@visx-vue/scale";

@@ -1,4 +1,5 @@
-<script setup lang="ts">import { computed, ref } from "vue";
+<script setup lang="ts">
+import { computed, ref } from "vue";
 import { Arc } from "@visx-vue/shape";
 import { Group } from "@visx-vue/group";
 import { GradientLightgreenGreen } from "@visx-vue/gradient";

@@ -17,8 +17,12 @@
   >
     <!-- Toggle -->
     <div class="controls">
-      <button :class="{ active: variant === 'single' }" @click="variant = 'single'">Single Area</button>
-      <button :class="{ active: variant === 'stacked' }" @click="variant = 'stacked'">Stacked Area</button>
+      <button :class="{ active: variant === 'single' }" @click="variant = 'single'">
+        Single Area
+      </button>
+      <button :class="{ active: variant === 'stacked' }" @click="variant = 'stacked'">
+        Stacked Area
+      </button>
     </div>
 
     <!-- Single Area Chart -->
@@ -26,7 +30,17 @@
       <div ref="parentRef" class="chart-outer bg-elevated/40 rounded-xl" @mouseleave="hideTooltip">
         <svg v-if="width > 0" :width="width" :height="height" @mousemove="handleMouseMove">
           <defs>
-            <LinearGradient id="area-fill" from="#00DC82" to="#00DC82" :from-opacity="0.4" :to-opacity="0.05" x1="0" y1="0" x2="0" y2="1" />
+            <LinearGradient
+              id="area-fill"
+              from="#00DC82"
+              to="#00DC82"
+              :from-opacity="0.4"
+              :to-opacity="0.05"
+              x1="0"
+              y1="0"
+              x2="0"
+              y2="1"
+            />
           </defs>
           <rect :width="width" :height="height" fill="transparent" :rx="12" />
           <Group :left="margin.left" :top="margin.top">
@@ -209,7 +223,13 @@ const priceScale = computed(() =>
 );
 
 const xTickProps = { fill: "#ffffff55", fontSize: 11, textAnchor: "middle" as const };
-const yTickProps = { fill: "#ffffff55", fontSize: 11, textAnchor: "end" as const, dx: "-0.3em", dy: "0.33em" };
+const yTickProps = {
+  fill: "#ffffff55",
+  fontSize: 11,
+  textAnchor: "end" as const,
+  dx: "-0.3em",
+  dy: "0.33em",
+};
 
 const ttStyle = {
   background: "#1e1e2e",
@@ -223,14 +243,15 @@ const ttStyle = {
 const { showTooltip, hideTooltip, tooltipData, tooltipLeft } = useTooltip<AppleStock>();
 
 function handleMouseMove(e: MouseEvent) {
-  const svg = (e.currentTarget as SVGElement);
+  const svg = e.currentTarget as SVGElement;
   const pt = localPoint(svg, e);
   if (!pt) return;
   const x0 = dateScale.value.invert(pt.x - margin.left);
   const idx = bisectDate(stock, x0, 1);
   const d0 = stock[idx - 1];
   const d1 = stock[idx];
-  const d = d1 && x0.valueOf() - getDate(d0).valueOf() > getDate(d1).valueOf() - x0.valueOf() ? d1 : d0;
+  const d =
+    d1 && x0.valueOf() - getDate(d0).valueOf() > getDate(d1).valueOf() - x0.valueOf() ? d1 : d0;
   showTooltip({ tooltipData: d, tooltipLeft: pt.x, tooltipTop: pt.y });
 }
 
@@ -244,7 +265,7 @@ const formatDateS = timeFormat("%b '%y");
 const browserData = browserUsage as BrowserUsage[];
 type BrowserKey = keyof BrowserUsage;
 const browserKeys = Object.keys(browserData[0]).filter((k) => k !== "date") as BrowserKey[];
-const getDateS = (d: BrowserUsage) => (parseDate(d.date) as Date);
+const getDateS = (d: BrowserUsage) => parseDate(d.date) as Date;
 
 const stackColors: Record<string, string> = {
   "Google Chrome": "#00DC82",
@@ -295,12 +316,20 @@ const yScaleS = computed(() => scaleLinear<number>({ range: [yMaxS.value, 0], do
   transition: all 0.15s;
 }
 .controls button.active {
-  background: #00DC82;
-  border-color: #00DC82;
+  background: #00dc82;
+  border-color: #00dc82;
   color: #fff;
 }
-.tt-label { font-size: 11px; color: #ffffff88; margin-bottom: 2px; }
-.tt-value { font-size: 15px; font-weight: 600; color: #00DC82; }
+.tt-label {
+  font-size: 11px;
+  color: #ffffff88;
+  margin-bottom: 2px;
+}
+.tt-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: #00dc82;
+}
 .legend {
   display: flex;
   flex-wrap: wrap;
