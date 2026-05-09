@@ -6,6 +6,14 @@
 </p>
 
 <p align="center">
+  <a href="https://nuxtcharts.com/visx-vue/">
+    <img src="https://nuxtcharts.com/visx-vue/hero-image.png" alt="visx-vue" width="100%">
+  </a>
+</p>
+
+> **Experimental** — may be used in a future version of [nuxt-charts](https://nuxtcharts.com/visx-vue/).
+
+<p align="center">
   <img src="https://img.shields.io/badge/Vue-3.4+-42b883?style=flat-square" alt="Vue 3.4+">
   <img src="https://img.shields.io/badge/TypeScript-5.x-3178c6?style=flat-square" alt="TypeScript">
   <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="MIT License">
