@@ -11,7 +11,7 @@
   </a>
 </p>
 
-> **Experimental** — may be used in a future version of [nuxt-charts](https://nuxtcharts.com/visx-vue/).
+> **Experimental** — may be used in a future version of [nuxt-charts](https://nuxtcharts.com/).
 
 <p align="center">
   <img src="https://img.shields.io/badge/Vue-3.4+-42b883?style=flat-square" alt="Vue 3.4+">
@@ -24,7 +24,8 @@
   <a href="#packages">Packages</a> -
   <a href="#usage">Usage</a> -
   <a href="#development">Development</a> -
-  <a href="#contributing">Contributing</a>
+  <a href="#contributing">Contributing</a> -
+  <a href="https://nuxtcharts.com/visx-vue/">Examples</a>
 </p>
 
 > [!WARNING]
