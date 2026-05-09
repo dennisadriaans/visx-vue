@@ -8,7 +8,6 @@ import type {
   SizeAccessor,
   ShapeStyleAccessor,
 } from "../../types";
-import type { CSSProperties } from "vue";
 
 export type LegendShapeProps<Data, Output> = {
   /** The formatted label object containing datum, index, text, and optional value */

@@ -8,14 +8,14 @@ export interface Bin {
 
 const defaultCount: CountFunction = (idx, number) => Math.random() * (25 * (number - idx));
 
-const defaultBin: BinFunction = (idx, length) => idx * 150;
+const defaultBin: BinFunction = (idx, _length) => idx * 150;
 
 export default function genBin(
   length: number,
   bin: BinFunction = defaultBin,
   count: CountFunction = defaultCount,
 ): Bin[] {
-  return new Array(length).fill(1).reduce(
+  return Array.from({ length }).reduce(
     (data, d, i) =>
       data.concat([
         {

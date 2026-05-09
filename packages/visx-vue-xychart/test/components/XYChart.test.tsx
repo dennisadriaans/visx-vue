@@ -1,8 +1,8 @@
 // @vitest-environment jsdom
-import { describe, it, expect, vi, beforeAll, afterAll } from "vite-plus/test";
+import { describe, it, expect, vi } from "vite-plus/test";
 import { mount, flushPromises } from "@vue/test-utils";
 import { defineComponent, h, nextTick } from "vue";
-import { XYChart, DataProvider, DataContextKey } from "../../src";
+import { XYChart, DataProvider } from "../../src";
 import { useDataContext } from "../../src/context/DataContext";
 
 const chartProps = {

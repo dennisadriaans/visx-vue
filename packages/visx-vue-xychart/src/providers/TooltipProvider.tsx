@@ -1,4 +1,4 @@
-import { defineComponent, provide, ref, onScopeDispose, type PropType } from "vue";
+import { defineComponent, provide, onScopeDispose, type PropType } from "vue";
 import debounce from "lodash/debounce";
 import { useTooltip } from "@visx-vue/tooltip";
 import { TooltipContextKey } from "../context/TooltipContext";

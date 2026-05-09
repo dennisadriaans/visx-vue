@@ -2,8 +2,6 @@ import { describe, test, expect, it, vi } from "vite-plus/test";
 import { defineComponent, nextTick, h } from "vue";
 import { mount, flushPromises } from "@vue/test-utils";
 import useTooltipInPortal from "../src/useTooltipInPortal";
-import type { UseTooltipPortalOptions } from "../src/types";
-
 // Mock @vueuse/core useElementBounding to avoid real DOM measurements in jsdom
 vi.mock("@vueuse/core", () => ({
   useElementBounding: () => ({
@@ -27,11 +25,6 @@ vi.mock("@visx-vue/bounds", () => ({
     update: vi.fn(),
   }),
 }));
-
-interface TooltipWithZIndexProps {
-  zIndexOption?: UseTooltipPortalOptions["zIndex"];
-  zIndexProp?: UseTooltipPortalOptions["zIndex"];
-}
 
 const TooltipWithZIndex = defineComponent({
   name: "TooltipWithZIndex",

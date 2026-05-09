@@ -72,8 +72,6 @@ export type BaseAreaStackProps<
   | "enableEvents"
 >;
 
-const identity = (_: unknown) => _;
-
 export default defineComponent({
   name: "BaseAreaStack",
   props: {

@@ -1,15 +1,14 @@
-import { defineComponent, computed, ref, watch, onMounted, type PropType } from "vue";
+import { defineComponent, computed, ref, watch, type PropType } from "vue";
 import type { AxisScale } from "@visx-vue/axis";
 import { BarRounded } from "@visx-vue/shape";
 import type { Bar, BarsProps } from "../../../types";
-import { cleanColor, colorHasUrl } from "../../../utils/cleanColorString";
+import { cleanColor } from "../../../utils/cleanColorString";
 import getScaleBaseline from "../../../utils/getScaleBaseline";
 import AnimatedPath from "./AnimatedPath";
 
 export type { BarsProps };
 
-function getBarTransitionStyle(bar: Bar, scale: AxisScale, horizontal?: boolean) {
-  const scaleBaseline = getScaleBaseline(scale);
+function getBarTransitionStyle(bar: Bar, _scale: AxisScale, _horizontal?: boolean) {
   return {
     x: bar.x,
     y: bar.y,
@@ -203,7 +202,7 @@ const AnimatedBarsUnrounded = defineComponent({
       const isFocusable = Boolean(props.onFocus || props.onBlur);
       return (
         <>
-          {animatedBars.value.map(({ key, style, removing }) => (
+          {animatedBars.value.map(({ key, style }) => (
             <rect
               key={key}
               tabindex={isFocusable ? 0 : undefined}

@@ -1,5 +1,4 @@
 import { defineComponent, type PropType } from "vue";
-import type { LinkProvidedProps } from "./types";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const DefaultLink = defineComponent({

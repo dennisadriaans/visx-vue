@@ -31,7 +31,7 @@ describe("<LegendThreshold />", () => {
       const legendItem = legendItems[index];
       const legendShape = legendItem?.find(".visx-legend-shape");
       const shapeDiv = legendShape?.find("div");
-      expect((shapeDiv?.element as HTMLElement).style.background).toBe(color);
+      expect((shapeDiv!.element as HTMLElement).style.background).toBe(color);
     });
   });
 
@@ -54,7 +54,7 @@ describe("<LegendThreshold />", () => {
       const legendItem = legendItems[index];
       const legendShape = legendItem?.find(".visx-legend-shape");
       const shapeDiv = legendShape?.find("div");
-      expect((shapeDiv?.element as HTMLElement).style.background).toBe(color);
+      expect((shapeDiv!.element as HTMLElement).style.background).toBe(color);
     });
   });
 
@@ -77,7 +77,7 @@ describe("<LegendThreshold />", () => {
       const legendItem = legendItems[index];
       const legendShape = legendItem?.find(".visx-legend-shape");
       const shapeDiv = legendShape?.find("div");
-      expect((shapeDiv?.element as HTMLElement).style.background).toBe(color);
+      expect((shapeDiv!.element as HTMLElement).style.background).toBe(color);
     });
   });
 });

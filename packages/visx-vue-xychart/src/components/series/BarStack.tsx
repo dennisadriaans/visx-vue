@@ -1,7 +1,6 @@
 import { defineComponent, type PropType } from "vue";
 import type { StackOffset, StackOrder } from "@visx-vue/shape";
 import type { AxisScale } from "@visx-vue/axis";
-import type { ScaleInput } from "@visx-vue/scale";
 import type { SeriesProps } from "../../types";
 import BaseBarStack from "./private/BaseBarStack";
 import type { BaseBarStackProps, BarStackSeriesConfig } from "./private/BaseBarStack";

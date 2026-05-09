@@ -1,6 +1,5 @@
 import { defineComponent, useAttrs, useSlots, type PropType } from "vue";
 import { Group } from "@visx-vue/group";
-import type { GeoGraticuleGenerator } from "@visx-vue/vendor/d3-geo";
 import { geoGraticule } from "@visx-vue/vendor/d3-geo";
 import type { LineString, MultiLineString, Polygon } from "geojson";
 

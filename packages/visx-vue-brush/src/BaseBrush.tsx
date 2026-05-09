@@ -361,7 +361,7 @@ export const BaseBrush = defineComponent({
     function handleWindowPointerUp() {
       if (props.useWindowMoveEvents && state.brushingType) {
         updateBrush((prevBrush: BaseBrushState) => {
-          const { start, end, extent } = prevBrush;
+          const { start: _start, end: _end, extent } = prevBrush;
           const newStart = {
             x: Math.min(extent.x0, extent.x1),
             y: Math.min(extent.y0, extent.y0),

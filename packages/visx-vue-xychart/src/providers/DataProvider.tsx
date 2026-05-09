@@ -1,9 +1,9 @@
 import { defineComponent, computed, provide, inject, type PropType } from "vue";
-import type { ScaleConfig, ScaleConfigToD3Scale } from "@visx-vue/scale";
+import type { ScaleConfig } from "@visx-vue/scale";
 import { scaleLinear, scaleOrdinal as createOrdinalScale } from "@visx-vue/scale";
 import type { AxisScaleOutput } from "@visx-vue/axis";
 import type { ResizeObserverPolyfill } from "@visx-vue/responsive";
-import type { AxisScale, DataContextType, XYChartTheme, Margin } from "../types";
+import type { AxisScale, DataContextType, XYChartTheme } from "../types";
 import { ThemeContextKey } from "../context/ThemeContext";
 import { DataContextKey } from "../context/DataContext";
 import useDataRegistry from "../hooks/useDataRegistry";

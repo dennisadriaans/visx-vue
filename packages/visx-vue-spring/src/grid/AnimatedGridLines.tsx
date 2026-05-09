@@ -1,7 +1,6 @@
 import { defineComponent, type PropType, type CSSProperties } from "vue";
-import type { GridScale, GridLines, CommonGridProps } from "@visx-vue/grid";
+import type { GridScale, GridLines } from "@visx-vue/grid";
 import useLineTransitionConfig from "../spring-configs/useLineTransitionConfig";
-import type { TransitionConfig } from "../spring-configs/useLineTransitionConfig";
 import type { AnimationTrajectory } from "../types";
 
 export default defineComponent({

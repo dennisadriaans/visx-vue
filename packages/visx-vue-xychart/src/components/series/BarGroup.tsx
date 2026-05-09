@@ -1,6 +1,5 @@
 import { defineComponent, type PropType } from "vue";
 import type { AxisScale } from "@visx-vue/axis";
-import type { ScaleInput } from "@visx-vue/scale";
 import type { SeriesProps } from "../../types";
 import BaseBarGroup from "./private/BaseBarGroup";
 import type { BaseBarGroupProps, BarGroupSeriesConfig } from "./private/BaseBarGroup";

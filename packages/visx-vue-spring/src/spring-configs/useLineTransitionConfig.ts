@@ -1,4 +1,3 @@
-import { computed, type Ref, isRef } from "vue";
 import { coerceNumber } from "@visx-vue/scale";
 import type { AxisScale } from "@visx-vue/axis";
 import type { GridScale } from "@visx-vue/grid";

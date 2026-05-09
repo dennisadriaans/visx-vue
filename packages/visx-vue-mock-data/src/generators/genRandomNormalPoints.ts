@@ -7,7 +7,7 @@ export type PointsRange = [number, number, number];
 const sqrt3: number = Math.sqrt(3);
 
 function range(length: number): number[] {
-  return new Array(length).fill(1);
+  return Array.from({ length });
 }
 
 export function genPointsRange(

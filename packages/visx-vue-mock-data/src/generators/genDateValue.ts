@@ -14,7 +14,7 @@ export default function genDateValue(
 ): DateValue[] {
   const random = seed == null ? Math.random : getSeededRandom(seed);
   const startDateMs = startTimeMs == null ? Date.now() : new Date(startTimeMs).valueOf();
-  return new Array(length).fill(1).map((_, idx: number) => ({
+  return Array.from({ length }).map((_, idx: number) => ({
     date: new Date(startDateMs - idx * 3600000),
     // eslint-disable-next-line no-bitwise
     value: (random() * 3000) | 0,

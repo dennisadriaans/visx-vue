@@ -118,7 +118,7 @@ export const BrushCorner = defineComponent({
 
     function cornerDragEnd() {
       props.updateBrush((prevBrush: Readonly<BaseBrushState>) => {
-        const { start, end, extent } = prevBrush;
+        const { extent } = prevBrush;
         const newStart = {
           x: Math.min(extent.x0, extent.x1),
           y: Math.min(extent.y0, extent.y0),

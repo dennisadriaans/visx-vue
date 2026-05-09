@@ -35,14 +35,14 @@ const data = letterFrequency.slice(2, 12);
 const getY = (d: (typeof data)[0]) => d.frequency;
 
 function genAngles(length: number) {
-  return new Array(length + 1).fill().map((_, i) => ({
+  return Array.from({ length: length + 1 }, (_, i) => ({
     angle: i * (degrees / length) + (length % 2 === 0 ? 0 : degrees / length / 2),
   }));
 }
 
 function genPoints(length: number, radius: number) {
   const step = (Math.PI * 2) / length;
-  return new Array(length).fill().map((_, i) => ({
+  return Array.from({ length }, (_, i) => ({
     x: radius * Math.sin(i * step),
     y: radius * Math.cos(i * step),
   }));

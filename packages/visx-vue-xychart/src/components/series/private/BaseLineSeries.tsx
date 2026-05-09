@@ -1,12 +1,4 @@
-import {
-  defineComponent,
-  computed,
-  inject,
-  watchEffect,
-  type Component,
-  type PropType,
-  type VNode,
-} from "vue";
+import { defineComponent, computed, inject, watchEffect, type Component, type PropType } from "vue";
 import { LinePath } from "@visx-vue/shape";
 import type { CurveFactory, CurveFactoryLineOnly } from "@visx-vue/vendor/d3-shape";
 import type { AxisScale } from "@visx-vue/axis";

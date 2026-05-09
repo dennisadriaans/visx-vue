@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { describe, it, expect } from "vite-plus/test";
 import { mount } from "@vue/test-utils";
-import { defineComponent, h } from "vue";
+import { defineComponent } from "vue";
 import useDataRegistry from "../../src/hooks/useDataRegistry";
 
 describe("useDataRegistry", () => {

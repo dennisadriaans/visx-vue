@@ -1,10 +1,7 @@
 import { defineComponent, computed, useSlots, type Component, type PropType } from "vue";
 import type { ScaleInput } from "@visx-vue/scale";
 import { coerceNumber } from "@visx-vue/scale";
-import type {
-  AnnotationProps as VisxAnnotationProps,
-  EditableAnnotationProps,
-} from "@visx-vue/annotation";
+import type { EditableAnnotationProps } from "@visx-vue/annotation";
 import { useDataContext } from "../../../context/DataContext";
 import getScaleBandwidth from "../../../utils/getScaleBandwidth";
 import isValidNumber from "../../../typeguards/isValidNumber";

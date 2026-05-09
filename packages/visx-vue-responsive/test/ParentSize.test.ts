@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vite-plus/test";
-import { mount, flushPromises } from "@vue/test-utils";
-import { defineComponent, h, nextTick } from "vue";
+import { mount } from "@vue/test-utils";
+import { h, nextTick } from "vue";
 import { ParentSize } from "../src";
 
 // ---------------------------------------------------------------------------
@@ -77,7 +77,7 @@ describe("<ParentSize />", () => {
         ) => ResizeObserver,
       },
       slots: {
-        default: (props: Record<string, unknown>) => h("div", { "data-testid": "test" }),
+        default: (_props: Record<string, unknown>) => h("div", { "data-testid": "test" }),
       },
     });
     expect(wrapper.find('[data-testid="test"]').exists()).toBe(true);

@@ -3,7 +3,10 @@ import { mount } from "@vue/test-utils";
 import { Polygon } from "../src";
 
 describe("<Polygon />", () => {
-  const polygon: [number, number][] = new Array(3).fill(null).map((_, i) => [i, i]);
+  const polygon: [number, number][] = Array.from(
+    { length: 3 },
+    (_, i) => [i, i] as [number, number],
+  );
 
   const props = { polygon };
 

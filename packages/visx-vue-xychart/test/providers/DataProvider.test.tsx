@@ -3,7 +3,7 @@ import { describe, it, expect } from "vite-plus/test";
 import { mount, flushPromises } from "@vue/test-utils";
 import { defineComponent, onMounted, nextTick } from "vue";
 import DataProvider from "../../src/providers/DataProvider";
-import { DataContextKey, useDataContext } from "../../src/context/DataContext";
+import { useDataContext } from "../../src/context/DataContext";
 
 describe("<DataProvider />", () => {
   it("should be defined", () => {

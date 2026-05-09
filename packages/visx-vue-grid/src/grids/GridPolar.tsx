@@ -1,7 +1,6 @@
-import { defineComponent, useAttrs, type PropType, type CSSProperties } from "vue";
+import { defineComponent, type PropType, type CSSProperties } from "vue";
 import { Group } from "@visx-vue/group";
 import type { ScaleInput } from "@visx-vue/scale";
-import type { LineProps } from "@visx-vue/shape";
 import GridAngle from "./GridAngle";
 import GridRadial from "./GridRadial";
 import type { CommonGridProps, GridScale } from "../types";

@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { describe, it, expect, vi } from "vite-plus/test";
 import { mount, flushPromises } from "@vue/test-utils";
-import { defineComponent, onMounted } from "vue";
+import { defineComponent, h, onMounted } from "vue";
 import EventEmitterProvider from "../../src/providers/EventEmitterProvider";
 import useEventEmitter from "../../src/hooks/useEventEmitter";
 import useEventHandlers, { POINTER_EVENTS_ALL } from "../../src/hooks/useEventHandlers";
@@ -48,7 +48,7 @@ describe("useEventHandlers", () => {
         },
       },
       slots: {
-        default: () => <child />,
+        default: () => h(child),
       },
     });
   }

@@ -1,4 +1,4 @@
-import { defineComponent, useAttrs, type PropType, type SVGAttributes } from "vue";
+import { defineComponent, type PropType, type SVGAttributes } from "vue";
 import type { AnnotationContextType } from "../types";
 import { useAnnotationContext } from "../context";
 

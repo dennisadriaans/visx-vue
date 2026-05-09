@@ -1,4 +1,4 @@
-import { describe, it, test, expect } from "vitest";
+import { describe, test, expect } from "vitest";
 import { browserUsage } from "../src";
 
 describe("mocks/browserUsage", () => {

@@ -25,7 +25,7 @@ export const getPoints = ({
   center,
   rotate,
 }: NonNullable<Pick<PolygonProps, "sides" | "size" | "center" | "rotate">>) =>
-  new Array(sides).fill(0).map((_, side) =>
+  Array.from({ length: sides }, (_, side) =>
     getPoint({
       sides,
       size,

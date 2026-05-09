@@ -20,7 +20,7 @@ describe("voronoi", () => {
   });
 
   test("100 random points should give 100 cell polygons", () => {
-    const data = new Array(100).fill(null).map(() => ({
+    const data = Array.from({ length: 100 }, () => ({
       x: Math.random(),
       y: Math.random(),
     }));

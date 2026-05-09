@@ -4,7 +4,7 @@ import { mount, flushPromises } from "@vue/test-utils";
 import { defineComponent, nextTick } from "vue";
 import DataProvider from "../../src/providers/DataProvider";
 import useStackedData from "../../src/hooks/useStackedData";
-import { DataContextKey, useDataContext } from "../../src/context/DataContext";
+import { useDataContext } from "../../src/context/DataContext";
 
 const seriesAProps = {
   dataKey: "a",

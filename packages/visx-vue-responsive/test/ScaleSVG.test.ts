@@ -1,4 +1,4 @@
-import { describe, test, expect, vi } from "vite-plus/test";
+import { describe, test, expect } from "vite-plus/test";
 import { mount } from "@vue/test-utils";
 import { nextTick, ref } from "vue";
 import { ScaleSVG } from "../src";

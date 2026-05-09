@@ -1,6 +1,6 @@
 import { defineComponent, computed, inject, type Component, type PropType } from "vue";
 import type { SeriesPoint } from "@visx-vue/vendor/d3-shape";
-import type { PositionScale, StackOffset, StackOrder } from "@visx-vue/shape";
+import type { StackOffset, StackOrder } from "@visx-vue/shape";
 import { getFirstItem, getSecondItem, getBandwidth } from "@visx-vue/shape";
 import type { AxisScale } from "@visx-vue/axis";
 import type { ScaleInput } from "@visx-vue/scale";

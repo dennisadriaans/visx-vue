@@ -1,6 +1,6 @@
 import { defineComponent, type PropType } from "vue";
 import useDrag from "./useDrag";
-import type { HandlerArgs, UseDragOptions, UseDrag } from "./types";
+import type { HandlerArgs, UseDragOptions } from "./types";
 
 export type DragProps = UseDragOptions & {
   /** Width of the drag container. */

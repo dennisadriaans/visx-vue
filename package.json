@@ -23,7 +23,6 @@
     "timezone-mock": "^1.4.2",
     "turbo": "^2.8.17",
     "typescript": "^5.9.3",
-    "vite-plus": "file:/opt/hostedtoolcache/node/24.14.0/x64/lib/node_modules/vite-plus",
     "vue": "^3.4.21"
   },
   "packageManager": "pnpm@9.15.3"

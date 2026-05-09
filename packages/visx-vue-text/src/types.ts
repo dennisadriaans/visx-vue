@@ -1,8 +1,5 @@
 import type { CSSProperties } from "vue";
 
-type SVGTSpanProps = Partial<SVGElement>;
-type SVGTextProps = Partial<SVGElement>;
-
 type OwnProps = {
   /** className to apply to the SVGText element. */
   className?: string;

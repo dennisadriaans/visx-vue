@@ -1,8 +1,7 @@
 import { defineComponent, type PropType, type VNode } from "vue";
 import type { AxisScale } from "@visx-vue/axis";
-import type { GlyphProps, GlyphsProps } from "../../../types";
-import { cleanColor, colorHasUrl } from "../../../utils/cleanColorString";
-import getScaleBaseline from "../../../utils/getScaleBaseline";
+import type { GlyphProps } from "../../../types";
+import { colorHasUrl } from "../../../utils/cleanColorString";
 
 export default defineComponent({
   name: "AnimatedGlyphs",

@@ -1,6 +1,6 @@
 import { defineComponent, type PropType, type VNode } from "vue";
 import { Orientation } from "@visx-vue/axis";
-import type { ComputedTick, TicksRendererProps, AxisScale } from "@visx-vue/axis";
+import type { ComputedTick, AxisScale } from "@visx-vue/axis";
 import { Text } from "@visx-vue/text";
 import useLineTransitionConfig from "../spring-configs/useLineTransitionConfig";
 import type { AnimationTrajectory } from "../types";

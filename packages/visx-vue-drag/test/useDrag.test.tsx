@@ -1,8 +1,7 @@
 import { describe, test, expect } from "vite-plus/test";
-import { mount, flushPromises } from "@vue/test-utils";
-import { defineComponent, h, nextTick, ref } from "vue";
+import { mount } from "@vue/test-utils";
+import { defineComponent, h, nextTick } from "vue";
 import { useDrag } from "../src";
-import type { UseDragOptions } from "../src/types";
 
 describe("useDrag", () => {
   test("it should be defined", () => {
@@ -38,8 +37,6 @@ describe("useDrag", () => {
     const options1 = { x: 1, y: 2, dx: 3, dy: 4 };
     const options2 = { x: -1, y: -2, dx: -3, dy: -4 };
 
-    let assertionCount = 0;
-
     const Comp = defineComponent({
       props: {
         x: { type: Number, required: true },
@@ -65,8 +62,6 @@ describe("useDrag", () => {
 
         // Initial assertion – matches options1
         expect(drag).toMatchObject(options1);
-        assertionCount++;
-
         return () => h("div", `${drag.x},${drag.y},${drag.dx},${drag.dy}`);
       },
     });

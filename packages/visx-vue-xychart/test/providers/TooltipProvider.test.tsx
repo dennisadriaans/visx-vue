@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { describe, it, expect, vi } from "vite-plus/test";
+import { describe, it, expect } from "vite-plus/test";
 import { mount, flushPromises } from "@vue/test-utils";
 import { defineComponent, onMounted, nextTick, watchEffect } from "vue";
 import TooltipProvider from "../../src/providers/TooltipProvider";

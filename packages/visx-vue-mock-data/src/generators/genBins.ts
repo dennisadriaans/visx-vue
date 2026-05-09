@@ -14,7 +14,7 @@ export default function genBins(
   bin?: BinFunction,
   count?: CountFunction,
 ): Bins[] {
-  return new Array(length).fill(1).reduce(
+  return Array.from({ length }).reduce(
     (arr, _, i) =>
       arr.concat([
         {

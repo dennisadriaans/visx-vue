@@ -1,4 +1,4 @@
-import { inject, watchEffect, onScopeDispose, ref } from "vue";
+import { inject, onScopeDispose, ref } from "vue";
 import { localPoint } from "@visx-vue/event";
 import { EventEmitterContextKey } from "../context/EventEmitterContext";
 

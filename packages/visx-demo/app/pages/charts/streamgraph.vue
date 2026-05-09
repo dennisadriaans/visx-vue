@@ -31,7 +31,7 @@ function getPoints(array: number[], pointCount: number) {
 }
 
 function generateData(pointCount: number, bumpCount: number): number[] {
-  const arr = new Array(pointCount).fill(0);
+  const arr = Array.from({ length: pointCount }, () => 0);
   for (let i = 0; i < bumpCount; i++) getPoints(arr, pointCount);
   return arr;
 }

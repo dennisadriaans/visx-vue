@@ -56,8 +56,8 @@ export default function genStats(
     const binNum = Math.round((max - min) / binWidth);
     const actualBinWidth = (max - min) / binNum;
 
-    const bins: number[] = new Array(binNum + 2).fill(0);
-    const values: number[] = new Array(binNum + 2).fill(min);
+    const bins: number[] = Array.from({ length: binNum + 2 }, () => 0);
+    const values: number[] = Array.from({ length: binNum + 2 }, () => min);
 
     for (let ii = 1; ii <= binNum; ii += 1) {
       values[ii] += actualBinWidth * (ii - 0.5);

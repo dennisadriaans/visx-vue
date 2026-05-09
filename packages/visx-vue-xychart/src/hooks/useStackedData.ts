@@ -1,4 +1,4 @@
-import { computed, inject, onScopeDispose, toValue, watchEffect } from "vue";
+import { computed, inject, toValue, watchEffect } from "vue";
 import type { MaybeRefOrGetter } from "vue";
 import type { SeriesPoint } from "@visx-vue/vendor/d3-shape";
 import { stack as d3stack } from "@visx-vue/vendor/d3-shape";

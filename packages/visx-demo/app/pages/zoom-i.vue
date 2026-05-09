@@ -101,7 +101,7 @@ const phyllotaxis = computed<PhyllotaxisPoint[]>(() => {
     width: width.value,
     height: height.value,
   });
-  return new Array(1000).fill(null).map((_, i) => gen(i));
+  return Array.from({ length: 1000 }, (_, i) => gen(i));
 });
 
 const zoom = useZoom<SVGSVGElement>({

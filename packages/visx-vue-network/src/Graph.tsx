@@ -4,13 +4,7 @@ import Links from "./Links";
 import Nodes from "./Nodes";
 import DefaultNode from "./DefaultNode";
 import DefaultLink from "./DefaultLink";
-import type {
-  Graph as GraphType,
-  DefaultNode as DefaultNodeType,
-  Link as LinkType,
-  LinkProvidedProps,
-  NodeProvidedProps,
-} from "./types";
+import type { Graph as GraphType } from "./types";
 
 export type GraphProps<Link, Node> = {
   /** Graph to render nodes and links for. */

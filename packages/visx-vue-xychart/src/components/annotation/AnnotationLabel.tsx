@@ -1,4 +1,4 @@
-import { defineComponent, useAttrs, useSlots, type PropType, type SVGAttributes } from "vue";
+import { defineComponent, useAttrs, useSlots, type SVGAttributes } from "vue";
 import { Label as BaseLabel } from "@visx-vue/annotation";
 import type { LabelProps as BaseLabelProps } from "@visx-vue/annotation";
 import { useDataContext } from "../../context/DataContext";

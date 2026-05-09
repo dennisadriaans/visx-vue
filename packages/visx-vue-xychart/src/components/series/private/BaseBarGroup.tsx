@@ -1,5 +1,4 @@
 import { defineComponent, computed, inject, watchEffect, type Component, type PropType } from "vue";
-import type { PositionScale } from "@visx-vue/shape";
 import { scaleBand } from "@visx-vue/scale";
 import type { AxisScale } from "@visx-vue/axis";
 import type { ScaleInput } from "@visx-vue/scale";

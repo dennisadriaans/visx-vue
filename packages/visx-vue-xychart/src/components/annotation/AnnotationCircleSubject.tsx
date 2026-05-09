@@ -1,4 +1,4 @@
-import { defineComponent, useAttrs, type PropType } from "vue";
+import { defineComponent, useAttrs } from "vue";
 import { CircleSubject as BaseCircleSubject } from "@visx-vue/annotation";
 import type { CircleSubjectProps } from "@visx-vue/annotation";
 import { useDataContext } from "../../context/DataContext";

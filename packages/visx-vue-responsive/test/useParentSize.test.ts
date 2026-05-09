@@ -1,6 +1,6 @@
 import { describe, test, expect, vi, beforeEach, afterEach } from "vite-plus/test";
-import { mount, flushPromises } from "@vue/test-utils";
-import { defineComponent, h, nextTick, toRefs } from "vue";
+import { mount } from "@vue/test-utils";
+import { defineComponent, h, nextTick } from "vue";
 import { useParentSize } from "../src";
 
 // ---------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-import { describe, it, test, expect } from "vitest";
+import { describe, test, expect } from "vitest";
 import { groupDateValue } from "../src";
 
 describe("mocks/groupDateValue", () => {

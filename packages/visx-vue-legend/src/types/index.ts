@@ -34,7 +34,7 @@ export type RenderShapeProvidedProps<Data, Output> = {
   style?: CSSProperties;
 };
 
-export type LegendShape<Data, Output> = "rect" | "circle" | "line" | Component;
+export type LegendShape<_Data, _Output> = "rect" | "circle" | "line" | Component;
 
 export type FillAccessor<Datum, Output> = (
   label: FormattedLabel<Datum, Output>,

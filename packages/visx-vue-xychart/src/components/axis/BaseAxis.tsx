@@ -1,4 +1,4 @@
-import { defineComponent, computed, useAttrs, useSlots, type Component, type PropType } from "vue";
+import { defineComponent, computed, useAttrs, type Component, type PropType } from "vue";
 import type { AxisProps as VxAxisProps, TickLabelProps } from "@visx-vue/axis";
 import type { ScaleInput } from "@visx-vue/scale";
 import { useDataContext } from "../../context/DataContext";
