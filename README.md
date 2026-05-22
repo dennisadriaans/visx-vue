@@ -45,7 +45,7 @@ Each package is standalone. Peer dependency: `vue ^3.4.0`.
 
 ## Packages
 
-39 packages organized by visualization concern.
+40 packages organized by visualization concern.
 
 ### Primitives
 
@@ -83,6 +83,7 @@ Each package is standalone. Peer dependency: `vue ^3.4.0`.
 | `@visx-vue/chord`     | Chord diagrams                                                                                                   |
 | `@visx-vue/sankey`    | Sankey diagrams                                                                                                  |
 | `@visx-vue/geo`       | `Mercator`, `Albers`, `AlbersUsa`, `Orthographic`, `NaturalEarth`, `EqualEarth`, `CustomProjection`, `Graticule` |
+| `@visx-vue/maps`      | `DottedMap`, `MapLegend`, dotted-map helpers                                                                     |
 | `@visx-vue/wordcloud` | `Wordcloud`                                                                                                      |
 | `@visx-vue/delaunay`  | Delaunay triangulation                                                                                           |
 | `@visx-vue/voronoi`   | Voronoi diagrams                                                                                                 |

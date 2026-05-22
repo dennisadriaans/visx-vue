@@ -41,6 +41,7 @@
     "@visx-vue/heatmap": "workspace:*",
     "@visx-vue/hierarchy": "workspace:*",
     "@visx-vue/legend": "workspace:*",
+    "@visx-vue/maps": "workspace:*",
     "@visx-vue/marker": "workspace:*",
     "@visx-vue/mock-data": "workspace:*",
     "@visx-vue/network": "workspace:*",
