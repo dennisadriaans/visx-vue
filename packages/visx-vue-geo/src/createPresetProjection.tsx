@@ -1,4 +1,4 @@
-import { defineComponent, type PropType, type VNode, type Ref } from "vue";
+import { defineComponent, h, type PropType, type VNode, type Ref } from "vue";
 import type { ExtendedFeature, GeoProjection } from "@visx-vue/vendor/d3-geo";
 
 import { Projection, type ParsedFeature } from "./Projection";
@@ -67,7 +67,7 @@ export function createPresetProjection(name: string, preset: ProjectionPreset) {
     name,
     props: presetProjectionProps,
     setup(props, { slots }) {
-      return () => <Projection projection={preset} {...props} v-slots={slots} />;
+      return () => h(Projection, { projection: preset, ...props }, slots);
     },
   });
 }

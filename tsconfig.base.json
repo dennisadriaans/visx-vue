@@ -1,12 +1,3 @@
 {
-  "compilerOptions": {
-    "strict": true,
-    "jsx": "react-jsx",
-    "jsxImportSource": "vue",
-    "moduleResolution": "bundler",
-    "target": "ES2020",
-    "module": "ESNext",
-    "skipLibCheck": true,
-    "esModuleInterop": true
-  }
+  "extends": "../tsconfig.base.json"
 }

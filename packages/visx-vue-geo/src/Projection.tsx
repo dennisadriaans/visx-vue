@@ -229,7 +229,6 @@ export const Projection = defineComponent({
             </g>
           ))}
 
-          {/* TODO: Maybe find a different way to pass projection function to use for example invert */}
           {props.projectionFunc?.(currProjection)}
 
           {props.graticule?.foreground && (

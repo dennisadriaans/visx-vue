@@ -37,6 +37,7 @@ export type GraticuleProps = {
 
 export const Graticule = defineComponent({
   name: "Graticule",
+  inheritAttrs: false,
   props: {
     graticule: {
       type: Function as PropType<(multiLineString: MultiLineString) => string>,
@@ -79,25 +80,31 @@ export const Graticule = defineComponent({
       if (slots.default) return <>{slots.default({ graticule: currGraticule })}</>;
 
       return (
-        <Group className="visx-geo-graticule">
-          {props.graticule && (
-            <path d={props.graticule(currGraticule())} fill="none" stroke="black" {...attrs} />
-          )}
-          {props.lines &&
-            currGraticule.lines().map((line, i) => (
-              <g key={i}>
-                <path d={props.lines!(line)} fill="none" stroke="black" {...attrs} />
-              </g>
-            ))}
-          {props.outline && (
-            <path
-              d={props.outline(currGraticule.outline())}
-              fill="none"
-              stroke="black"
-              {...attrs}
-            />
-          )}
-        </Group>
+        <Group
+          className="visx-geo-graticule"
+          v-slots={{
+            default: () => [
+              props.graticule ? (
+                <path d={props.graticule(currGraticule())} fill="none" stroke="black" {...attrs} />
+              ) : null,
+              props.lines
+                ? currGraticule.lines().map((line, i) => (
+                    <g key={i}>
+                      <path d={props.lines!(line)} fill="none" stroke="black" {...attrs} />
+                    </g>
+                  ))
+                : null,
+              props.outline ? (
+                <path
+                  d={props.outline(currGraticule.outline())}
+                  fill="none"
+                  stroke="black"
+                  {...attrs}
+                />
+              ) : null,
+            ],
+          }}
+        />
       );
     };
   },
