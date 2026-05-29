@@ -1,30 +1,30 @@
-import { defineComponent, useAttrs, type Component, type PropType } from "vue";
-import type { CommonGridProps } from "@visx-vue/grid";
-import { useDataContext } from "../../context/DataContext";
+import { defineComponent, useAttrs, type Component, type PropType } from 'vue'
+import type { CommonGridProps } from '@visx-vue/grid'
+import { useDataContext } from '../../context/DataContext'
 
 export type BaseGridProps = {
   /** Whether to render GridRows. */
-  rows?: boolean;
+  rows?: boolean
   /** Whether to render GridColumns. */
-  columns?: boolean;
+  columns?: boolean
   /** Rendered GridRows component which is passed GridRowProps by BaseGrid. */
-  GridRowsComponent: Component;
+  GridRowsComponent: Component
   /** Rendered GridColumns component which is passed GridColumnsProps by BaseGrid. */
-  GridColumnsComponent: Component;
-} & CommonGridProps;
+  GridColumnsComponent: Component
+} & CommonGridProps
 
 const BaseGrid = defineComponent({
-  name: "BaseGrid",
+  name: 'BaseGrid',
   inheritAttrs: false,
   props: {
     rows: { type: Boolean as PropType<boolean>, default: true },
     columns: { type: Boolean as PropType<boolean>, default: true },
     GridRowsComponent: { type: [Object, Function] as PropType<Component>, required: true },
-    GridColumnsComponent: { type: [Object, Function] as PropType<Component>, required: true },
+    GridColumnsComponent: { type: [Object, Function] as PropType<Component>, required: true }
   },
   setup(props) {
-    const attrs = useAttrs();
-    const dataContext = useDataContext();
+    const attrs = useAttrs()
+    const dataContext = useDataContext()
 
     return () => {
       const {
@@ -33,12 +33,12 @@ const BaseGrid = defineComponent({
         yScale: rowsScale,
         margin,
         innerWidth,
-        innerHeight,
-      } = dataContext;
+        innerHeight
+      } = dataContext
 
-      const gridLineStyles = theme?.gridStyles;
-      const RowsComp = props.GridRowsComponent as any;
-      const ColsComp = props.GridColumnsComponent as any;
+      const gridLineStyles = theme?.gridStyles
+      const RowsComp = props.GridRowsComponent as any
+      const ColsComp = props.GridColumnsComponent as any
 
       return (
         <>
@@ -61,9 +61,9 @@ const BaseGrid = defineComponent({
             />
           )}
         </>
-      );
-    };
-  },
-});
+      )
+    }
+  }
+})
 
-export default BaseGrid;
+export default BaseGrid

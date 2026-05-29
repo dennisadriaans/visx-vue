@@ -1,6 +1,6 @@
-export { ClipPath } from "./ClipPath";
-export { CircleClipPath } from "./CircleClipPath";
-export { RectClipPath } from "./RectClipPath";
-export type { ClipPathProps } from "./ClipPath";
-export type { CircleClipPathProps } from "./CircleClipPath";
-export type { RectClipPathProps } from "./RectClipPath";
+export { ClipPath } from './ClipPath'
+export { CircleClipPath } from './CircleClipPath'
+export { RectClipPath } from './RectClipPath'
+export type { ClipPathProps } from './ClipPath'
+export type { CircleClipPathProps } from './CircleClipPath'
+export type { RectClipPathProps } from './RectClipPath'

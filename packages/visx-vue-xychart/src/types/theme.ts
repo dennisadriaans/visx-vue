@@ -1,50 +1,50 @@
-import type { CSSProperties } from "vue";
-import type { TextProps } from "@visx-vue/text";
+import type { CSSProperties } from 'vue'
+import type { TextProps } from '@visx-vue/text'
 
-export type HTMLTextStyles = CSSProperties;
+export type HTMLTextStyles = CSSProperties
 
-export type LineStyles = Record<string, string | number | undefined>;
+export type LineStyles = Record<string, string | number | undefined>
 
-export type GridStyles = CSSProperties;
+export type GridStyles = CSSProperties
 
-export type SVGTextProps = TextProps;
+export type SVGTextProps = TextProps
 
 interface AxisStyle {
   /** Axis label styles. */
-  axisLabel: SVGTextProps;
+  axisLabel: SVGTextProps
   /** Axis line styles. */
-  axisLine: LineStyles;
+  axisLine: LineStyles
   /** Tick label styles. */
-  tickLabel: SVGTextProps;
+  tickLabel: SVGTextProps
   /** Tick line styles. */
-  tickLine: LineStyles;
+  tickLine: LineStyles
   /** Length of axis tick lines. */
-  tickLength: number;
+  tickLength: number
 }
 
 /** A complete chart theme includes style definitions for all axis orientations. */
 export interface XYChartTheme {
   /** Base background color. */
-  backgroundColor: string;
+  backgroundColor: string
   /** Ordinal colors to be used for default coloring by series `key`s. */
-  colors: string[];
+  colors: string[]
   /** Styles to applied to HMTL labels. */
-  htmlLabel: HTMLTextStyles;
+  htmlLabel: HTMLTextStyles
   /** Styles to applied to big SVG labels (axis label, annotation title, etc.). */
-  svgLabelBig: SVGTextProps;
+  svgLabelBig: SVGTextProps
   /** Styles to applied to small SVG labels (tick label, annotation subtitle, etc.). */
-  svgLabelSmall: SVGTextProps;
+  svgLabelSmall: SVGTextProps
   /** Styles to be applied to chart grids. */
-  gridStyles: GridStyles;
+  gridStyles: GridStyles
   /** Styles to be applied to axes (axis labels, ticks, tick labels). */
   axisStyles: {
     x: {
-      top: AxisStyle;
-      bottom: AxisStyle;
-    };
+      top: AxisStyle
+      bottom: AxisStyle
+    }
     y: {
-      left: AxisStyle;
-      right: AxisStyle;
-    };
-  };
+      left: AxisStyle
+      right: AxisStyle
+    }
+  }
 }

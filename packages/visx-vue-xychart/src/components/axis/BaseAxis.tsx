@@ -1,32 +1,32 @@
-import { defineComponent, computed, useAttrs, type Component, type PropType } from "vue";
-import type { AxisProps as VxAxisProps, TickLabelProps } from "@visx-vue/axis";
-import type { ScaleInput } from "@visx-vue/scale";
-import { useDataContext } from "../../context/DataContext";
-import type { AxisScale } from "../../types/axis";
+import { defineComponent, computed, useAttrs, type Component, type PropType } from 'vue'
+import type { AxisProps as VxAxisProps, TickLabelProps } from '@visx-vue/axis'
+import type { ScaleInput } from '@visx-vue/scale'
+import { useDataContext } from '../../context/DataContext'
+import type { AxisScale } from '../../types/axis'
 
-export type BaseAxisProps = Omit<VxAxisProps<AxisScale>, "scale" | "orientation"> & {
+export type BaseAxisProps = Omit<VxAxisProps<AxisScale>, 'scale' | 'orientation'> & {
   /** Required axis orientation. */
-  orientation: "top" | "bottom" | "left" | "right";
+  orientation: 'top' | 'bottom' | 'left' | 'right'
 } & {
   /** Rendered component which is passed VxAxisProps by BaseAxis after processing. */
-  AxisComponent: Component;
-};
+  AxisComponent: Component
+}
 
 /**
  * Component which handles all xychart-specific logic for axes,
  * and passes processed props to a specified Axis / AnimatedAxis component.
  */
 const BaseAxis = defineComponent({
-  name: "BaseAxis",
+  name: 'BaseAxis',
   inheritAttrs: false,
   props: {
     AxisComponent: { type: [Object, Function] as PropType<Component>, required: true },
-    orientation: { type: String as PropType<"top" | "bottom" | "left" | "right">, required: true },
+    orientation: { type: String as PropType<'top' | 'bottom' | 'left' | 'right'>, required: true },
     tickLabelProps: {
       type: [Function, Object] as PropType<
         TickLabelProps<ScaleInput<AxisScale>> | Record<string, unknown>
       >,
-      default: undefined,
+      default: undefined
     },
     labelProps: { type: Object as PropType<Record<string, unknown>>, default: undefined },
     stroke: { type: String as PropType<string>, default: undefined },
@@ -42,82 +42,82 @@ const BaseAxis = defineComponent({
     hideZero: { type: Boolean as PropType<boolean>, default: undefined },
     rangePadding: {
       type: [Number, Object] as PropType<number | { start?: number; end?: number }>,
-      default: undefined,
+      default: undefined
     },
     tickFormat: {
       type: Function as PropType<
         (
           value: ScaleInput<AxisScale>,
           index: number,
-          values: { value: ScaleInput<AxisScale>; index: number }[],
+          values: { value: ScaleInput<AxisScale>; index: number }[]
         ) => string
       >,
-      default: undefined,
+      default: undefined
     },
     tickValues: { type: Array as PropType<ScaleInput<AxisScale>[]>, default: undefined },
-    animationTrajectory: { type: String as PropType<string>, default: undefined },
+    animationTrajectory: { type: String as PropType<string>, default: undefined }
   },
   setup(props) {
-    const attrs = useAttrs();
-    const dataContext = useDataContext();
+    const attrs = useAttrs()
+    const dataContext = useDataContext()
 
     const axisStyles = computed(() => {
-      const { theme } = dataContext;
-      const { orientation } = props;
-      return orientation === "left" || orientation === "right"
+      const { theme } = dataContext
+      const { orientation } = props
+      return orientation === 'left' || orientation === 'right'
         ? theme?.axisStyles?.y?.[orientation]
-        : theme?.axisStyles?.x?.[orientation];
-    });
+        : theme?.axisStyles?.x?.[orientation]
+    })
 
     const tickLabelPropsComputed = computed<TickLabelProps<ScaleInput<AxisScale>> | undefined>(
       () => {
-        const { orientation } = props;
-        const { margin } = dataContext;
-        const styles = axisStyles.value;
-        const maybeTickLabelProps = props.tickLabelProps;
+        const { orientation } = props
+        const { margin } = dataContext
+        const styles = axisStyles.value
+        const maybeTickLabelProps = props.tickLabelProps
 
-        if (!maybeTickLabelProps && !styles) return undefined;
+        if (!maybeTickLabelProps && !styles) return undefined
 
         return ((
           value: ScaleInput<AxisScale>,
           index: number,
-          values: { value: ScaleInput<AxisScale>; index: number }[],
+          values: { value: ScaleInput<AxisScale>; index: number }[]
         ) => ({
           ...styles?.tickLabel,
           width:
-            orientation === "left" || orientation === "right" ? margin?.[orientation] : undefined,
-          ...(typeof maybeTickLabelProps === "function"
+            orientation === 'left' || orientation === 'right' ? margin?.[orientation] : undefined,
+          ...(typeof maybeTickLabelProps === 'function'
             ? maybeTickLabelProps(value, index, values)
-            : maybeTickLabelProps),
-        })) as TickLabelProps<ScaleInput<AxisScale>>;
-      },
-    );
+            : maybeTickLabelProps)
+        })) as TickLabelProps<ScaleInput<AxisScale>>
+      }
+    )
 
     return () => {
-      const { xScale, yScale, margin, width, height } = dataContext;
-      const { orientation } = props;
+      const { xScale, yScale, margin, width, height } = dataContext
+      const { orientation } = props
 
       const topOffset =
-        orientation === "bottom"
+        orientation === 'bottom'
           ? (height ?? 0) - (margin?.bottom ?? 0)
-          : orientation === "top"
+          : orientation === 'top'
             ? (margin?.top ?? 0)
-            : 0;
+            : 0
       const leftOffset =
-        orientation === "left"
+        orientation === 'left'
           ? (margin?.left ?? 0)
-          : orientation === "right"
+          : orientation === 'right'
             ? (width ?? 0) - (margin?.right ?? 0)
-            : 0;
+            : 0
 
-      const scale = (orientation === "left" || orientation === "right" ? yScale : xScale) as
+      const scale = (orientation === 'left' || orientation === 'right' ? yScale : xScale) as
         | AxisScale
-        | undefined;
+        | undefined
 
-      if (!scale) return null;
+      if (!scale) return null
 
-      const styles = axisStyles.value;
-      const AxisComp = props.AxisComponent as any;
+      const styles = axisStyles.value
+      const AxisComp = props.AxisComponent as any
 
       return (
         <AxisComp
@@ -142,9 +142,9 @@ const BaseAxis = defineComponent({
           orientation={orientation}
           {...attrs}
         />
-      );
-    };
-  },
-});
+      )
+    }
+  }
+})
 
-export default BaseAxis;
+export default BaseAxis

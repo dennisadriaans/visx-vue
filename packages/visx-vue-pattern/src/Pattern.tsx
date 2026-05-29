@@ -1,25 +1,25 @@
-import { defineComponent, useAttrs, useSlots, type PropType } from "vue";
+import { defineComponent, useAttrs, useSlots, type PropType } from 'vue'
 
 export type PatternProps = {
   /** Unique id of the pattern element. */
-  id: string;
+  id: string
   /** Width of the pattern. */
-  width: number;
+  width: number
   /** Height of the pattern. */
-  height: number;
-};
+  height: number
+}
 
 export const Pattern = defineComponent({
-  name: "Pattern",
+  name: 'Pattern',
   inheritAttrs: false,
   props: {
     id: { type: String as PropType<string>, required: true },
     width: { type: Number as PropType<number>, required: true },
-    height: { type: Number as PropType<number>, required: true },
+    height: { type: Number as PropType<number>, required: true }
   },
   setup(props) {
-    const attrs = useAttrs();
-    const slots = useSlots();
+    const attrs = useAttrs()
+    const slots = useSlots()
 
     return () => (
       <defs>
@@ -33,6 +33,6 @@ export const Pattern = defineComponent({
           {slots.default?.()}
         </pattern>
       </defs>
-    );
-  },
-});
+    )
+  }
+})

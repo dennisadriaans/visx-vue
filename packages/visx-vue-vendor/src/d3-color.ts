@@ -1,1 +1,1 @@
-export * from "d3-color";
+export * from 'd3-color'

@@ -1,38 +1,38 @@
-import { inject } from "vue";
-import type { AxisScale } from "@visx-vue/axis";
-import { TooltipContextKey } from "../context/TooltipContext";
-import type { EventHandlerParams, SeriesProps, TooltipContextType } from "../types";
-import useEventEmitters from "./useEventEmitters";
-import type { PointerEventHandlerParams } from "./useEventHandlers";
-import useEventHandlers from "./useEventHandlers";
+import { inject } from 'vue'
+import type { AxisScale } from '@visx-vue/axis'
+import { TooltipContextKey } from '../context/TooltipContext'
+import type { EventHandlerParams, SeriesProps, TooltipContextType } from '../types'
+import useEventEmitters from './useEventEmitters'
+import type { PointerEventHandlerParams } from './useEventHandlers'
+import useEventHandlers from './useEventHandlers'
 
 export type SeriesEventsParams<
   XScale extends AxisScale,
   YScale extends AxisScale,
-  Datum extends object,
+  Datum extends object
 > = Pick<
   SeriesProps<XScale, YScale, Datum>,
-  | "enableEvents"
-  | "onBlur"
-  | "onFocus"
-  | "onPointerMove"
-  | "onPointerOut"
-  | "onPointerUp"
-  | "onPointerDown"
+  | 'enableEvents'
+  | 'onBlur'
+  | 'onFocus'
+  | 'onPointerMove'
+  | 'onPointerOut'
+  | 'onPointerUp'
+  | 'onPointerDown'
 > &
   Pick<
     PointerEventHandlerParams<XScale, YScale, Datum>,
-    "dataKey" | "allowedSources" | "findNearestDatum"
+    'dataKey' | 'allowedSources' | 'findNearestDatum'
   > & {
     /** The source of emitted events. */
-    source: string;
-  };
+    source: string
+  }
 
 /** This composable simplifies the logic for initializing Series event emitters + handlers. */
 export default function useSeriesEvents<
   XScale extends AxisScale,
   YScale extends AxisScale,
-  Datum extends object,
+  Datum extends object
 >({
   dataKey,
   enableEvents,
@@ -44,30 +44,30 @@ export default function useSeriesEvents<
   onPointerUp: onPointerUpProps,
   onPointerDown: onPointerDownProps,
   source,
-  allowedSources,
+  allowedSources
 }: SeriesEventsParams<XScale, YScale, Datum>) {
   const { showTooltip, hideTooltip } = (inject(TooltipContextKey, null) ??
-    {}) as TooltipContextType<Datum>;
+    {}) as TooltipContextType<Datum>
 
   function onPointerMove(params: EventHandlerParams<Datum>) {
-    showTooltip(params);
-    if (onPointerMoveProps) onPointerMoveProps(params);
+    showTooltip(params)
+    if (onPointerMoveProps) onPointerMoveProps(params)
   }
   function onFocus(params: EventHandlerParams<Datum>) {
-    showTooltip(params);
-    if (onFocusProps) onFocusProps(params);
+    showTooltip(params)
+    if (onFocusProps) onFocusProps(params)
   }
   function onPointerOut(event: PointerEvent) {
-    hideTooltip();
-    if (event && onPointerOutProps) onPointerOutProps(event);
+    hideTooltip()
+    if (event && onPointerOutProps) onPointerOutProps(event)
   }
   function onBlur(event: FocusEvent) {
-    hideTooltip();
-    if (event && onBlurProps) onBlurProps(event);
+    hideTooltip()
+    if (event && onBlurProps) onBlurProps(event)
   }
   function onPointerDown(params: EventHandlerParams<Datum>) {
-    showTooltip(params);
-    if (onPointerDownProps) onPointerDownProps(params);
+    showTooltip(params)
+    if (onPointerDownProps) onPointerDownProps(params)
   }
 
   useEventHandlers({
@@ -79,8 +79,8 @@ export default function useSeriesEvents<
     onPointerOut: enableEvents ? onPointerOut : undefined,
     onPointerUp: enableEvents ? onPointerUpProps : undefined,
     onPointerDown: enableEvents ? onPointerDown : undefined,
-    allowedSources,
-  });
+    allowedSources
+  })
 
   return useEventEmitters({
     source,
@@ -89,6 +89,6 @@ export default function useSeriesEvents<
     onPointerMove: !!onPointerMoveProps && enableEvents,
     onPointerOut: !!onPointerOutProps && enableEvents,
     onPointerUp: !!onPointerUpProps && enableEvents,
-    onPointerDown: !!onPointerDownProps && enableEvents,
-  });
+    onPointerDown: !!onPointerDownProps && enableEvents
+  })
 }

@@ -1,44 +1,44 @@
-import { defineComponent, useAttrs, useSlots, type PropType } from "vue";
+import { defineComponent, useAttrs, useSlots, type PropType } from 'vue'
 
 export interface MarkerProps {
   /** Unique id for the `<marker>`. Should be unique across all page elements. */
-  id: string;
+  id: string
   /** A number used to determine the size of the bounding box the marker content. */
-  size?: number;
+  size?: number
   /** The width of the marker viewport */
-  markerWidth?: string | number;
+  markerWidth?: string | number
   /** The height of the marker viewport */
-  markerHeight?: string | number;
+  markerHeight?: string | number
   /** Set the coordinate system for the markerWidth, markerHeight, and `<marker>` contents */
-  markerUnits?: string;
+  markerUnits?: string
   /** The x coordinate for the reference point of the maker */
-  refX?: string | number;
+  refX?: string | number
   /** The y coordinate for the reference point of the maker */
-  refY?: string | number;
+  refY?: string | number
   /** The stroke width. constrained to a `number` type due to use in bounding box calculations */
-  strokeWidth?: number;
+  strokeWidth?: number
 }
 
-export type MarkerComponentProps = MarkerProps;
+export type MarkerComponentProps = MarkerProps
 
 export const Marker = defineComponent({
-  name: "Marker",
+  name: 'Marker',
   inheritAttrs: false,
   props: {
     id: { type: String as PropType<string>, required: true },
     markerWidth: { type: [String, Number] as PropType<string | number>, default: 3 },
     markerHeight: { type: [String, Number] as PropType<string | number>, default: 3 },
-    markerUnits: { type: String as PropType<string>, default: "userSpaceOnUse" },
+    markerUnits: { type: String as PropType<string>, default: 'userSpaceOnUse' },
     refX: { type: [String, Number] as PropType<string | number>, default: undefined },
     refY: { type: [String, Number] as PropType<string | number>, default: undefined },
     strokeWidth: { type: Number as PropType<number>, default: undefined },
     orient: { type: [String, Number] as PropType<string | number>, default: undefined },
     fill: { type: String as PropType<string>, default: undefined },
-    stroke: { type: String as PropType<string>, default: undefined },
+    stroke: { type: String as PropType<string>, default: undefined }
   },
   setup(props) {
-    const attrs = useAttrs();
-    const slots = useSlots();
+    const attrs = useAttrs()
+    const slots = useSlots()
 
     return () => (
       <defs>
@@ -58,6 +58,6 @@ export const Marker = defineComponent({
           {slots.default?.()}
         </marker>
       </defs>
-    );
-  },
-});
+    )
+  }
+})

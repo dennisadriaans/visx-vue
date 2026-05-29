@@ -1,12 +1,12 @@
-import { defineComponent, computed, ref, watch, type PropType } from "vue";
-import type { AxisScale } from "@visx-vue/axis";
-import { BarRounded } from "@visx-vue/shape";
-import type { Bar, BarsProps } from "../../../types";
-import { cleanColor } from "../../../utils/cleanColorString";
-import getScaleBaseline from "../../../utils/getScaleBaseline";
-import AnimatedPath from "./AnimatedPath";
+import { defineComponent, computed, ref, watch, type PropType } from 'vue'
+import type { AxisScale } from '@visx-vue/axis'
+import { BarRounded } from '@visx-vue/shape'
+import type { Bar, BarsProps } from '../../../types'
+import { cleanColor } from '../../../utils/cleanColorString'
+import getScaleBaseline from '../../../utils/getScaleBaseline'
+import AnimatedPath from './AnimatedPath'
 
-export type { BarsProps };
+export type { BarsProps }
 
 function getBarTransitionStyle(bar: Bar, _scale: AxisScale, _horizontal?: boolean) {
   return {
@@ -15,25 +15,25 @@ function getBarTransitionStyle(bar: Bar, _scale: AxisScale, _horizontal?: boolea
     width: bar.width,
     height: bar.height,
     fill: bar.fill,
-    opacity: 1,
-  };
+    opacity: 1
+  }
 }
 
 function getBarFromLeaveStyle(bar: Bar, scale: AxisScale, horizontal?: boolean) {
-  const shouldAnimateX = !!horizontal;
-  const scaleBaseline = getScaleBaseline(scale);
+  const shouldAnimateX = !!horizontal
+  const scaleBaseline = getScaleBaseline(scale)
   return {
     x: shouldAnimateX ? (scaleBaseline ?? 0) : bar.x,
     y: shouldAnimateX ? bar.y : (scaleBaseline ?? 0),
     width: shouldAnimateX ? 0 : bar.width,
     height: shouldAnimateX ? bar.height : 0,
     fill: cleanColor(bar.fill),
-    opacity: 0,
-  };
+    opacity: 0
+  }
 }
 
 const AnimatedBarsRounded = defineComponent({
-  name: "AnimatedBarsRounded",
+  name: 'AnimatedBarsRounded',
   inheritAttrs: false,
   props: {
     bars: { type: Array as PropType<Bar[]>, required: true },
@@ -50,10 +50,10 @@ const AnimatedBarsRounded = defineComponent({
     onFocus: { type: Function as PropType<(event: FocusEvent) => void>, default: undefined },
     onPointerMove: {
       type: Function as PropType<(event: PointerEvent) => void>,
-      default: undefined,
+      default: undefined
     },
     onPointerOut: { type: Function as PropType<(event: PointerEvent) => void>, default: undefined },
-    onPointerUp: { type: Function as PropType<(event: PointerEvent) => void>, default: undefined },
+    onPointerUp: { type: Function as PropType<(event: PointerEvent) => void>, default: undefined }
   },
   setup(props) {
     return () => (
@@ -83,20 +83,20 @@ const AnimatedBarsRounded = defineComponent({
                     onFocus: props.onFocus,
                     onPointermove: props.onPointerMove,
                     onPointerout: props.onPointerOut,
-                    onPointerup: props.onPointerUp,
+                    onPointerup: props.onPointerUp
                   } as any)}
                 />
-              ),
+              )
             }}
           </BarRounded>
         ))}
       </>
-    );
-  },
-});
+    )
+  }
+})
 
 const AnimatedBarsUnrounded = defineComponent({
-  name: "AnimatedBarsUnrounded",
+  name: 'AnimatedBarsUnrounded',
   inheritAttrs: false,
   props: {
     bars: { type: Array as PropType<Bar[]>, required: true },
@@ -113,35 +113,35 @@ const AnimatedBarsUnrounded = defineComponent({
     onFocus: { type: Function as PropType<(event: FocusEvent) => void>, default: undefined },
     onPointerMove: {
       type: Function as PropType<(event: PointerEvent) => void>,
-      default: undefined,
+      default: undefined
     },
     onPointerOut: { type: Function as PropType<(event: PointerEvent) => void>, default: undefined },
-    onPointerUp: { type: Function as PropType<(event: PointerEvent) => void>, default: undefined },
+    onPointerUp: { type: Function as PropType<(event: PointerEvent) => void>, default: undefined }
   },
   setup(props) {
     // Track previous bars for enter/leave animation
     const animatedBars = ref<
       Array<{
-        key: string;
+        key: string
         style: {
-          x: number;
-          y: number;
-          width: number;
-          height: number;
-          fill?: string;
-          opacity: number;
-        };
-        removing: boolean;
+          x: number
+          y: number
+          width: number
+          height: number
+          fill?: string
+          opacity: number
+        }
+        removing: boolean
       }>
-    >([]);
+    >([])
 
-    const scale = computed(() => (props.horizontal ? props.xScale : props.yScale));
+    const scale = computed(() => (props.horizontal ? props.xScale : props.yScale))
 
     watch(
       () => props.bars,
       (newBars) => {
-        const newKeys = new Set(newBars.map((b) => b.key));
-        const existingKeys = new Set(animatedBars.value.map((b) => b.key));
+        const newKeys = new Set(newBars.map((b) => b.key))
+        const existingKeys = new Set(animatedBars.value.map((b) => b.key))
 
         // Mark bars that are leaving
         const result = animatedBars.value
@@ -155,51 +155,51 @@ const AnimatedBarsUnrounded = defineComponent({
                 y: b.style.y,
                 width: b.style.width,
                 height: b.style.height,
-                fill: b.style.fill,
-              };
+                fill: b.style.fill
+              }
               return {
                 key: b.key,
                 style: getBarFromLeaveStyle(originalBar, scale.value, props.horizontal),
-                removing: true,
-              };
+                removing: true
+              }
             }
-            return null;
+            return null
           })
-          .filter(Boolean) as typeof animatedBars.value;
+          .filter(Boolean) as typeof animatedBars.value
 
         // Update existing and add new
         newBars.forEach((bar) => {
-          const style = getBarTransitionStyle(bar, scale.value, props.horizontal);
+          const style = getBarTransitionStyle(bar, scale.value, props.horizontal)
           if (existingKeys.has(bar.key)) {
-            const existing = result.find((b) => b.key === bar.key);
+            const existing = result.find((b) => b.key === bar.key)
             if (!existing) {
-              result.push({ key: bar.key, style, removing: false });
+              result.push({ key: bar.key, style, removing: false })
             }
           } else {
-            result.push({ key: bar.key, style, removing: false });
+            result.push({ key: bar.key, style, removing: false })
           }
-        });
+        })
 
         // Maintain order: new bars first, then leaving
         animatedBars.value = [
           ...newBars.map((bar) => ({
             key: bar.key,
             style: getBarTransitionStyle(bar, scale.value, props.horizontal),
-            removing: false,
+            removing: false
           })),
-          ...result.filter((b) => b.removing),
-        ];
+          ...result.filter((b) => b.removing)
+        ]
 
         // Remove leaving bars after transition
         setTimeout(() => {
-          animatedBars.value = animatedBars.value.filter((b) => !b.removing);
-        }, 300);
+          animatedBars.value = animatedBars.value.filter((b) => !b.removing)
+        }, 300)
       },
-      { immediate: true },
-    );
+      { immediate: true }
+    )
 
     return () => {
-      const isFocusable = Boolean(props.onFocus || props.onBlur);
+      const isFocusable = Boolean(props.onFocus || props.onBlur)
       return (
         <>
           {animatedBars.value.map(({ key, style }) => (
@@ -215,7 +215,7 @@ const AnimatedBarsUnrounded = defineComponent({
               opacity={style.opacity}
               style={{
                 transition:
-                  "x 0.3s ease, y 0.3s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease",
+                  'x 0.3s ease, y 0.3s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease'
               }}
               onBlur={props.onBlur}
               onFocus={props.onFocus}
@@ -225,14 +225,14 @@ const AnimatedBarsUnrounded = defineComponent({
             />
           ))}
         </>
-      );
-    };
-  },
-});
+      )
+    }
+  }
+})
 
 /** Wrapper component which renders animated Bars depending on whether it needs rounded corners. */
 export default defineComponent({
-  name: "AnimatedBars",
+  name: 'AnimatedBars',
   inheritAttrs: false,
   props: {
     bars: { type: Array as PropType<Bar[]>, required: true },
@@ -249,17 +249,20 @@ export default defineComponent({
     onFocus: { type: Function as PropType<(event: FocusEvent) => void>, default: undefined },
     onPointerMove: {
       type: Function as PropType<(event: PointerEvent) => void>,
-      default: undefined,
+      default: undefined
     },
     onPointerOut: { type: Function as PropType<(event: PointerEvent) => void>, default: undefined },
-    onPointerUp: { type: Function as PropType<(event: PointerEvent) => void>, default: undefined },
+    onPointerUp: { type: Function as PropType<(event: PointerEvent) => void>, default: undefined }
   },
   setup(props) {
     return () =>
       props.radius == null ? (
         <AnimatedBarsUnrounded {...props} />
       ) : (
-        <AnimatedBarsRounded {...props} radius={props.radius} />
-      );
-  },
-});
+        <AnimatedBarsRounded
+          {...props}
+          radius={props.radius}
+        />
+      )
+  }
+})

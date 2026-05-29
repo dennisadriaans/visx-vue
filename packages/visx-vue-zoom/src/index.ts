@@ -1,5 +1,5 @@
-export { Zoom } from "./Zoom";
-export { default as useZoom } from "./useZoom";
+export { Zoom } from './Zoom'
+export { default as useZoom } from './useZoom'
 export {
   identityMatrix,
   createMatrix,
@@ -9,9 +9,9 @@ export {
   scaleMatrix,
   translateMatrix,
   multiplyMatrices,
-  composeMatrices,
-} from "./util/matrix";
+  composeMatrices
+} from './util/matrix'
 
-export type * from "./types";
-export type { ZoomProps } from "./Zoom";
-export type { UseZoomOptions } from "./useZoom";
+export type * from './types'
+export type { ZoomProps } from './Zoom'
+export type { UseZoomOptions } from './useZoom'

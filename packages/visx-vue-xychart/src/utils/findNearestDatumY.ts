@@ -1,34 +1,34 @@
-import type { AxisScale } from "@visx-vue/axis";
-import findNearestDatumSingleDimension from "./findNearestDatumSingleDimension";
-import type { NearestDatumArgs, NearestDatumReturnType } from "../types";
+import type { AxisScale } from '@visx-vue/axis'
+import findNearestDatumSingleDimension from './findNearestDatumSingleDimension'
+import type { NearestDatumArgs, NearestDatumReturnType } from '../types'
 
 export default function findNearestDatumY<
   XScale extends AxisScale,
   YScale extends AxisScale,
-  Datum extends object,
+  Datum extends object
 >({
   yScale: scale,
   yAccessor: accessor,
   xScale,
   xAccessor,
   point,
-  data,
+  data
 }: NearestDatumArgs<XScale, YScale, Datum>): NearestDatumReturnType<Datum> {
-  if (!point) return null;
+  if (!point) return null
 
   const nearestDatum = findNearestDatumSingleDimension<YScale, Datum>({
     scale,
     accessor,
     scaledValue: point.y,
-    data,
-  });
+    data
+  })
 
   return nearestDatum
     ? {
         datum: nearestDatum.datum,
         index: nearestDatum.index,
         distanceY: nearestDatum.distance,
-        distanceX: Math.abs(Number(xScale(xAccessor(nearestDatum.datum))) - point.x),
+        distanceX: Math.abs(Number(xScale(xAccessor(nearestDatum.datum))) - point.x)
       }
-    : null;
+    : null
 }

@@ -21,12 +21,21 @@ pnpm add @visx-vue/text
 
 ```vue
 <script setup lang="ts">
-import { Text } from "@visx-vue/text";
+import { Text } from '@visx-vue/text'
 </script>
 
 <template>
-  <svg width="200" height="100">
-    <Text :width="150" verticalAnchor="start" textAnchor="middle" :x="100" :y="20">
+  <svg
+    width="200"
+    height="100"
+  >
+    <Text
+      :width="150"
+      verticalAnchor="start"
+      textAnchor="middle"
+      :x="100"
+      :y="20"
+    >
       This is a long text that will automatically wrap if it exceeds the width.
     </Text>
   </svg>

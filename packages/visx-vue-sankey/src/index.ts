@@ -1,12 +1,12 @@
-export { Sankey } from "./Sankey";
+export { Sankey } from './Sankey'
 export {
   sankey,
   sankeyLinkHorizontal,
   sankeyLeft,
   sankeyRight,
   sankeyCenter,
-  sankeyJustify,
-} from "d3-sankey";
+  sankeyJustify
+} from 'd3-sankey'
 export type {
   SankeyProps,
   SankeySlotProps,
@@ -16,5 +16,5 @@ export type {
   SankeyNode,
   SankeyNodeMinimal,
   SankeyLinkMinimal,
-  SankeyLayout,
-} from "./types";
+  SankeyLayout
+} from './types'

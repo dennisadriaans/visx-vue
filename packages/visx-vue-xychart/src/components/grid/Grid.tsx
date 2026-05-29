@@ -1,19 +1,23 @@
-import { defineComponent, useAttrs } from "vue";
-import { GridRows, GridColumns } from "@visx-vue/grid";
-import type { BaseGridProps } from "./BaseGrid";
-import BaseGrid from "./BaseGrid";
+import { defineComponent, useAttrs } from 'vue'
+import { GridRows, GridColumns } from '@visx-vue/grid'
+import type { BaseGridProps } from './BaseGrid'
+import BaseGrid from './BaseGrid'
 
-export type GridProps = Omit<BaseGridProps, "GridRowsComponent" | "GridColumnsComponent">;
+export type GridProps = Omit<BaseGridProps, 'GridRowsComponent' | 'GridColumnsComponent'>
 
 const Grid = defineComponent({
-  name: "XYChartGrid",
+  name: 'XYChartGrid',
   inheritAttrs: false,
   setup() {
-    const attrs = useAttrs();
+    const attrs = useAttrs()
     return () => (
-      <BaseGrid GridRowsComponent={GridRows} GridColumnsComponent={GridColumns} {...attrs} />
-    );
-  },
-});
+      <BaseGrid
+        GridRowsComponent={GridRows}
+        GridColumnsComponent={GridColumns}
+        {...attrs}
+      />
+    )
+  }
+})
 
-export default Grid;
+export default Grid

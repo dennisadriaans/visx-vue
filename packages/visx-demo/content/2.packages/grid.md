@@ -31,20 +31,31 @@ pnpm add @visx-vue/grid
 
 ```vue
 <script setup lang="ts">
-import { GridRows, GridColumns } from "@visx-vue/grid";
-import { scaleLinear } from "@visx-vue/scale";
+import { GridRows, GridColumns } from '@visx-vue/grid'
+import { scaleLinear } from '@visx-vue/scale'
 
-const width = 500;
-const height = 400;
+const width = 500
+const height = 400
 
-const xScale = scaleLinear({ domain: [0, 10], range: [0, width] });
-const yScale = scaleLinear({ domain: [0, 100], range: [height, 0] });
+const xScale = scaleLinear({ domain: [0, 10], range: [0, width] })
+const yScale = scaleLinear({ domain: [0, 100], range: [height, 0] })
 </script>
 
 <template>
-  <svg :width="width" :height="height">
-    <GridRows :scale="yScale" :width="width" stroke="#e0e0e0" />
-    <GridColumns :scale="xScale" :height="height" stroke="#e0e0e0" />
+  <svg
+    :width="width"
+    :height="height"
+  >
+    <GridRows
+      :scale="yScale"
+      :width="width"
+      stroke="#e0e0e0"
+    />
+    <GridColumns
+      :scale="xScale"
+      :height="height"
+      stroke="#e0e0e0"
+    />
   </svg>
 </template>
 ```

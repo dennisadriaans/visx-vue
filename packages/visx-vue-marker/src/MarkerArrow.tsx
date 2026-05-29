@@ -1,22 +1,22 @@
-import { defineComponent, useAttrs, type PropType } from "vue";
-import { Marker } from "./Marker";
+import { defineComponent, useAttrs, type PropType } from 'vue'
+import { Marker } from './Marker'
 
 export const MarkerArrow = defineComponent({
-  name: "MarkerArrow",
+  name: 'MarkerArrow',
   inheritAttrs: false,
   props: {
     id: { type: String as PropType<string>, required: true },
     size: { type: Number as PropType<number>, default: 9 },
-    strokeWidth: { type: Number as PropType<number>, default: 1 },
+    strokeWidth: { type: Number as PropType<number>, default: 1 }
   },
   setup(props) {
-    const attrs = useAttrs();
+    const attrs = useAttrs()
 
     return () => {
-      const max = props.size + props.strokeWidth * 2;
-      const midX = props.size;
-      const midY = max / 2;
-      const points = `0 0, ${props.size} ${props.size / 2}, 0 ${props.size}`;
+      const max = props.size + props.strokeWidth * 2
+      const midX = props.size
+      const midY = max / 2
+      const points = `0 0, ${props.size} ${props.size / 2}, 0 ${props.size}`
 
       return (
         <Marker
@@ -35,7 +35,7 @@ export const MarkerArrow = defineComponent({
             <polyline points={points} />
           </g>
         </Marker>
-      );
-    };
-  },
-});
+      )
+    }
+  }
+})

@@ -1,16 +1,16 @@
-import { defineComponent, useAttrs, type PropType } from "vue";
-import { MarkerCross } from "./MarkerCross";
+import { defineComponent, useAttrs, type PropType } from 'vue'
+import { MarkerCross } from './MarkerCross'
 
 export const MarkerX = defineComponent({
-  name: "MarkerX",
+  name: 'MarkerX',
   inheritAttrs: false,
   props: {
     id: { type: String as PropType<string>, required: true },
     size: { type: Number as PropType<number>, default: undefined },
-    strokeWidth: { type: Number as PropType<number>, default: undefined },
+    strokeWidth: { type: Number as PropType<number>, default: undefined }
   },
   setup(props) {
-    const attrs = useAttrs();
+    const attrs = useAttrs()
 
     return () => (
       <MarkerCross
@@ -20,6 +20,6 @@ export const MarkerX = defineComponent({
         strokeWidth={props.strokeWidth}
         {...attrs}
       />
-    );
-  },
-});
+    )
+  }
+})

@@ -1,17 +1,17 @@
-import type { CSSProperties } from "vue";
-import { Bar } from "@visx-vue/shape";
+import type { CSSProperties } from 'vue'
+import { Bar } from '@visx-vue/shape'
 
 export type BrushOverlayProps = {
-  width: number;
-  height: number;
-  style?: CSSProperties;
-  onClick?: (event: PointerEvent) => void;
-  onDoubleClick?: (event: MouseEvent) => void;
-  onPointerDown?: (event: PointerEvent) => void;
-  onPointerLeave?: (event: PointerEvent) => void;
-  onPointerMove?: (event: PointerEvent) => void;
-  onPointerUp?: (event: PointerEvent) => void;
-};
+  width: number
+  height: number
+  style?: CSSProperties
+  onClick?: (event: PointerEvent) => void
+  onDoubleClick?: (event: MouseEvent) => void
+  onPointerDown?: (event: PointerEvent) => void
+  onPointerLeave?: (event: PointerEvent) => void
+  onPointerMove?: (event: PointerEvent) => void
+  onPointerUp?: (event: PointerEvent) => void
+}
 
 export default function BrushOverlay(props: BrushOverlayProps) {
   return (
@@ -30,5 +30,5 @@ export default function BrushOverlay(props: BrushOverlayProps) {
       onPointermove={props.onPointerMove}
       onPointerup={props.onPointerUp}
     />
-  );
+  )
 }

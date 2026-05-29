@@ -1,6 +1,6 @@
-import { defineComponent, useSlots, type PropType, type VNode } from "vue";
-import { Group } from "@visx-vue/group";
-import { getTicks, coerceNumber } from "@visx-vue/scale";
+import { defineComponent, useSlots, type PropType, type VNode } from 'vue'
+import { Group } from '@visx-vue/group'
+import { getTicks, coerceNumber } from '@visx-vue/scale'
 import type {
   SharedAxisProps,
   AxisScale,
@@ -8,23 +8,23 @@ import type {
   TickFormatter,
   TickLabelProps,
   TickRendererProps,
-  TicksRendererProps,
-} from "../types";
-import AxisRenderer from "./AxisRenderer";
-import getTickPosition from "../utils/getTickPosition";
-import getTickFormatter from "../utils/getTickFormatter";
-import createPoint from "../utils/createPoint";
-import type { OrientationType } from "../constants/orientation";
-import Orientation from "../constants/orientation";
-import getAxisRangePaddingConfig from "../utils/getAxisRangePaddingConfig";
-import type { TextProps } from "@visx-vue/text";
+  TicksRendererProps
+} from '../types'
+import AxisRenderer from './AxisRenderer'
+import getTickPosition from '../utils/getTickPosition'
+import getTickFormatter from '../utils/getTickFormatter'
+import createPoint from '../utils/createPoint'
+import type { OrientationType } from '../constants/orientation'
+import Orientation from '../constants/orientation'
+import getAxisRangePaddingConfig from '../utils/getAxisRangePaddingConfig'
+import type { TextProps } from '@visx-vue/text'
 
 export type AxisProps<Scale extends AxisScale> = SharedAxisProps<Scale> & {
-  orientation?: OrientationType;
-};
+  orientation?: OrientationType
+}
 
 export const Axis = defineComponent({
-  name: "Axis",
+  name: 'Axis',
   inheritAttrs: false,
   props: {
     axisClassName: { type: String as PropType<string>, default: undefined },
@@ -42,7 +42,7 @@ export const Axis = defineComponent({
     orientation: { type: String as PropType<OrientationType>, default: Orientation.bottom },
     rangePadding: {
       type: [Number, Object] as PropType<number | { start?: number; end?: number }>,
-      default: 0,
+      default: 0
     },
     scale: { type: Function as PropType<AxisScale>, required: true },
     stroke: { type: String as PropType<string>, default: undefined },
@@ -51,66 +51,66 @@ export const Axis = defineComponent({
     tickClassName: { type: String as PropType<string>, default: undefined },
     tickComponent: {
       type: Function as PropType<(tickRendererProps: TickRendererProps) => VNode | VNode[] | null>,
-      default: undefined,
+      default: undefined
     },
     ticksComponent: {
       type: Function as PropType<
         (tickRendererProps: TicksRendererProps<AxisScale>) => VNode | VNode[] | null
       >,
-      default: undefined,
+      default: undefined
     },
     tickFormat: { type: Function as PropType<TickFormatter<unknown>>, default: undefined },
     tickLabelProps: {
       type: [Object, Function] as PropType<TickLabelProps<unknown>>,
-      default: undefined,
+      default: undefined
     },
     tickLength: { type: Number as PropType<number>, default: 8 },
     tickLineProps: { type: Object as PropType<Record<string, unknown>>, default: undefined },
     tickStroke: { type: String as PropType<string>, default: undefined },
     tickTransform: { type: String as PropType<string>, default: undefined },
     tickValues: { type: Array as PropType<unknown[]>, default: undefined },
-    top: { type: Number as PropType<number>, default: 0 },
+    top: { type: Number as PropType<number>, default: 0 }
   },
   setup(props) {
-    const slots = useSlots();
+    const slots = useSlots()
 
     return () => {
-      const format = props.tickFormat ?? getTickFormatter(props.scale);
+      const format = props.tickFormat ?? getTickFormatter(props.scale)
 
-      const isLeft = props.orientation === Orientation.left;
-      const isTop = props.orientation === Orientation.top;
-      const horizontal = isTop || props.orientation === Orientation.bottom;
+      const isLeft = props.orientation === Orientation.left
+      const isTop = props.orientation === Orientation.top
+      const horizontal = isTop || props.orientation === Orientation.bottom
 
-      const tickPosition = getTickPosition(props.scale);
-      const tickSign = isLeft || isTop ? -1 : 1;
+      const tickPosition = getTickPosition(props.scale)
+      const tickSign = isLeft || isTop ? -1 : 1
 
-      const range = props.scale.range();
-      const rangePaddingConfig = getAxisRangePaddingConfig(props.rangePadding);
+      const range = props.scale.range()
+      const rangePaddingConfig = getAxisRangePaddingConfig(props.rangePadding)
 
       const axisFromPoint = createPoint(
         { x: Number(range[0]) + 0.5 - rangePaddingConfig.start, y: 0 },
-        horizontal,
-      );
+        horizontal
+      )
       const axisToPoint = createPoint(
         { x: Number(range[range.length - 1]) + 0.5 + rangePaddingConfig.end, y: 0 },
-        horizontal,
-      );
+        horizontal
+      )
 
       const filteredTickValues = (props.tickValues ?? getTicks(props.scale, props.numTicks))
-        .filter((value) => !props.hideZero || (value !== 0 && value !== "0"))
-        .map((value, index) => ({ value, index }));
+        .filter((value) => !props.hideZero || (value !== 0 && value !== '0'))
+        .map((value, index) => ({ value, index }))
 
       const ticks = filteredTickValues.map(({ value, index }) => {
-        const scaledValue = coerceNumber(tickPosition(value));
+        const scaledValue = coerceNumber(tickPosition(value))
 
         return {
           value,
           index,
           from: createPoint({ x: scaledValue, y: 0 }, horizontal),
           to: createPoint({ x: scaledValue, y: props.tickLength * tickSign }, horizontal),
-          formattedValue: format(value, index, filteredTickValues),
-        };
-      });
+          formattedValue: format(value, index, filteredTickValues)
+        }
+      })
 
       const renderProps: AxisRendererProps<AxisScale> = {
         axisFromPoint,
@@ -142,24 +142,24 @@ export const Axis = defineComponent({
         tickTransform: props.tickTransform,
         tickPosition,
         tickSign: tickSign as 1 | -1,
-        ticks,
-      };
+        ticks
+      }
 
       return (
         <Group
-          className={["visx-axis", props.axisClassName].filter(Boolean).join(" ")}
+          className={['visx-axis', props.axisClassName].filter(Boolean).join(' ')}
           innerRef={props.innerRef}
           top={props.top}
           left={props.left}
         >
           {{
             default: () =>
-              slots.default ? (slots.default as any)(renderProps) : AxisRenderer(renderProps),
+              slots.default ? (slots.default as any)(renderProps) : AxisRenderer(renderProps)
           }}
         </Group>
-      );
-    };
-  },
-});
+      )
+    }
+  }
+})
 
-export default Axis;
+export default Axis

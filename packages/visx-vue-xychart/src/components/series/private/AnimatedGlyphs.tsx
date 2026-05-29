@@ -1,14 +1,14 @@
-import { defineComponent, type PropType, type VNode } from "vue";
-import type { AxisScale } from "@visx-vue/axis";
-import type { GlyphProps } from "../../../types";
-import { colorHasUrl } from "../../../utils/cleanColorString";
+import { defineComponent, type PropType, type VNode } from 'vue'
+import type { AxisScale } from '@visx-vue/axis'
+import type { GlyphProps } from '../../../types'
+import { colorHasUrl } from '../../../utils/cleanColorString'
 
 export default defineComponent({
-  name: "AnimatedGlyphs",
+  name: 'AnimatedGlyphs',
   props: {
     renderGlyph: {
       type: Function as PropType<(props: GlyphProps<object>) => VNode>,
-      required: true,
+      required: true
     },
     glyphs: { type: Array as PropType<GlyphProps<object>[]>, required: true },
     horizontal: { type: Boolean as PropType<boolean>, default: undefined },
@@ -18,10 +18,10 @@ export default defineComponent({
     onFocus: { type: Function as PropType<(event: FocusEvent) => void>, default: undefined },
     onPointerMove: {
       type: Function as PropType<(event: PointerEvent) => void>,
-      default: undefined,
+      default: undefined
     },
     onPointerOut: { type: Function as PropType<(event: PointerEvent) => void>, default: undefined },
-    onPointerUp: { type: Function as PropType<(event: PointerEvent) => void>, default: undefined },
+    onPointerUp: { type: Function as PropType<(event: PointerEvent) => void>, default: undefined }
   },
   setup(props) {
     return () => {
@@ -32,8 +32,8 @@ export default defineComponent({
               key={glyph.key}
               transform={`translate(${glyph.x}, ${glyph.y})`}
               style={{
-                transition: "transform 0.3s ease, opacity 0.3s ease",
-                opacity: 1,
+                transition: 'transform 0.3s ease, opacity 0.3s ease',
+                opacity: 1
               }}
             >
               {props.renderGlyph({
@@ -49,12 +49,12 @@ export default defineComponent({
                 onFocus: props.onFocus,
                 onPointerMove: props.onPointerMove,
                 onPointerOut: props.onPointerOut,
-                onPointerUp: props.onPointerUp,
+                onPointerUp: props.onPointerUp
               })}
             </g>
           ))}
         </>
-      );
-    };
-  },
-});
+      )
+    }
+  }
+})

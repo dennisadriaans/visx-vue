@@ -1,65 +1,65 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { LinePath, SplitLinePath } from "@visx-vue/shape";
-import { LinearGradient } from "@visx-vue/gradient";
-import { curveCardinal } from "@visx-vue/curve";
-import { useParentSize } from "@visx-vue/responsive";
+import { computed } from 'vue'
+import { LinePath, SplitLinePath } from '@visx-vue/shape'
+import { LinearGradient } from '@visx-vue/gradient'
+import { curveCardinal } from '@visx-vue/curve'
+import { useParentSize } from '@visx-vue/responsive'
 
-type Point = { x: number; y: number };
+type Point = { x: number; y: number }
 
-const { parentRef, width, height: rawHeight } = useParentSize();
-const height = computed(() => rawHeight.value || 400);
+const { parentRef, width, height: rawHeight } = useParentSize()
+const height = computed(() => rawHeight.value || 400)
 
-const background = "transparent";
-const backgroundLight = "#00DC8233";
-const foreground = "#00DC82";
-const PADDING = 30;
-const numberOfWaves = 10;
-const pointsPerWave = 100;
+const background = 'transparent'
+const backgroundLight = '#00DC8233'
+const foreground = '#00DC82'
+const PADDING = 30
+const numberOfWaves = 10
+const pointsPerWave = 100
 
 function generateSinPoints(w: number, h: number, waves: number, ppw: number): Point[] {
-  const waveLength = w / waves;
-  const distBetween = waveLength / ppw;
-  const points: Point[] = [];
+  const waveLength = w / waves
+  const distBetween = waveLength / ppw
+  const points: Point[] = []
   for (let wi = 0; wi < waves; wi++) {
-    const waveDistFromStart = wi * waveLength;
+    const waveDistFromStart = wi * waveLength
     for (let pi = 0; pi <= ppw; pi++) {
-      const waveXFraction = pi / ppw;
-      const globalX = waveDistFromStart + pi * distBetween;
-      const globalXFraction = (w - globalX) / w;
-      const waveHeight = Math.min(globalXFraction, 1 - globalXFraction) * h;
-      points.push({ x: globalX, y: waveHeight * Math.sin(waveXFraction * (2 * Math.PI)) });
+      const waveXFraction = pi / ppw
+      const globalX = waveDistFromStart + pi * distBetween
+      const globalXFraction = (w - globalX) / w
+      const waveHeight = Math.min(globalXFraction, 1 - globalXFraction) * h
+      points.push({ x: globalX, y: waveHeight * Math.sin(waveXFraction * (2 * Math.PI)) })
     }
   }
-  return points;
+  return points
 }
 
 function generateSegments(w: number, h: number, waves: number, ppw: number): Point[][] {
-  const pts = generateSinPoints(w, h, waves, ppw);
-  const segments: Point[][] = Array.from({ length: waves }, () => []);
-  const segSize = w / waves;
+  const pts = generateSinPoints(w, h, waves, ppw)
+  const segments: Point[][] = Array.from({ length: waves }, () => [])
+  const segSize = w / waves
   pts.forEach((d) => {
-    segments[Math.min(Math.floor(d.x / segSize), segments.length - 1)].push(d);
-  });
-  return segments;
+    segments[Math.min(Math.floor(d.x / segSize), segments.length - 1)].push(d)
+  })
+  return segments
 }
 
-const getX = (d: Point) => d.x;
-const getY = (d: Point) => d.y;
+const getX = (d: Point) => d.x
+const getY = (d: Point) => d.y
 
 const segmentStyles = [
-  { stroke: "#00DC82", strokeWidth: 3 },
-  { stroke: "#33e394", strokeWidth: 2, strokeDasharray: "9,5" },
-  { stroke: "#00b368", strokeWidth: 2 },
-];
+  { stroke: '#00DC82', strokeWidth: 3 },
+  { stroke: '#33e394', strokeWidth: 2, strokeDasharray: '9,5' },
+  { stroke: '#00b368', strokeWidth: 2 }
+]
 
-const segW = computed(() => width.value / 2 - PADDING * 2);
-const segH = computed(() => height.value / 2 - PADDING * 2);
+const segW = computed(() => width.value / 2 - PADDING * 2)
+const segH = computed(() => height.value / 2 - PADDING * 2)
 
 const segments = computed(() =>
-  generateSegments(segW.value, segH.value, numberOfWaves, pointsPerWave),
-);
-const allPoints = computed(() => segments.value.flat());
+  generateSegments(segW.value, segH.value, numberOfWaves, pointsPerWave)
+)
+const allPoints = computed(() => segments.value.flat())
 </script>
 
 <template>
@@ -68,9 +68,24 @@ const allPoints = computed(() => segments.value.flat());
     description="Demonstrates SplitLinePath rendering a single line as multiple styled segments."
     :packages="['@visx-vue/shape', '@visx-vue/gradient', '@visx-vue/curve']"
   >
-    <div ref="parentRef" class="w-full bg-elevated/40 rounded-xl" style="height: 500px">
-      <svg v-if="width > 10" :width="width" :height="height">
-        <rect x="0" y="0" :width="width" :height="height" fill="transparent" rx="14" />
+    <div
+      ref="parentRef"
+      class="w-full bg-elevated/40 rounded-xl"
+      style="height: 500px"
+    >
+      <svg
+        v-if="width > 10"
+        :width="width"
+        :height="height"
+      >
+        <rect
+          x="0"
+          y="0"
+          :width="width"
+          :height="height"
+          fill="transparent"
+          rx="14"
+        />
 
         <!-- Background ghost line -->
         <g :transform="`translate(${PADDING}, ${height / 4})`">
@@ -106,10 +121,22 @@ const allPoints = computed(() => segments.value.flat());
                   stroke-width="1"
                 />
               </g>
-              <LinePath v-else :data="segment" :x="getX" :y="getY" v-bind="styles" />
+              <LinePath
+                v-else
+                :data="segment"
+                :x="getX"
+                :y="getY"
+                v-bind="styles"
+              />
             </template>
           </SplitLinePath>
-          <text dy="0.3em" font-size="10" font-weight="bold" text-anchor="middle" fill="#fff">
+          <text
+            dy="0.3em"
+            font-size="10"
+            font-weight="bold"
+            text-anchor="middle"
+            fill="#fff"
+          >
             Start
           </text>
         </g>

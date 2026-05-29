@@ -1,12 +1,12 @@
-import { defineComponent, type PropType } from "vue";
-import { BarRounded } from "@visx-vue/shape";
-import type { AxisScale } from "@visx-vue/axis";
-import type { Bar, BarsProps } from "../../../types";
+import { defineComponent, type PropType } from 'vue'
+import { BarRounded } from '@visx-vue/shape'
+import type { AxisScale } from '@visx-vue/axis'
+import type { Bar, BarsProps } from '../../../types'
 
-export type { BarsProps };
+export type { BarsProps }
 
 export default defineComponent({
-  name: "Bars",
+  name: 'Bars',
   inheritAttrs: false,
   props: {
     bars: { type: Array as PropType<Bar[]>, required: true },
@@ -23,21 +23,21 @@ export default defineComponent({
     onFocus: { type: Function as PropType<(event: FocusEvent) => void>, default: undefined },
     onPointerMove: {
       type: Function as PropType<(event: PointerEvent) => void>,
-      default: undefined,
+      default: undefined
     },
     onPointerOut: { type: Function as PropType<(event: PointerEvent) => void>, default: undefined },
-    onPointerUp: { type: Function as PropType<(event: PointerEvent) => void>, default: undefined },
+    onPointerUp: { type: Function as PropType<(event: PointerEvent) => void>, default: undefined }
   },
   setup(props) {
     return () => {
-      const isFocusable = Boolean(props.onFocus || props.onBlur);
+      const isFocusable = Boolean(props.onFocus || props.onBlur)
       const eventHandlers = {
         onBlur: props.onBlur,
         onFocus: props.onFocus,
         onPointermove: props.onPointerMove,
         onPointerout: props.onPointerOut,
-        onPointerup: props.onPointerUp,
-      };
+        onPointerup: props.onPointerUp
+      }
 
       return (
         <>
@@ -63,10 +63,10 @@ export default defineComponent({
                 {...barProps}
                 {...({ tabindex: isFocusable ? 0 : undefined, ...eventHandlers } as any)}
               />
-            ),
+            )
           )}
         </>
-      );
-    };
-  },
-});
+      )
+    }
+  }
+})

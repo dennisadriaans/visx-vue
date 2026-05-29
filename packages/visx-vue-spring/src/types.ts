@@ -1,1 +1,1 @@
-export type AnimationTrajectory = "outside" | "center" | "min" | "max";
+export type AnimationTrajectory = 'outside' | 'center' | 'min' | 'max'

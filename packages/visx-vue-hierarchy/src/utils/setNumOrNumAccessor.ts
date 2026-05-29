@@ -4,8 +4,8 @@
  */
 export default function setNumberOrNumberAccessor<NumAccessor>(
   func: (d: number | NumAccessor) => void,
-  value: number | NumAccessor,
+  value: number | NumAccessor
 ) {
-  if (typeof value === "number") func(value);
-  else func(value);
+  if (typeof value === 'number') func(value)
+  else func(value)
 }

@@ -1,36 +1,36 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import { Sankey, sankeyCenter, sankeyRight, sankeyLeft, sankeyJustify } from "@visx-vue/sankey";
-import { Group } from "@visx-vue/group";
-import { BarRounded, LinkHorizontal } from "@visx-vue/shape";
-import { useTooltip, TooltipWithBounds } from "@visx-vue/tooltip";
-import { useParentSize } from "@visx-vue/responsive";
+import { computed, ref } from 'vue'
+import { Sankey, sankeyCenter, sankeyRight, sankeyLeft, sankeyJustify } from '@visx-vue/sankey'
+import { Group } from '@visx-vue/group'
+import { BarRounded, LinkHorizontal } from '@visx-vue/shape'
+import { useTooltip, TooltipWithBounds } from '@visx-vue/tooltip'
+import { useParentSize } from '@visx-vue/responsive'
 
-const { parentRef, width, height: rawHeight } = useParentSize();
-const height = computed(() => rawHeight.value || 400);
+const { parentRef, width, height: rawHeight } = useParentSize()
+const height = computed(() => rawHeight.value || 400)
 
-const background = "transparent";
-const color = "#00DC82";
-const margin = { top: 10, left: 10, right: 10, bottom: 10 };
+const background = 'transparent'
+const color = '#00DC82'
+const margin = { top: 10, left: 10, right: 10, bottom: 10 }
 
-const nodeAlignments = { sankeyCenter, sankeyJustify, sankeyLeft, sankeyRight };
-type AlignmentKey = keyof typeof nodeAlignments;
+const nodeAlignments = { sankeyCenter, sankeyJustify, sankeyLeft, sankeyRight }
+type AlignmentKey = keyof typeof nodeAlignments
 
-const nodeAlignment = ref<AlignmentKey>("sankeyCenter");
-const nodePadding = ref(10);
-const nodeWidth = ref(10);
+const nodeAlignment = ref<AlignmentKey>('sankeyCenter')
+const nodePadding = ref(10)
+const nodeWidth = ref(10)
 
-const xMax = computed(() => width.value - margin.left - margin.right);
-const yMax = computed(() => height.value - margin.top - margin.bottom);
+const xMax = computed(() => width.value - margin.left - margin.right)
+const yMax = computed(() => height.value - margin.top - margin.bottom)
 
 const { tooltipData, tooltipLeft, tooltipTop, tooltipOpen, showTooltip, hideTooltip } =
-  useTooltip<string>();
+  useTooltip<string>()
 
-const { data: energyData } = await useAsyncData("sankey-energy", () =>
+const { data: energyData } = await useAsyncData('sankey-energy', () =>
   $fetch<{ nodes: { name: string }[]; links: { source: number; target: number; value: number }[] }>(
-    "/data/energy.json",
-  ),
-);
+    '/data/energy.json'
+  )
+)
 </script>
 
 <template>
@@ -49,21 +49,38 @@ const { data: energyData } = await useAsyncData("sankey-energy", () =>
           @click.stop
         />
         <span class="text-xs text-default font-medium">node padding:</span>
-        <UInput v-model.number="nodePadding" type="number" size="sm" class="w-20" />
+        <UInput
+          v-model.number="nodePadding"
+          type="number"
+          size="sm"
+          class="w-20"
+        />
         <span class="text-xs text-default font-medium">node width:</span>
-        <UInput v-model.number="nodeWidth" type="number" size="sm" class="w-20" />
+        <UInput
+          v-model.number="nodeWidth"
+          type="number"
+          size="sm"
+          class="w-20"
+        />
       </div>
     </template>
-    <div ref="parentRef" class="w-full bg-elevated/40 rounded-xl" style="height: 500px">
+    <div
+      ref="parentRef"
+      class="w-full bg-elevated/40 rounded-xl"
+      style="height: 500px"
+    >
       <div
         v-if="width > 10 && energyData"
         class="relative rounded-xl"
         :style="{
           background,
-          padding: `${margin.top}px ${margin.right}px ${margin.bottom}px ${margin.left}px`,
+          padding: `${margin.top}px ${margin.right}px ${margin.bottom}px ${margin.left}px`
         }"
       >
-        <svg :width="xMax" :height="yMax">
+        <svg
+          :width="xMax"
+          :height="yMax"
+        >
           <Sankey
             :root="energyData"
             :node-width="nodeWidth"
@@ -85,13 +102,13 @@ const { data: energyData } = await useAsyncData("sankey-energy", () =>
                   stroke-opacity="0.5"
                   @pointermove="
                     (event: PointerEvent) => {
-                      const src = link.source as { name?: string };
-                      const tgt = link.target as { name?: string };
+                      const src = link.source as { name?: string }
+                      const tgt = link.target as { name?: string }
                       showTooltip({
                         tooltipData: `${src.name} > ${tgt.name} = ${link.value}`,
                         tooltipTop: event.offsetY + 10,
-                        tooltipLeft: event.offsetX + 10,
-                      });
+                        tooltipLeft: event.offsetX + 10
+                      })
                     }
                   "
                   @mouseout="hideTooltip"
@@ -114,7 +131,7 @@ const { data: energyData } = await useAsyncData("sankey-energy", () =>
                       showTooltip({
                         tooltipData: node.name,
                         tooltipTop: event.offsetY + 10,
-                        tooltipLeft: event.offsetX + 10,
+                        tooltipLeft: event.offsetX + 10
                       })
                   "
                   @mouseout="hideTooltip"

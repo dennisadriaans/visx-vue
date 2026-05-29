@@ -1,24 +1,24 @@
-import { defineComponent, provide, type PropType } from "vue";
-import type { XYChartTheme } from "../types";
-import { ThemeContextKey } from "../context/ThemeContext";
-import lightTheme from "../theme/themes/light";
+import { defineComponent, provide, type PropType } from 'vue'
+import type { XYChartTheme } from '../types'
+import { ThemeContextKey } from '../context/ThemeContext'
+import lightTheme from '../theme/themes/light'
 
 export type ThemeProviderProps = {
-  theme?: XYChartTheme;
-};
+  theme?: XYChartTheme
+}
 
 const ThemeProvider = defineComponent({
-  name: "ThemeProvider",
+  name: 'ThemeProvider',
   props: {
     theme: {
       type: Object as PropType<XYChartTheme>,
-      default: () => lightTheme,
-    },
+      default: () => lightTheme
+    }
   },
   setup(props, { slots }) {
-    provide(ThemeContextKey, props.theme);
-    return () => slots.default?.();
-  },
-});
+    provide(ThemeContextKey, props.theme)
+    return () => slots.default?.()
+  }
+})
 
-export default ThemeProvider;
+export default ThemeProvider

@@ -1,16 +1,16 @@
-import { coerceNumber } from "@visx-vue/scale";
-import type { AxisScale } from "@visx-vue/axis";
-import type { GridScale } from "@visx-vue/grid";
-import type { AnimationTrajectory } from "../types";
+import { coerceNumber } from '@visx-vue/scale'
+import type { AxisScale } from '@visx-vue/axis'
+import type { GridScale } from '@visx-vue/grid'
+import type { AnimationTrajectory } from '../types'
 
 interface Point {
-  x?: number;
-  y?: number;
+  x?: number
+  y?: number
 }
 
 interface Line {
-  from: Point;
-  to: Point;
+  from: Point
+  to: Point
 }
 
 function animatedValue(
@@ -18,18 +18,18 @@ function animatedValue(
   positionOnScale: number | undefined,
   scaleMin: number | undefined,
   scaleMax: number | undefined,
-  scaleHalfwayPoint: number,
+  scaleHalfwayPoint: number
 ): number {
   switch (animationTrajectory) {
-    case "center":
-      return scaleHalfwayPoint;
-    case "min":
-      return scaleMin ?? 0;
-    case "max":
-      return scaleMax ?? 0;
-    case "outside":
+    case 'center':
+      return scaleHalfwayPoint
+    case 'min':
+      return scaleMin ?? 0
+    case 'max':
+      return scaleMax ?? 0
+    case 'outside':
     default:
-      return ((positionOnScale ?? 0) < scaleHalfwayPoint ? scaleMin : scaleMax) ?? 0;
+      return ((positionOnScale ?? 0) < scaleHalfwayPoint ? scaleMin : scaleMax) ?? 0
   }
 }
 
@@ -39,18 +39,18 @@ function enterUpdate({ from, to }: Line) {
     toX: to.x,
     fromY: from.y,
     toY: to.y,
-    opacity: 1,
-  };
+    opacity: 1
+  }
 }
 
 export type TransitionConfig<Scale extends AxisScale | GridScale> = {
   /** Scale along which animation occurs. */
-  scale: Scale;
+  scale: Scale
   /** Whether to animate the `x` or `y` values of a Line. */
-  animateXOrY: "x" | "y";
+  animateXOrY: 'x' | 'y'
   /** The scale position entering lines come from, and exiting lines leave to. */
-  animationTrajectory?: AnimationTrajectory;
-};
+  animationTrajectory?: AnimationTrajectory
+}
 
 /**
  * Returns transition config objects for animating a Line
@@ -63,20 +63,20 @@ export type TransitionConfig<Scale extends AxisScale | GridScale> = {
 export default function useLineTransitionConfig<Scale extends AxisScale | GridScale>({
   scale,
   animateXOrY,
-  animationTrajectory: initAnimationTrajectory = "outside",
+  animationTrajectory: initAnimationTrajectory = 'outside'
 }: TransitionConfig<Scale>) {
-  const shouldAnimateX = animateXOrY === "x";
+  const shouldAnimateX = animateXOrY === 'x'
 
-  const [a, b] = scale.range().map(coerceNumber);
-  const isDescending = b != null && a != null && b < a;
-  const [scaleMin, scaleMax] = isDescending ? [b, a] : [a, b];
-  const scaleLength = b != null && a != null ? Math.abs(b - a) : 0;
-  const scaleHalfwayPoint = (scaleMin ?? 0) + scaleLength / 2;
-  let animationTrajectory = initAnimationTrajectory;
+  const [a, b] = scale.range().map(coerceNumber)
+  const isDescending = b != null && a != null && b < a
+  const [scaleMin, scaleMax] = isDescending ? [b, a] : [a, b]
+  const scaleLength = b != null && a != null ? Math.abs(b - a) : 0
+  const scaleHalfwayPoint = (scaleMin ?? 0) + scaleLength / 2
+  let animationTrajectory = initAnimationTrajectory
 
   // correct direction for y-axis which is inverted due to svg coords
-  if (!shouldAnimateX && initAnimationTrajectory === "min") animationTrajectory = "max";
-  if (!shouldAnimateX && initAnimationTrajectory === "max") animationTrajectory = "min";
+  if (!shouldAnimateX && initAnimationTrajectory === 'min') animationTrajectory = 'max'
+  if (!shouldAnimateX && initAnimationTrajectory === 'max') animationTrajectory = 'min'
 
   const fromLeave = ({ from, to }: Line) => ({
     fromX: shouldAnimateX
@@ -91,13 +91,13 @@ export default function useLineTransitionConfig<Scale extends AxisScale | GridSc
     toY: shouldAnimateX
       ? to.y
       : animatedValue(animationTrajectory, from.y, scaleMin, scaleMax, scaleHalfwayPoint),
-    opacity: 0,
-  });
+    opacity: 0
+  })
 
   return {
     from: fromLeave,
     leave: fromLeave,
     enter: enterUpdate,
-    update: enterUpdate,
-  };
+    update: enterUpdate
+  }
 }

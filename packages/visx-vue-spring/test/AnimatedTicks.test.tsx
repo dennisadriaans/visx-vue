@@ -1,18 +1,18 @@
-import { describe, it, expect, beforeEach, afterEach } from "vite-plus/test";
-import { mount } from "@vue/test-utils";
-import { scaleLinear } from "@visx-vue/scale";
-import { AnimatedTicks } from "../src";
-import { addMock, removeMock } from "./svgMock";
+import { describe, it, expect, beforeEach, afterEach } from 'vite-plus/test'
+import { mount } from '@vue/test-utils'
+import { scaleLinear } from '@visx-vue/scale'
+import { AnimatedTicks } from '../src'
+import { addMock, removeMock } from './svgMock'
 
-describe("AnimatedTicks", () => {
-  beforeEach(addMock);
-  afterEach(removeMock);
+describe('AnimatedTicks', () => {
+  beforeEach(addMock)
+  afterEach(removeMock)
 
-  it("should be defined", () => {
-    expect(AnimatedTicks).toBeDefined();
-  });
+  it('should be defined', () => {
+    expect(AnimatedTicks).toBeDefined()
+  })
 
-  it("should render tickComponent defined", () => {
+  it('should render tickComponent defined', () => {
     const wrapper = mount({
       render() {
         return (
@@ -30,19 +30,19 @@ describe("AnimatedTicks", () => {
                   to: { x: 0, y: 5 },
                   value: 0,
                   index: 0,
-                  formattedValue: "0",
-                },
+                  formattedValue: '0'
+                }
               ]}
             />
           </svg>
-        );
-      },
-    });
+        )
+      }
+    })
 
-    expect(wrapper.text()).toContain("Test Component");
-  });
+    expect(wrapper.text()).toContain('Test Component')
+  })
 
-  it("should render without errors", () => {
+  it('should render without errors', () => {
     const wrapper = mount({
       render() {
         return (
@@ -59,16 +59,16 @@ describe("AnimatedTicks", () => {
                   to: { x: 0, y: 5 },
                   value: 0,
                   index: 0,
-                  formattedValue: "0",
-                },
+                  formattedValue: '0'
+                }
               ]}
             />
           </svg>
-        );
-      },
-    });
+        )
+      }
+    })
 
-    const tickGroup = wrapper.find(".visx-axis-tick");
-    expect(tickGroup.exists()).toBe(true);
-  });
-});
+    const tickGroup = wrapper.find('.visx-axis-tick')
+    expect(tickGroup.exists()).toBe(true)
+  })
+})

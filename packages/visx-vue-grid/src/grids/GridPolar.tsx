@@ -1,114 +1,114 @@
-import { defineComponent, type PropType, type CSSProperties } from "vue";
-import { Group } from "@visx-vue/group";
-import type { ScaleInput } from "@visx-vue/scale";
-import GridAngle from "./GridAngle";
-import GridRadial from "./GridRadial";
-import type { CommonGridProps, GridScale } from "../types";
+import { defineComponent, type PropType, type CSSProperties } from 'vue'
+import { Group } from '@visx-vue/group'
+import type { ScaleInput } from '@visx-vue/scale'
+import GridAngle from './GridAngle'
+import GridRadial from './GridRadial'
+import type { CommonGridProps, GridScale } from '../types'
 
 export type GridPolarProps<
   AngleScale extends GridScale,
-  RadialScale extends GridScale,
+  RadialScale extends GridScale
 > = CommonGridProps & {
   /**
    * If specified, the arc of each radial grid line will have this thickness, useful for fills.
    */
-  arcThickness?: number;
+  arcThickness?: number
   /**
    * The class name applied to the angle grid group.
    */
-  classNameAngle?: string;
+  classNameAngle?: string
   /**
    * The class name applied to the radial grid group.
    */
-  classNameRadial?: string;
+  classNameRadial?: string
   /**
    * The end angle of the arc of radial grid lines in radians.
    */
-  endAngle?: number;
+  endAngle?: number
   /**
    * The color applied to the fill of the radial lines.
    */
-  fillRadial?: string;
+  fillRadial?: string
   /**
    * Radius which determines the start position of angle lines.
    */
-  innerRadius?: number;
+  innerRadius?: number
   /**
    * Classname applied to all angle line paths.
    */
-  lineClassNameAngle?: string;
+  lineClassNameAngle?: string
   /**
    * Classname applied to all radial line paths.
    */
-  lineClassNameRadial?: string;
+  lineClassNameRadial?: string
   /**
    * Style object set as the angle line path style attribute.
    */
-  lineStyleAngle?: CSSProperties;
+  lineStyleAngle?: CSSProperties
   /**
    * Style object set as the radius line path style attribute.
    */
-  lineStyleRadial?: CSSProperties;
+  lineStyleRadial?: CSSProperties
   /**
    * The number of angle ticks wanted for the grid.
    */
-  numTicksAngle?: number;
+  numTicksAngle?: number
   /**
    * The number of radial ticks wanted for the grid.
    */
-  numTicksRadial?: number;
+  numTicksRadial?: number
   /**
    * Radius which determines the end position of angle lines.
    */
-  outerRadius: number;
+  outerRadius: number
   /**
    * Scale function used to generate the angle of angle lines.
    */
-  scaleAngle: AngleScale;
+  scaleAngle: AngleScale
   /**
    * Scale function used to generate the radius of radial lines.
    */
-  scaleRadial: RadialScale;
+  scaleRadial: RadialScale
   /**
    * The start angle of the arc of radial grid lines in radians.
    */
-  startAngle?: number;
+  startAngle?: number
   /**
    * The color applied to the stroke of the angle lines.
    */
-  strokeAngle?: string;
+  strokeAngle?: string
   /**
    * The color applied to the stroke of the radial lines.
    */
-  strokeRadial?: string;
+  strokeRadial?: string
   /**
    * The pattern of dashes for angle line stroke.
    */
-  strokeDasharrayAngle?: string;
+  strokeDasharrayAngle?: string
   /**
    * The pattern of dashes for radial stroke.
    */
-  strokeDasharrayRadial?: string;
+  strokeDasharrayRadial?: string
   /**
    * The pixel value for the width of the angle lines.
    */
-  strokeWidthAngle?: string | number;
+  strokeWidthAngle?: string | number
   /**
    * The pixel value for the width of the radial lines.
    */
-  strokeWidthRadial?: string | number;
+  strokeWidthRadial?: string | number
   /**
    * An array of values that determine the number and values of the angle ticks.
    */
-  tickValuesAngle?: ScaleInput<AngleScale>[];
+  tickValuesAngle?: ScaleInput<AngleScale>[]
   /**
    * An array of values that determine the number and values of the radial ticks.
    */
-  tickValuesRadial?: ScaleInput<RadialScale>[];
-};
+  tickValuesRadial?: ScaleInput<RadialScale>[]
+}
 
 export const GridPolar = defineComponent({
-  name: "GridPolar",
+  name: 'GridPolar',
   props: {
     arcThickness: { type: Number as PropType<number>, default: undefined },
     className: { type: String as PropType<string>, default: undefined },
@@ -136,12 +136,12 @@ export const GridPolar = defineComponent({
     strokeWidthRadial: { type: [String, Number] as PropType<string | number>, default: undefined },
     tickValuesAngle: { type: Array as PropType<unknown[]>, default: undefined },
     tickValuesRadial: { type: Array as PropType<unknown[]>, default: undefined },
-    top: { type: Number as PropType<number>, default: undefined },
+    top: { type: Number as PropType<number>, default: undefined }
   },
   setup(props) {
     return () => (
       <Group
-        className={["visx-grid-polar", props.className].filter(Boolean).join(" ")}
+        className={['visx-grid-polar', props.className].filter(Boolean).join(' ')}
         top={props.top}
         left={props.left}
       >
@@ -174,8 +174,8 @@ export const GridPolar = defineComponent({
           tickValues={props.tickValuesRadial}
         />
       </Group>
-    );
-  },
-});
+    )
+  }
+})
 
-export default GridPolar;
+export default GridPolar

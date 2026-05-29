@@ -34,28 +34,28 @@ The package provides factory functions for creating various types of scales:
 
 ```vue
 <script setup lang="ts">
-import { scaleLinear, scaleBand } from "@visx-vue/scale";
+import { scaleLinear, scaleBand } from '@visx-vue/scale'
 
-const width = 500;
-const height = 300;
+const width = 500
+const height = 300
 
 const xScale = scaleBand({
-  domain: ["a", "b", "c"],
+  domain: ['a', 'b', 'c'],
   range: [0, width],
-  padding: 0.2,
-});
+  padding: 0.2
+})
 
 const yScale = scaleLinear({
   domain: [0, 100],
   range: [height, 0],
-  nice: true,
-});
+  nice: true
+})
 </script>
 
 <template>
   <div>
     <p>Scale Linear (0 -> 100): {{ yScale(50) }}px</p>
-    <p>Scale Band ('b'): {{ xScale("b") }}px</p>
+    <p>Scale Band ('b'): {{ xScale('b') }}px</p>
   </div>
 </template>
 ```

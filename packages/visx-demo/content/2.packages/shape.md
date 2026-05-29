@@ -54,15 +54,24 @@ The following components are available in `@visx-vue/shape`:
 
 ```vue
 <script setup lang="ts">
-import { Bar } from "@visx-vue/shape";
+import { Bar } from '@visx-vue/shape'
 
-const width = 500;
-const height = 100;
+const width = 500
+const height = 100
 </script>
 
 <template>
-  <svg :width="width" :height="height">
-    <Bar :x="0" :y="0" :width="width" :height="height" fill="steelblue" />
+  <svg
+    :width="width"
+    :height="height"
+  >
+    <Bar
+      :x="0"
+      :y="0"
+      :width="width"
+      :height="height"
+      fill="steelblue"
+    />
   </svg>
 </template>
 ```

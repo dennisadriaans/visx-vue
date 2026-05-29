@@ -1,10 +1,10 @@
 export interface DebounceSettings {
   /** Debounce time in ms. Default `300`. */
-  debounceTime?: number;
+  debounceTime?: number
   /** Whether to call the debounce function on the leading edge. Default `true`. */
-  enableDebounceLeadingCall?: boolean;
+  enableDebounceLeadingCall?: boolean
 }
 
 export interface ResizeObserverPolyfill {
-  new (callback: ResizeObserverCallback): ResizeObserver;
+  new (callback: ResizeObserverCallback): ResizeObserver
 }

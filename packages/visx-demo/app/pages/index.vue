@@ -43,22 +43,22 @@
 </template>
 
 <script setup lang="ts">
-const { galleryTiles } = useGalleryTiles();
+const { galleryTiles } = useGalleryTiles()
 
 // Select 6 featured tiles for the home page
 const featuredTiles = computed(() => {
-  const featuredTitles = ["Bars", "Areas", "Heatmaps", "Pies", "XYChart", "Curves"];
-  return galleryTiles.filter((tile) => featuredTitles.includes(tile.title)).slice(0, 6);
-});
+  const featuredTitles = ['Bars', 'Areas', 'Heatmaps', 'Pies', 'XYChart', 'Curves']
+  return galleryTiles.filter((tile) => featuredTitles.includes(tile.title)).slice(0, 6)
+})
 
 useHead({
-  title: "visx-vue — Visualization Primitives for Vue",
+  title: 'visx-vue — Visualization Primitives for Vue',
   meta: [
     {
-      name: "description",
+      name: 'description',
       content:
-        "visx-vue is a collection of expressive, low-level visualization primitives for Vue, ported from airbnb/visx.",
-    },
-  ],
-});
+        'visx-vue is a collection of expressive, low-level visualization primitives for Vue, ported from airbnb/visx.'
+    }
+  ]
+})
 </script>

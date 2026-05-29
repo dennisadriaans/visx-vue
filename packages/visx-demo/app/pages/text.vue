@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { Text as VisxText } from "@visx-vue/text";
+import { ref } from 'vue'
+import { Text as VisxText } from '@visx-vue/text'
 
-const exampleText = ref("This is really long text");
-const x = ref(0);
-const y = ref(0);
-const svgWidth = ref(225);
-const textWidth = ref(225);
-const angle = ref(0);
-const scaleToFit = ref(false);
-const textAnchor = ref<"start" | "middle" | "end">("start");
-const verticalAnchor = ref<"start" | "middle" | "end">("start");
-const fontSize = ref("1em");
-const fontFamily = ref("Arial");
-const fontWeight = ref("400");
-const lineHeight = ref("1em");
-const showAnchor = ref(true);
-const resizeSvg = ref(true);
+const exampleText = ref('This is really long text')
+const x = ref(0)
+const y = ref(0)
+const svgWidth = ref(225)
+const textWidth = ref(225)
+const angle = ref(0)
+const scaleToFit = ref(false)
+const textAnchor = ref<'start' | 'middle' | 'end'>('start')
+const verticalAnchor = ref<'start' | 'middle' | 'end'>('start')
+const fontSize = ref('1em')
+const fontFamily = ref('Arial')
+const fontWeight = ref('400')
+const lineHeight = ref('1em')
+const showAnchor = ref(true)
+const resizeSvg = ref(true)
 
-const svgHeight = 200;
+const svgHeight = 200
 </script>
 
 <template>
@@ -48,12 +48,18 @@ const svgHeight = 200;
             :style="{
               fontSize,
               fontFamily,
-              fontWeight: isNaN(Number(fontWeight)) ? 200 : Number(fontWeight),
+              fontWeight: isNaN(Number(fontWeight)) ? 200 : Number(fontWeight)
             }"
           >
             {{ exampleText }}
           </VisxText>
-          <circle v-if="showAnchor" :cx="x" :cy="y" r="2" fill="red" />
+          <circle
+            v-if="showAnchor"
+            :cx="x"
+            :cy="y"
+            r="2"
+            fill="red"
+          />
         </svg>
       </div>
 
@@ -69,7 +75,13 @@ const svgHeight = 200;
         </div>
         <div class="flex items-center gap-2">
           <label class="w-24">x:</label>
-          <input v-model.number="x" type="range" min="0" max="225" class="w-40" />
+          <input
+            v-model.number="x"
+            type="range"
+            min="0"
+            max="225"
+            class="w-40"
+          />
           <input
             v-model.number="x"
             type="number"
@@ -78,7 +90,13 @@ const svgHeight = 200;
         </div>
         <div class="flex items-center gap-2">
           <label class="w-24">y:</label>
-          <input v-model.number="y" type="range" min="0" :max="svgHeight" class="w-40" />
+          <input
+            v-model.number="y"
+            type="range"
+            min="0"
+            :max="svgHeight"
+            class="w-40"
+          />
           <input
             v-model.number="y"
             type="number"
@@ -87,7 +105,13 @@ const svgHeight = 200;
         </div>
         <div class="flex items-center gap-2">
           <label class="w-24">width:</label>
-          <input v-model.number="textWidth" type="range" min="20" max="500" class="w-40" />
+          <input
+            v-model.number="textWidth"
+            type="range"
+            min="20"
+            max="500"
+            class="w-40"
+          />
           <input
             v-model.number="textWidth"
             type="number"
@@ -96,7 +120,13 @@ const svgHeight = 200;
         </div>
         <div class="flex items-center gap-2">
           <label class="w-24">angle:</label>
-          <input v-model.number="angle" type="range" min="-180" max="180" class="w-40" />
+          <input
+            v-model.number="angle"
+            type="range"
+            min="-180"
+            max="180"
+            class="w-40"
+          />
           <input
             v-model.number="angle"
             type="number"
@@ -105,7 +135,10 @@ const svgHeight = 200;
         </div>
         <div class="flex items-center gap-2">
           <label class="w-24">textAnchor:</label>
-          <select v-model="textAnchor" class="border border-gray-300 rounded px-1">
+          <select
+            v-model="textAnchor"
+            class="border border-gray-300 rounded px-1"
+          >
             <option value="start">start</option>
             <option value="middle">middle</option>
             <option value="end">end</option>
@@ -113,7 +146,10 @@ const svgHeight = 200;
         </div>
         <div class="flex items-center gap-2">
           <label class="w-24">verticalAnchor:</label>
-          <select v-model="verticalAnchor" class="border border-gray-300 rounded px-1">
+          <select
+            v-model="verticalAnchor"
+            class="border border-gray-300 rounded px-1"
+          >
             <option value="start">start</option>
             <option value="middle">middle</option>
             <option value="end">end</option>
@@ -121,7 +157,11 @@ const svgHeight = 200;
         </div>
         <div class="flex items-center gap-2">
           <label class="w-24">fontSize:</label>
-          <input v-model="fontSize" type="text" class="border border-gray-300 rounded px-1 w-20" />
+          <input
+            v-model="fontSize"
+            type="text"
+            class="border border-gray-300 rounded px-1 w-20"
+          />
         </div>
         <div class="flex items-center gap-2">
           <label class="w-24">fontFamily:</label>
@@ -149,19 +189,28 @@ const svgHeight = 200;
         </div>
         <div class="flex items-center gap-2">
           <label class="flex items-center gap-1 cursor-pointer">
-            <input v-model="scaleToFit" type="checkbox" />
+            <input
+              v-model="scaleToFit"
+              type="checkbox"
+            />
             scaleToFit
           </label>
         </div>
         <div class="flex items-center gap-2">
           <label class="flex items-center gap-1 cursor-pointer">
-            <input v-model="showAnchor" type="checkbox" />
+            <input
+              v-model="showAnchor"
+              type="checkbox"
+            />
             show anchor point
           </label>
         </div>
         <div class="flex items-center gap-2">
           <label class="flex items-center gap-1 cursor-pointer">
-            <input v-model="resizeSvg" type="checkbox" />
+            <input
+              v-model="resizeSvg"
+              type="checkbox"
+            />
             resize SVG to match width
           </label>
         </div>

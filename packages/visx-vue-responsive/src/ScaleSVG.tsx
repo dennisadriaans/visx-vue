@@ -1,48 +1,48 @@
-import { defineComponent, ref, watchEffect, useSlots, type PropType } from "vue";
+import { defineComponent, ref, watchEffect, useSlots, type PropType } from 'vue'
 
 export interface ScaleSVGProps {
   /** Width of the desired SVG. */
-  width?: number | string;
+  width?: number | string
   /** Height of the desired SVG. */
-  height?: number | string;
+  height?: number | string
   /** xOrigin of the desired SVG. */
-  xOrigin?: number | string;
+  xOrigin?: number | string
   /** yOrigin of the desired SVG. */
-  yOrigin?: number | string;
+  yOrigin?: number | string
   /** Whether to preserve SVG aspect ratio. */
-  preserveAspectRatio?: string;
+  preserveAspectRatio?: string
   /** Ref to the parent `<svg />` used for scaling. */
-  innerRef?: { value: SVGSVGElement | null };
+  innerRef?: { value: SVGSVGElement | null }
 }
 
 export const ScaleSVG = defineComponent({
-  name: "ScaleSVG",
+  name: 'ScaleSVG',
   props: {
     width: { type: [Number, String] as PropType<number | string>, default: undefined },
     height: { type: [Number, String] as PropType<number | string>, default: undefined },
     xOrigin: { type: [Number, String] as PropType<number | string>, default: 0 },
     yOrigin: { type: [Number, String] as PropType<number | string>, default: 0 },
-    preserveAspectRatio: { type: String as PropType<string>, default: "xMinYMin meet" },
-    innerRef: { type: Object as PropType<{ value: SVGSVGElement | null }>, default: undefined },
+    preserveAspectRatio: { type: String as PropType<string>, default: 'xMinYMin meet' },
+    innerRef: { type: Object as PropType<{ value: SVGSVGElement | null }>, default: undefined }
   },
   setup(props, { expose }) {
-    const slots = useSlots();
-    const localRef = ref<SVGSVGElement | null>(null);
+    const slots = useSlots()
+    const localRef = ref<SVGSVGElement | null>(null)
 
-    expose({ el: localRef });
+    expose({ el: localRef })
 
     watchEffect(() => {
-      if (props.innerRef) props.innerRef.value = localRef.value;
-    });
+      if (props.innerRef) props.innerRef.value = localRef.value
+    })
 
     return () => (
       <div
         style={{
-          display: "inline-block",
-          position: "relative",
-          width: "100%",
-          verticalAlign: "top",
-          overflow: "hidden",
+          display: 'inline-block',
+          position: 'relative',
+          width: '100%',
+          verticalAlign: 'top',
+          overflow: 'hidden'
         }}
       >
         <svg
@@ -53,6 +53,6 @@ export const ScaleSVG = defineComponent({
           {slots.default?.()}
         </svg>
       </div>
-    );
-  },
-});
+    )
+  }
+})

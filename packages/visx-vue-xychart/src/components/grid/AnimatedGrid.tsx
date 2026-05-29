@@ -1,54 +1,54 @@
-import { defineComponent, useAttrs, type PropType, h } from "vue";
-import { AnimatedGridRows, AnimatedGridColumns } from "@visx-vue/spring";
-import type { AnimationTrajectory } from "@visx-vue/spring";
-import type { BaseGridProps } from "./BaseGrid";
-import BaseGrid from "./BaseGrid";
+import { defineComponent, useAttrs, type PropType, h } from 'vue'
+import { AnimatedGridRows, AnimatedGridColumns } from '@visx-vue/spring'
+import type { AnimationTrajectory } from '@visx-vue/spring'
+import type { BaseGridProps } from './BaseGrid'
+import BaseGrid from './BaseGrid'
 
 export type AnimatedGridProps = Omit<
   BaseGridProps,
-  "GridRowsComponent" | "GridColumnsComponent"
+  'GridRowsComponent' | 'GridColumnsComponent'
 > & {
   /** Animation trajectory of grid lines. */
-  animationTrajectory?: AnimationTrajectory;
-};
+  animationTrajectory?: AnimationTrajectory
+}
 
 const AnimatedGrid = defineComponent({
-  name: "AnimatedGrid",
+  name: 'AnimatedGrid',
   inheritAttrs: false,
   props: {
     animationTrajectory: { type: String as PropType<AnimationTrajectory>, default: undefined },
     rows: { type: Boolean as PropType<boolean>, default: true },
-    columns: { type: Boolean as PropType<boolean>, default: true },
+    columns: { type: Boolean as PropType<boolean>, default: true }
   },
   setup(props) {
-    const attrs = useAttrs();
+    const attrs = useAttrs()
 
     // Create wrapper components that pass animationTrajectory through
     const RowsComponent = defineComponent({
-      name: "AnimatedGridRowsWrapper",
+      name: 'AnimatedGridRowsWrapper',
       inheritAttrs: false,
       setup() {
-        const innerAttrs = useAttrs();
+        const innerAttrs = useAttrs()
         return () =>
           h(AnimatedGridRows as any, {
             animationTrajectory: props.animationTrajectory,
-            ...innerAttrs,
-          });
-      },
-    });
+            ...innerAttrs
+          })
+      }
+    })
 
     const ColumnsComponent = defineComponent({
-      name: "AnimatedGridColumnsWrapper",
+      name: 'AnimatedGridColumnsWrapper',
       inheritAttrs: false,
       setup() {
-        const innerAttrs = useAttrs();
+        const innerAttrs = useAttrs()
         return () =>
           h(AnimatedGridColumns as any, {
             animationTrajectory: props.animationTrajectory,
-            ...innerAttrs,
-          });
-      },
-    });
+            ...innerAttrs
+          })
+      }
+    })
 
     return () => (
       <BaseGrid
@@ -58,8 +58,8 @@ const AnimatedGrid = defineComponent({
         columns={props.columns}
         {...attrs}
       />
-    );
-  },
-});
+    )
+  }
+})
 
-export default AnimatedGrid;
+export default AnimatedGrid

@@ -6,14 +6,17 @@
         class="text-sm text-muted inline-flex items-center gap-1 mb-3 hover:text-highlighted transition-colors"
       >
         <UIcon name="i-lucide-chevron-left"></UIcon>
-        {{ backLabel ?? "Gallery" }}
+        {{ backLabel ?? 'Gallery' }}
       </ULink>
       <h1
         class="text-[clamp(2rem,5vw,3.25rem)] font-bold tracking-tight leading-none text-highlighted"
       >
         {{ title }}
       </h1>
-      <p v-if="description" class="mt-2 text-toned text-lg">
+      <p
+        v-if="description"
+        class="mt-2 text-toned text-lg"
+      >
         {{ description }}
       </p>
     </div>
@@ -22,7 +25,10 @@
       <slot />
     </div>
 
-    <div v-if="packages?.length" class="mt-12">
+    <div
+      v-if="packages?.length"
+      class="mt-12"
+    >
       <h2 class="text-base font-semibold text-highlighted mb-4">Packages used</h2>
       <div class="flex flex-wrap gap-2">
         <UBadge
@@ -46,10 +52,10 @@
 
 <script setup lang="ts">
 defineProps<{
-  title: string;
-  description?: string;
-  packages?: string[];
-  backTo?: string;
-  backLabel?: string;
-}>();
+  title: string
+  description?: string
+  packages?: string[]
+  backTo?: string
+  backLabel?: string
+}>()
 </script>

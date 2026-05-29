@@ -4,8 +4,8 @@ version: 2.0.0
 description: Lightpanda browser, drop-in replacement for Chrome and Openclaw default browser - faster and lighter for tasks without graphical rendering like data retrieval. Use it via MCP server, CLI fetch, or CDP with Playwright/Puppeteer.
 metadata:
   author: Pierre Tachoire
-  source: "https://github.com/lightpanda-io/agent-skill"
-  homepage: "https://github.com/lightpanda-io/agent-skill"
+  source: 'https://github.com/lightpanda-io/agent-skill'
+  homepage: 'https://github.com/lightpanda-io/agent-skill'
 ---
 
 # Lightpanda
@@ -169,26 +169,26 @@ Options:
 Connect using `playwright-core` (not the full `playwright` package):
 
 ```javascript
-const { chromium } = require("playwright-core");
+const { chromium } = require('playwright-core')
 
-(async () => {
+;(async () => {
   const browser = await chromium.connectOverCDP({
-    endpointURL: "ws://127.0.0.1:9222",
-  });
+    endpointURL: 'ws://127.0.0.1:9222'
+  })
 
-  const context = await browser.newContext({});
-  const page = await context.newPage();
+  const context = await browser.newContext({})
+  const page = await context.newPage()
 
-  await page.goto("https://example.com");
-  const title = await page.title();
-  const content = await page.textContent("body");
+  await page.goto('https://example.com')
+  const title = await page.title()
+  const content = await page.textContent('body')
 
-  console.log(JSON.stringify({ title, content }));
+  console.log(JSON.stringify({ title, content }))
 
-  await page.close();
-  await context.close();
-  await browser.close();
-})();
+  await page.close()
+  await context.close()
+  await browser.close()
+})()
 ```
 
 ### Using with puppeteer-core
@@ -196,25 +196,25 @@ const { chromium } = require("playwright-core");
 Connect using `puppeteer-core` (not the full `puppeteer` package):
 
 ```javascript
-const puppeteer = require("puppeteer-core");
+const puppeteer = require('puppeteer-core')
 
-(async () => {
+;(async () => {
   const browser = await puppeteer.connect({
-    browserWSEndpoint: "ws://127.0.0.1:9222",
-  });
+    browserWSEndpoint: 'ws://127.0.0.1:9222'
+  })
 
-  const context = await browser.createBrowserContext();
-  const page = await context.newPage();
+  const context = await browser.createBrowserContext()
+  const page = await context.newPage()
 
-  await page.goto("https://example.com", { waitUntil: "networkidle0" });
-  const title = await page.title();
+  await page.goto('https://example.com', { waitUntil: 'networkidle0' })
+  const title = await page.title()
 
-  console.log(JSON.stringify({ title }));
+  console.log(JSON.stringify({ title }))
 
-  await page.close();
-  await context.close();
-  await browser.close();
-})();
+  await page.close()
+  await context.close()
+  await browser.close()
+})()
 ```
 
 ### Custom LP CDP Domain
@@ -243,20 +243,20 @@ Lightpanda exposes a custom `LP` domain via CDP with agent-optimized methods not
 **Example using CDP session with Playwright:**
 
 ```javascript
-const client = await context.newCDPSession(page);
+const client = await context.newCDPSession(page)
 
 // Get page as markdown
-const { markdown } = await client.send("LP.getMarkdown");
+const { markdown } = await client.send('LP.getMarkdown')
 
 // Get semantic tree
-const { semanticTree } = await client.send("LP.getSemanticTree", { format: "text", maxDepth: 5 });
+const { semanticTree } = await client.send('LP.getSemanticTree', { format: 'text', maxDepth: 5 })
 
 // Wait for element and click it
-const { backendNodeId } = await client.send("LP.waitForSelector", {
-  selector: "#submit-btn",
-  timeout: 3000,
-});
-await client.send("LP.clickNode", { backendNodeId });
+const { backendNodeId } = await client.send('LP.waitForSelector', {
+  selector: '#submit-btn',
+  timeout: 3000
+})
+await client.send('LP.clickNode', { backendNodeId })
 ```
 
 ## Important Notes

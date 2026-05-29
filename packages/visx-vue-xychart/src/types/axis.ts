@@ -1,3 +1,3 @@
-import type { AxisScale as AxisAxisScale } from "@visx-vue/axis";
+import type { AxisScale as AxisAxisScale } from '@visx-vue/axis'
 
-export type AxisScale = AxisAxisScale;
+export type AxisScale = AxisAxisScale

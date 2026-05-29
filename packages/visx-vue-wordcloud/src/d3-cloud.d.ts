@@ -1,1 +1,1 @@
-declare module "d3-cloud";
+declare module 'd3-cloud'

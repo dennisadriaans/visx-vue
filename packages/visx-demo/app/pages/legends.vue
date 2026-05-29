@@ -27,7 +27,11 @@
                     :cy="(sizeScale(label.datum) ?? 0) / 2"
                   />
                 </svg>
-                <LegendLabel align="left" margin="0 4px">{{ label.text }}</LegendLabel>
+                <LegendLabel
+                  align="left"
+                  margin="0 4px"
+                  >{{ label.text }}</LegendLabel
+                >
               </LegendItem>
             </template>
           </LegendSize>
@@ -43,7 +47,11 @@
                 style="cursor: pointer"
                 @click="alert(`clicked: ${JSON.stringify(label)}`)"
               >
-                <svg :width="glyphSize" :height="glyphSize" style="margin: 2px 0">
+                <svg
+                  :width="glyphSize"
+                  :height="glyphSize"
+                  style="margin: 2px 0"
+                >
                   <circle
                     :fill="label.value"
                     :r="glyphSize / 2"
@@ -51,7 +59,11 @@
                     :cy="glyphSize / 2"
                   />
                 </svg>
-                <LegendLabel align="left" margin="0 4px">{{ label.text }}</LegendLabel>
+                <LegendLabel
+                  align="left"
+                  margin="0 4px"
+                  >{{ label.text }}</LegendLabel
+                >
               </LegendItem>
             </template>
           </LegendQuantile>
@@ -70,7 +82,11 @@
                 style="cursor: pointer"
                 @click="alert(`clicked: ${JSON.stringify(label)}`)"
               >
-                <svg :width="glyphSize" :height="glyphSize" style="margin: 2px 0">
+                <svg
+                  :width="glyphSize"
+                  :height="glyphSize"
+                  style="margin: 2px 0"
+                >
                   <circle
                     :fill="label.value"
                     :r="glyphSize / 2"
@@ -78,7 +94,11 @@
                     :cy="glyphSize / 2"
                   />
                 </svg>
-                <LegendLabel align="left" margin="0 4px">{{ label.text }}</LegendLabel>
+                <LegendLabel
+                  align="left"
+                  margin="0 4px"
+                  >{{ label.text }}</LegendLabel
+                >
               </LegendItem>
             </template>
           </LegendLinear>
@@ -95,10 +115,21 @@
                 style="cursor: pointer"
                 @click="alert(`clicked: ${JSON.stringify(label)}`)"
               >
-                <svg :width="glyphSize" :height="glyphSize">
-                  <rect :fill="label.value" :width="glyphSize" :height="glyphSize" />
+                <svg
+                  :width="glyphSize"
+                  :height="glyphSize"
+                >
+                  <rect
+                    :fill="label.value"
+                    :width="glyphSize"
+                    :height="glyphSize"
+                  />
                 </svg>
-                <LegendLabel align="left" margin="2px 0 0 10px">{{ label.text }}</LegendLabel>
+                <LegendLabel
+                  align="left"
+                  margin="2px 0 0 10px"
+                  >{{ label.text }}</LegendLabel
+                >
               </LegendItem>
             </template>
           </LegendThreshold>
@@ -106,7 +137,10 @@
 
         <div class="legend-box">
           <div class="legend-title">Ordinal</div>
-          <LegendOrdinal :scale="ordinalColorScale" :label-format="(label) => label.toUpperCase()">
+          <LegendOrdinal
+            :scale="ordinalColorScale"
+            :label-format="(label) => label.toUpperCase()"
+          >
             <template #default="{ labels }">
               <div style="display: flex; flex-direction: row">
                 <LegendItem
@@ -116,10 +150,21 @@
                   style="cursor: pointer"
                   @click="alert(`clicked: ${JSON.stringify(label)}`)"
                 >
-                  <svg :width="glyphSize" :height="glyphSize">
-                    <rect :fill="label.value" :width="glyphSize" :height="glyphSize" />
+                  <svg
+                    :width="glyphSize"
+                    :height="glyphSize"
+                  >
+                    <rect
+                      :fill="label.value"
+                      :width="glyphSize"
+                      :height="glyphSize"
+                    />
                   </svg>
-                  <LegendLabel align="left" margin="0 0 0 4px">{{ label.text }}</LegendLabel>
+                  <LegendLabel
+                    align="left"
+                    margin="0 0 0 4px"
+                    >{{ label.text }}</LegendLabel
+                  >
                 </LegendItem>
               </div>
             </template>
@@ -131,7 +176,7 @@
 </template>
 
 <script setup lang="ts">
-import { scaleLinear, scaleOrdinal, scaleThreshold, scaleQuantile } from "@visx-vue/scale";
+import { scaleLinear, scaleOrdinal, scaleThreshold, scaleQuantile } from '@visx-vue/scale'
 import {
   LegendLinear,
   LegendQuantile,
@@ -139,28 +184,28 @@ import {
   LegendSize,
   LegendThreshold,
   LegendItem,
-  LegendLabel,
-} from "@visx-vue/legend";
+  LegendLabel
+} from '@visx-vue/legend'
 
-useHead({ title: "Legends — visx-vue" });
+useHead({ title: 'Legends — visx-vue' })
 
-const glyphSize = 15;
+const glyphSize = 15
 
-const sizeScale = scaleLinear<number>({ domain: [0, 10], range: [5, 13] });
-const sizeColorScale = scaleLinear<string>({ domain: [0, 10], range: ["#75fcfc", "#3236b8"] });
+const sizeScale = scaleLinear<number>({ domain: [0, 10], range: [5, 13] })
+const sizeColorScale = scaleLinear<string>({ domain: [0, 10], range: ['#75fcfc', '#3236b8'] })
 const quantileScale = scaleQuantile<string>({
   domain: [0, 0.15],
-  range: ["#eb4d70", "#f19938", "#6ce18b", "#78f6ef", "#9096f8"],
-});
-const linearScale = scaleLinear<string>({ domain: [0, 10], range: ["#ed4fbb", "#e9a039"] });
+  range: ['#eb4d70', '#f19938', '#6ce18b', '#78f6ef', '#9096f8']
+})
+const linearScale = scaleLinear<string>({ domain: [0, 10], range: ['#ed4fbb', '#e9a039'] })
 const thresholdScale = scaleThreshold<number, string>({
   domain: [0.01, 0.02, 0.04, 0.06, 0.08],
-  range: ["#f2f0f7", "#dadaeb", "#bcbddc", "#9e9ac8", "#756bb1", "#54278f"],
-});
+  range: ['#f2f0f7', '#dadaeb', '#bcbddc', '#9e9ac8', '#756bb1', '#54278f']
+})
 const ordinalColorScale = scaleOrdinal<string, string>({
-  domain: ["a", "b", "c", "d"],
-  range: ["#66d981", "#71f5ef", "#4899f1", "#7d81f6"],
-});
+  domain: ['a', 'b', 'c', 'd'],
+  range: ['#66d981', '#71f5ef', '#4899f1', '#7d81f6']
+})
 </script>
 
 <style scoped>

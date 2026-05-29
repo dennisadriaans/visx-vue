@@ -1,8 +1,8 @@
-import { describe, test, expect } from "vite-plus/test";
-import { LegendSize } from "../src";
+import { describe, test, expect } from 'vite-plus/test'
+import { LegendSize } from '../src'
 
-describe("<LegendSize />", () => {
-  test("it should be defined", () => {
-    expect(LegendSize).toBeDefined();
-  });
-});
+describe('<LegendSize />', () => {
+  test('it should be defined', () => {
+    expect(LegendSize).toBeDefined()
+  })
+})

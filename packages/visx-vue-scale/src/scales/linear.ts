@@ -1,21 +1,21 @@
-import { scaleLinear } from "@visx-vue/vendor/d3-scale";
-import type { DefaultOutput } from "../types/Base";
-import type { PickScaleConfigWithoutType } from "../types/ScaleConfig";
-import scaleOperator from "../operators/scaleOperator";
+import { scaleLinear } from '@visx-vue/vendor/d3-scale'
+import type { DefaultOutput } from '../types/Base'
+import type { PickScaleConfigWithoutType } from '../types/ScaleConfig'
+import scaleOperator from '../operators/scaleOperator'
 
-export const updateLinearScale = scaleOperator<"linear">(
-  "domain",
-  "range",
-  "reverse",
-  "clamp",
-  "interpolate",
-  "nice",
-  "round",
-  "zero",
-);
+export const updateLinearScale = scaleOperator<'linear'>(
+  'domain',
+  'range',
+  'reverse',
+  'clamp',
+  'interpolate',
+  'nice',
+  'round',
+  'zero'
+)
 
 export default function createLinearScale<Output = DefaultOutput>(
-  config?: PickScaleConfigWithoutType<"linear", Output>,
+  config?: PickScaleConfigWithoutType<'linear', Output>
 ) {
-  return updateLinearScale(scaleLinear<Output>(), config);
+  return updateLinearScale(scaleLinear<Output>(), config)
 }

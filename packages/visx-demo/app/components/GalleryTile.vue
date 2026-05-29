@@ -24,19 +24,57 @@
           fill="none"
         >
           <!-- 1. BACKGROUND GRID: Rendered first = bottom layer -->
-          <g stroke="white" stroke-opacity="0.30" stroke-width="0.75" stroke-dasharray="2 4">
+          <g
+            stroke="white"
+            stroke-opacity="0.30"
+            stroke-width="0.75"
+            stroke-dasharray="2 4"
+          >
             <!-- Horizontal lines -->
-            <line x1="0" y1="80" x2="400" y2="80" />
-            <line x1="0" y1="160" x2="400" y2="160" />
-            <line x1="0" y1="240" x2="400" y2="240" />
+            <line
+              x1="0"
+              y1="80"
+              x2="400"
+              y2="80"
+            />
+            <line
+              x1="0"
+              y1="160"
+              x2="400"
+              y2="160"
+            />
+            <line
+              x1="0"
+              y1="240"
+              x2="400"
+              y2="240"
+            />
             <!-- Vertical lines -->
-            <line x1="100" y1="0" x2="100" y2="320" />
-            <line x1="200" y1="0" x2="200" y2="320" />
-            <line x1="300" y1="0" x2="300" y2="320" />
+            <line
+              x1="100"
+              y1="0"
+              x2="100"
+              y2="320"
+            />
+            <line
+              x1="200"
+              y1="0"
+              x2="200"
+              y2="320"
+            />
+            <line
+              x1="300"
+              y1="0"
+              x2="300"
+              y2="320"
+            />
           </g>
 
           <!-- 2. DYNAMIC ELEMENTS: Rendered second = top layer -->
-          <template v-for="(el, i) in elements" :key="i">
+          <template
+            v-for="(el, i) in elements"
+            :key="i"
+          >
             <circle
               v-if="el.type === 'circle'"
               :cx="el.cx"
@@ -76,7 +114,10 @@
         <div
           class="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 opacity-0 transition-all duration-300 group-hover:opacity-100"
         >
-          <UIcon name="i-heroicons-arrow-up-right" class="h-4 w-4 text-white" />
+          <UIcon
+            name="i-heroicons-arrow-up-right"
+            class="h-4 w-4 text-white"
+          />
         </div>
       </div>
     </div>
@@ -84,13 +125,13 @@
 </template>
 
 <script setup lang="ts">
-import type { SvgElement } from "~/composables/useGalleryTiles";
+import type { SvgElement } from '~/composables/useGalleryTiles'
 
 defineProps<{
-  title?: string;
-  description?: string;
-  to: string;
-  elements: SvgElement[];
-  color?: string;
-}>();
+  title?: string
+  description?: string
+  to: string
+  elements: SvgElement[]
+  color?: string
+}>()
 </script>

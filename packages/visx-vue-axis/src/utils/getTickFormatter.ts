@@ -1,19 +1,19 @@
-import type { ScaleInput } from "@visx-vue/scale";
-import { toString } from "@visx-vue/scale";
-import type { TickFormatter, AxisScale } from "../types";
+import type { ScaleInput } from '@visx-vue/scale'
+import { toString } from '@visx-vue/scale'
+import type { TickFormatter, AxisScale } from '../types'
 
 /**
  * Returns a tick formatter for the given scale
  */
 export default function getTickFormatter<Scale extends AxisScale>(scale: Scale) {
   // Broaden type before using 'xxx' in s as typeguard.
-  const s = scale as AxisScale;
+  const s = scale as AxisScale
 
   // For point or band scales,
   // have to add offset to make the tick centered.
-  if ("tickFormat" in s) {
-    return s.tickFormat() as TickFormatter<ScaleInput<Scale>>;
+  if ('tickFormat' in s) {
+    return s.tickFormat() as TickFormatter<ScaleInput<Scale>>
   }
 
-  return toString as TickFormatter<ScaleInput<Scale>>;
+  return toString as TickFormatter<ScaleInput<Scale>>
 }

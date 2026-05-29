@@ -1,4 +1,4 @@
-let originalFn: typeof SVGElement.prototype.getComputedTextLength | undefined;
+let originalFn: typeof SVGElement.prototype.getComputedTextLength | undefined
 
 /**
  * JSDom does not implement getComputedTextLength()
@@ -6,13 +6,13 @@ let originalFn: typeof SVGElement.prototype.getComputedTextLength | undefined;
  */
 export function addMock() {
   // @ts-expect-error - accessing prototype property
-  originalFn = SVGElement.prototype.getComputedTextLength;
+  originalFn = SVGElement.prototype.getComputedTextLength
 
   // @ts-expect-error - mock implementation
   SVGElement.prototype.getComputedTextLength = function getComputedTextLength() {
     // Make every character 10px wide
-    return (this.textContent?.length ?? 0) * 10;
-  };
+    return (this.textContent?.length ?? 0) * 10
+  }
 }
 
 /**
@@ -20,5 +20,5 @@ export function addMock() {
  */
 export function removeMock() {
   // @ts-expect-error - restoring original
-  SVGElement.prototype.getComputedTextLength = originalFn;
+  SVGElement.prototype.getComputedTextLength = originalFn
 }

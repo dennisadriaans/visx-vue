@@ -1,11 +1,11 @@
-import type { SharedAxisProps } from "../types";
+import type { SharedAxisProps } from '../types'
 
-export const defaultAxisRangePadding = 0;
+export const defaultAxisRangePadding = 0
 
 export default function getAxisRangePaddingConfig(
-  originalRangePadding: SharedAxisProps<never>["rangePadding"] = defaultAxisRangePadding,
+  originalRangePadding: SharedAxisProps<never>['rangePadding'] = defaultAxisRangePadding
 ) {
-  return typeof originalRangePadding === "number"
+  return typeof originalRangePadding === 'number'
     ? { start: originalRangePadding, end: originalRangePadding }
-    : { start: defaultAxisRangePadding, end: defaultAxisRangePadding, ...originalRangePadding };
+    : { start: defaultAxisRangePadding, end: defaultAxisRangePadding, ...originalRangePadding }
 }

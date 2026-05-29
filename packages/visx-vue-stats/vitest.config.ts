@@ -1,10 +1,10 @@
-import { defineConfig } from "vite-plus";
-import vueJsx from "@vitejs/plugin-vue-jsx";
+import { defineConfig } from 'vite-plus'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 
 export default defineConfig({
   plugins: [vueJsx()],
   test: {
-    environment: "jsdom",
-    include: ["test/**/*.test.{ts,tsx}"],
-  },
-});
+    environment: 'jsdom',
+    include: ['test/**/*.test.{ts,tsx}']
+  }
+})

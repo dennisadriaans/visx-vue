@@ -1,51 +1,51 @@
-import type { CSSProperties } from "vue";
+import type { CSSProperties } from 'vue'
 
 type OwnProps = {
   /** className to apply to the SVGText element. */
-  className?: string;
+  className?: string
   /** Whether to scale the fontSize to accommodate the specified width. */
-  scaleToFit?: boolean | "shrink-only";
+  scaleToFit?: boolean | 'shrink-only'
   /** Rotational angle of the text. */
-  angle?: number;
+  angle?: number
   /** Horizontal text anchor. */
-  textAnchor?: "start" | "middle" | "end" | "inherit";
+  textAnchor?: 'start' | 'middle' | 'end' | 'inherit'
   /** Vertical text anchor. */
-  verticalAnchor?: "start" | "middle" | "end";
+  verticalAnchor?: 'start' | 'middle' | 'end'
   /** Styles to be applied to the text (and used in computation of its size). */
-  style?: CSSProperties;
+  style?: CSSProperties
   /** Ref passed to the Text SVG element. */
-  innerRef?: { value: SVGSVGElement | null };
+  innerRef?: { value: SVGSVGElement | null }
   /** Ref passed to the Text text element. */
-  innerTextRef?: { value: SVGTextElement | null };
+  innerTextRef?: { value: SVGTextElement | null }
   /** x position of the text. */
-  x?: string | number;
+  x?: string | number
   /** y position of the text. */
-  y?: string | number;
+  y?: string | number
   /** dx offset of the text. */
-  dx?: string | number;
+  dx?: string | number
   /** dy offset of the text. */
-  dy?: string | number;
+  dy?: string | number
   /** Desired "line height" of the text, implemented as y offsets. */
-  lineHeight?: string | number;
+  lineHeight?: string | number
   /** Cap height of the text. */
-  capHeight?: string | number;
+  capHeight?: string | number
   /** Font size of text. */
-  fontSize?: string | number;
+  fontSize?: string | number
   /** Font family of text. */
-  fontFamily?: string;
+  fontFamily?: string
   /** Fill color of text. */
-  fill?: string;
+  fill?: string
   /** Maximum width to occupy (approximate as words are not split). */
-  width?: number;
+  width?: number
   /** String (or number coercible to one) to be styled and positioned. */
-  text?: string | number;
-};
+  text?: string | number
+}
 
-export type TextProps = OwnProps & Omit<Record<string, unknown>, keyof OwnProps>;
+export type TextProps = OwnProps & Omit<Record<string, unknown>, keyof OwnProps>
 
-export type compareFunction<T> = (prev: T | undefined, next: T) => boolean;
+export type compareFunction<T> = (prev: T | undefined, next: T) => boolean
 
 export interface WordsWithWidth {
-  words: string[];
-  width?: number;
+  words: string[]
+  width?: number
 }

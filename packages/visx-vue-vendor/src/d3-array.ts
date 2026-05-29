@@ -1,1 +1,1 @@
-export * from "d3-array";
+export * from 'd3-array'

@@ -1,15 +1,15 @@
-import { defineComponent, type PropType } from "vue";
+import { defineComponent, type PropType } from 'vue'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const DefaultLink = defineComponent({
-  name: "DefaultLink",
+  name: 'DefaultLink',
   props: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    link: { type: Object as PropType<any>, default: undefined },
+    link: { type: Object as PropType<any>, default: undefined }
   },
   setup(props) {
     return () => {
-      const { link } = props;
+      const { link } = props
       return link?.source && link.target ? (
         <line
           x1={link.source.x}
@@ -20,9 +20,9 @@ export const DefaultLink = defineComponent({
           stroke="#999"
           stroke-opacity={0.6}
         />
-      ) : null;
-    };
-  },
-});
+      ) : null
+    }
+  }
+})
 
-export default DefaultLink;
+export default DefaultLink

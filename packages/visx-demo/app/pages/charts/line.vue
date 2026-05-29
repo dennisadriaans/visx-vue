@@ -13,7 +13,7 @@
       '@visx-vue/tooltip',
       '@visx-vue/mock-data',
       '@visx-vue/curve',
-      '@visx-vue/event',
+      '@visx-vue/event'
     ]"
   >
     <div class="mb-4 flex gap-2">
@@ -35,10 +35,27 @@
 
     <!-- Single line -->
     <template v-if="variant === 'single'">
-      <div ref="parentRef" class="chart-outer bg-elevated/40 rounded-xl" @mouseleave="hideTooltip">
-        <svg v-if="width > 0" :width="width" :height="height" @mousemove="handleMouseMove">
-          <rect :width="width" :height="height" fill="transparent" :rx="12" />
-          <Group :left="margin.left" :top="margin.top">
+      <div
+        ref="parentRef"
+        class="chart-outer bg-elevated/40 rounded-xl"
+        @mouseleave="hideTooltip"
+      >
+        <svg
+          v-if="width > 0"
+          :width="width"
+          :height="height"
+          @mousemove="handleMouseMove"
+        >
+          <rect
+            :width="width"
+            :height="height"
+            fill="transparent"
+            :rx="12"
+          />
+          <Group
+            :left="margin.left"
+            :top="margin.top"
+          >
             <GridRows
               :scale="priceScale"
               :width="xMax"
@@ -120,10 +137,25 @@
 
     <!-- Multi-line -->
     <template v-else>
-      <div ref="parentRef2" class="chart-outer bg-elevated/40 rounded-xl">
-        <svg v-if="width2 > 0" :width="width2" :height="height2">
-          <rect :width="width2" :height="height2" fill="transparent" :rx="12" />
-          <Group :left="marginM.left" :top="marginM.top">
+      <div
+        ref="parentRef2"
+        class="chart-outer bg-elevated/40 rounded-xl"
+      >
+        <svg
+          v-if="width2 > 0"
+          :width="width2"
+          :height="height2"
+        >
+          <rect
+            :width="width2"
+            :height="height2"
+            fill="transparent"
+            :rx="12"
+          />
+          <Group
+            :left="marginM.left"
+            :top="marginM.top"
+          >
             <GridRows
               :scale="yScaleM"
               :width="xMaxM"
@@ -132,7 +164,10 @@
               :num-ticks="5"
               pointer-events="none"
             />
-            <template v-for="city in cities" :key="city">
+            <template
+              v-for="city in cities"
+              :key="city"
+            >
               <LinePath
                 :data="cityData"
                 :x="(d) => xScaleM(parseDateM(d.date) as Date) ?? 0"
@@ -181,120 +216,120 @@
 </template>
 
 <script setup lang="ts">
-import { LinePath, Line } from "@visx-vue/shape";
-import { Group } from "@visx-vue/group";
-import { GridRows } from "@visx-vue/grid";
-import { AxisBottom, AxisLeft } from "@visx-vue/axis";
-import { scaleTime, scaleLinear } from "@visx-vue/scale";
-import { LinearGradient } from "@visx-vue/gradient";
-import { useTooltip, TooltipWithBounds } from "@visx-vue/tooltip";
-import { localPoint } from "@visx-vue/event";
-import { appleStock, cityTemperature } from "@visx-vue/mock-data";
-import type { AppleStock, CityTemperature } from "@visx-vue/mock-data";
-import { curveMonotoneX } from "@visx-vue/curve";
-import { max, min, extent, bisector } from "@visx-vue/vendor/d3-array";
-import { timeFormat, timeParse } from "@visx-vue/vendor/d3-time-format";
-import { useParentSize } from "@visx-vue/responsive";
+import { LinePath, Line } from '@visx-vue/shape'
+import { Group } from '@visx-vue/group'
+import { GridRows } from '@visx-vue/grid'
+import { AxisBottom, AxisLeft } from '@visx-vue/axis'
+import { scaleTime, scaleLinear } from '@visx-vue/scale'
+import { LinearGradient } from '@visx-vue/gradient'
+import { useTooltip, TooltipWithBounds } from '@visx-vue/tooltip'
+import { localPoint } from '@visx-vue/event'
+import { appleStock, cityTemperature } from '@visx-vue/mock-data'
+import type { AppleStock, CityTemperature } from '@visx-vue/mock-data'
+import { curveMonotoneX } from '@visx-vue/curve'
+import { max, min, extent, bisector } from '@visx-vue/vendor/d3-array'
+import { timeFormat, timeParse } from '@visx-vue/vendor/d3-time-format'
+import { useParentSize } from '@visx-vue/responsive'
 
-useHead({ title: "Line Chart — visx-vue" });
+useHead({ title: 'Line Chart — visx-vue' })
 
-const variant = ref<"single" | "multi">("single");
+const variant = ref<'single' | 'multi'>('single')
 
 // ── Single line ───────────────────────────────────────────────
-const { parentRef, width } = useParentSize({ debounceTime: 0 });
-const height = computed(() => Math.round(width.value * 0.55) || 400);
-const margin = { top: 20, right: 20, bottom: 40, left: 55 };
+const { parentRef, width } = useParentSize({ debounceTime: 0 })
+const height = computed(() => Math.round(width.value * 0.55) || 400)
+const margin = { top: 20, right: 20, bottom: 40, left: 55 }
 
-const stock = appleStock.slice(800) as AppleStock[];
-const fmtDate = timeFormat("%b %d '%y");
-const getDate = (d: AppleStock) => new Date(d.date);
-const getClose = (d: AppleStock) => d.close;
-const bisectDate = bisector<AppleStock, Date>((d) => new Date(d.date)).left;
+const stock = appleStock.slice(800) as AppleStock[]
+const fmtDate = timeFormat("%b %d '%y")
+const getDate = (d: AppleStock) => new Date(d.date)
+const getClose = (d: AppleStock) => d.close
+const bisectDate = bisector<AppleStock, Date>((d) => new Date(d.date)).left
 
-const xMax = computed(() => width.value - margin.left - margin.right);
-const yMax = computed(() => height.value - margin.top - margin.bottom);
+const xMax = computed(() => width.value - margin.left - margin.right)
+const yMax = computed(() => height.value - margin.top - margin.bottom)
 
 const dateScale = computed(() =>
-  scaleTime({ range: [0, xMax.value], domain: extent(stock, getDate) as [Date, Date] }),
-);
+  scaleTime({ range: [0, xMax.value], domain: extent(stock, getDate) as [Date, Date] })
+)
 const priceScale = computed(() =>
   scaleLinear({
     range: [yMax.value, 0],
     domain: [(min(stock, getClose) ?? 0) * 0.95, (max(stock, getClose) ?? 0) * 1.05],
-    nice: true,
-  }),
-);
+    nice: true
+  })
+)
 
-const xTickProps = { fill: "#ffffff55", fontSize: 11, textAnchor: "middle" as const };
+const xTickProps = { fill: '#ffffff55', fontSize: 11, textAnchor: 'middle' as const }
 const yTickProps = {
-  fill: "#ffffff55",
+  fill: '#ffffff55',
   fontSize: 11,
-  textAnchor: "end" as const,
-  dx: "-0.3em",
-  dy: "0.33em",
-};
+  textAnchor: 'end' as const,
+  dx: '-0.3em',
+  dy: '0.33em'
+}
 
 const ttStyle = {
-  background: "#1a1a2e",
-  border: "1px solid #00DC8233",
-  borderRadius: "8px",
-  padding: "8px 12px",
-  color: "#fff",
-  pointerEvents: "none" as const,
-};
+  background: '#1a1a2e',
+  border: '1px solid #00DC8233',
+  borderRadius: '8px',
+  padding: '8px 12px',
+  color: '#fff',
+  pointerEvents: 'none' as const
+}
 
-const { showTooltip, hideTooltip, tooltipData, tooltipLeft } = useTooltip<AppleStock>();
+const { showTooltip, hideTooltip, tooltipData, tooltipLeft } = useTooltip<AppleStock>()
 
 function handleMouseMove(e: MouseEvent) {
-  const svg = e.currentTarget as SVGElement;
-  const pt = localPoint(svg, e);
-  if (!pt) return;
-  const x0 = dateScale.value.invert(pt.x - margin.left);
-  const idx = bisectDate(stock, x0, 1);
-  const d0 = stock[idx - 1];
-  const d1 = stock[idx];
+  const svg = e.currentTarget as SVGElement
+  const pt = localPoint(svg, e)
+  if (!pt) return
+  const x0 = dateScale.value.invert(pt.x - margin.left)
+  const idx = bisectDate(stock, x0, 1)
+  const d0 = stock[idx - 1]
+  const d1 = stock[idx]
   const d =
-    d1 && x0.valueOf() - getDate(d0).valueOf() > getDate(d1).valueOf() - x0.valueOf() ? d1 : d0;
-  showTooltip({ tooltipData: d, tooltipLeft: pt.x, tooltipTop: pt.y });
+    d1 && x0.valueOf() - getDate(d0).valueOf() > getDate(d1).valueOf() - x0.valueOf() ? d1 : d0
+  showTooltip({ tooltipData: d, tooltipLeft: pt.x, tooltipTop: pt.y })
 }
 
 // ── Multi-line ────────────────────────────────────────────────
-const { parentRef: parentRef2, width: width2 } = useParentSize({ debounceTime: 0 });
-const height2 = computed(() => Math.round(width2.value * 0.55) || 400);
-const marginM = { top: 20, right: 20, bottom: 40, left: 55 };
+const { parentRef: parentRef2, width: width2 } = useParentSize({ debounceTime: 0 })
+const height2 = computed(() => Math.round(width2.value * 0.55) || 400)
+const marginM = { top: 20, right: 20, bottom: 40, left: 55 }
 
-const cityData = cityTemperature.slice(0, 60) as CityTemperature[];
-type CityKey = "Austin" | "New York" | "San Francisco";
-const cities: CityKey[] = ["Austin", "New York", "San Francisco"];
+const cityData = cityTemperature.slice(0, 60) as CityTemperature[]
+type CityKey = 'Austin' | 'New York' | 'San Francisco'
+const cities: CityKey[] = ['Austin', 'New York', 'San Francisco']
 const cityColors: Record<CityKey, string> = {
-  Austin: "#00DC82",
-  "New York": "#00b368",
-  "San Francisco": "#33e394",
-};
-const parseDateM = timeParse("%Y-%m-%d");
-const fmtDateM = timeFormat("%b '%y");
+  Austin: '#00DC82',
+  'New York': '#00b368',
+  'San Francisco': '#33e394'
+}
+const parseDateM = timeParse('%Y-%m-%d')
+const fmtDateM = timeFormat("%b '%y")
 
-const xMaxM = computed(() => width2.value - marginM.left - marginM.right);
-const yMaxM = computed(() => height2.value - marginM.top - marginM.bottom);
+const xMaxM = computed(() => width2.value - marginM.left - marginM.right)
+const yMaxM = computed(() => height2.value - marginM.top - marginM.bottom)
 
 const xScaleM = computed(() =>
   scaleTime({
     range: [0, xMaxM.value],
     domain: [
       Math.min(...cityData.map((d) => (parseDateM(d.date) as Date).valueOf())),
-      Math.max(...cityData.map((d) => (parseDateM(d.date) as Date).valueOf())),
-    ],
-  }),
-);
+      Math.max(...cityData.map((d) => (parseDateM(d.date) as Date).valueOf()))
+    ]
+  })
+)
 
-const allTemps = computed(() => cityData.flatMap((d) => cities.map((c) => Number(d[c]))));
+const allTemps = computed(() => cityData.flatMap((d) => cities.map((c) => Number(d[c]))))
 const yScaleM = computed(() =>
   scaleLinear({
     range: [yMaxM.value, 0],
     domain: [Math.min(...allTemps.value) - 5, Math.max(...allTemps.value) + 5],
-    nice: true,
-  }),
-);
+    nice: true
+  })
+)
 </script>
 
 <style scoped>

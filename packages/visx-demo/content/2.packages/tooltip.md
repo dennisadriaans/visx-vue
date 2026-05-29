@@ -28,15 +28,17 @@ pnpm add @visx-vue/tooltip
 
 ```vue
 <script setup lang="ts">
-import { useTooltip, Tooltip } from "@visx-vue/tooltip";
+import { useTooltip, Tooltip } from '@visx-vue/tooltip'
 
-const { tooltipData, tooltipLeft, tooltipTop, tooltipOpen, showTooltip, hideTooltip } =
-  useTooltip();
+const { tooltipData, tooltipLeft, tooltipTop, tooltipOpen, showTooltip, hideTooltip } = useTooltip()
 </script>
 
 <template>
   <div style="position: relative;">
-    <svg width="200" height="200">
+    <svg
+      width="200"
+      height="200"
+    >
       <rect
         width="100"
         height="100"
@@ -45,14 +47,18 @@ const { tooltipData, tooltipLeft, tooltipTop, tooltipOpen, showTooltip, hideTool
             showTooltip({
               tooltipData: 'Rectangle tooltip',
               tooltipLeft: e.clientX,
-              tooltipTop: e.clientY,
+              tooltipTop: e.clientY
             })
         "
         @mouseleave="hideTooltip"
       />
     </svg>
 
-    <Tooltip v-if="tooltipOpen" :top="tooltipTop" :left="tooltipLeft">
+    <Tooltip
+      v-if="tooltipOpen"
+      :top="tooltipTop"
+      :left="tooltipLeft"
+    >
       {{ tooltipData }}
     </Tooltip>
   </div>

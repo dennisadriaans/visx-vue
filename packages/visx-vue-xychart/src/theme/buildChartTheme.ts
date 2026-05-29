@@ -1,57 +1,57 @@
-import type { CSSProperties } from "vue";
-import type { SVGTextProps, HTMLTextStyles, LineStyles, XYChartTheme } from "../types/theme";
-import { textColor } from "./colors";
+import type { CSSProperties } from 'vue'
+import type { SVGTextProps, HTMLTextStyles, LineStyles, XYChartTheme } from '../types/theme'
+import { textColor } from './colors'
 
 export type ThemeConfig = {
-  backgroundColor: string;
+  backgroundColor: string
 
   // categorical colors, mapped to series `key`s
-  colors: string[];
+  colors: string[]
 
   // labels
-  svgLabelBig?: SVGTextProps;
-  svgLabelSmall?: SVGTextProps;
-  htmlLabel?: HTMLTextStyles;
+  svgLabelBig?: SVGTextProps
+  svgLabelSmall?: SVGTextProps
+  htmlLabel?: HTMLTextStyles
 
   // lines
-  xAxisLineStyles?: LineStyles;
-  yAxisLineStyles?: LineStyles;
-  xTickLineStyles?: LineStyles;
-  yTickLineStyles?: LineStyles;
-  tickLength: number;
+  xAxisLineStyles?: LineStyles
+  yAxisLineStyles?: LineStyles
+  xTickLineStyles?: LineStyles
+  yTickLineStyles?: LineStyles
+  tickLength: number
 
   // grid
-  gridColor: string;
-  gridColorDark: string;
-  gridStyles?: CSSProperties;
-};
+  gridColor: string
+  gridColorDark: string
+  gridStyles?: CSSProperties
+}
 
 const defaultLabelStyles = {
-  fontFamily: "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+  fontFamily: '-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif',
   fontWeight: 700,
   fontSize: 12,
-  textAnchor: "middle",
-  pointerEvents: "none",
-  letterSpacing: 0.4,
-} as const;
+  textAnchor: 'middle',
+  pointerEvents: 'none',
+  letterSpacing: 0.4
+} as const
 
 /** Provides a simplified API to build a full XYChartTheme. */
 export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
   const baseSvgLabel: SVGTextProps = {
     ...defaultLabelStyles,
     fill: textColor,
-    stroke: "none",
-    ...config.svgLabelBig,
-  } as const;
+    stroke: 'none',
+    ...config.svgLabelBig
+  } as const
 
   const baseTickLabel: SVGTextProps = {
     ...defaultLabelStyles,
     fontWeight: 200,
     fontSize: 11,
     fill: textColor,
-    stroke: "none",
-    ...config.svgLabelSmall,
-  } as const;
+    stroke: 'none',
+    ...config.svgLabelSmall
+  } as const
 
   const baseHtmlLabel: HTMLTextStyles = {
     color:
@@ -60,119 +60,119 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
       (config.svgLabelSmall?.fill as string) ??
       textColor,
     ...defaultLabelStyles,
-    ...config.htmlLabel,
-  };
+    ...config.htmlLabel
+  }
 
   return {
     backgroundColor: config.backgroundColor,
     colors: [...config.colors],
     htmlLabel: {
-      ...baseHtmlLabel,
+      ...baseHtmlLabel
     },
     svgLabelSmall: {
-      ...baseTickLabel,
+      ...baseTickLabel
     },
     svgLabelBig: {
-      ...baseSvgLabel,
+      ...baseSvgLabel
     },
     gridStyles: {
       stroke: config.gridColor,
       strokeWidth: 1,
-      ...config.gridStyles,
+      ...config.gridStyles
     },
     axisStyles: {
       x: {
         top: {
           axisLabel: {
             ...baseSvgLabel,
-            dy: "-0.25em", // needs to include font-size
+            dy: '-0.25em' // needs to include font-size
           },
           axisLine: {
             stroke: config.gridColorDark,
             strokeWidth: 2,
-            ...config.xAxisLineStyles,
+            ...config.xAxisLineStyles
           },
           tickLabel: {
             ...baseTickLabel,
-            dy: "-0.25em", // needs to include font-size
+            dy: '-0.25em' // needs to include font-size
           },
           tickLength: config.tickLength,
           tickLine: {
             strokeWidth: 1,
             stroke: config.gridColor,
-            ...config.xTickLineStyles,
-          },
+            ...config.xTickLineStyles
+          }
         },
         bottom: {
           axisLabel: {
             ...baseSvgLabel,
-            dy: "-0.25em",
+            dy: '-0.25em'
           },
           axisLine: {
             stroke: config.gridColorDark,
             strokeWidth: 2,
-            ...config.xAxisLineStyles,
+            ...config.xAxisLineStyles
           },
           tickLabel: {
             ...baseTickLabel,
-            dy: "0.125em",
+            dy: '0.125em'
           },
           tickLength: config.tickLength,
           tickLine: {
             strokeWidth: 1,
             stroke: config.gridColor,
-            ...config.xTickLineStyles,
-          },
-        },
+            ...config.xTickLineStyles
+          }
+        }
       },
       y: {
         left: {
           axisLabel: {
             ...baseSvgLabel,
-            dx: "-1.25em",
+            dx: '-1.25em'
           },
           axisLine: {
             stroke: config.gridColor,
             strokeWidth: 1,
-            ...config.yAxisLineStyles,
+            ...config.yAxisLineStyles
           },
           tickLabel: {
             ...baseTickLabel,
-            textAnchor: "end",
-            dx: "-0.25em",
-            dy: "0.25em",
+            textAnchor: 'end',
+            dx: '-0.25em',
+            dy: '0.25em'
           },
           tickLength: config.tickLength,
           tickLine: {
             strokeWidth: 1,
             stroke: config.gridColor,
-            ...config.yTickLineStyles,
-          },
+            ...config.yTickLineStyles
+          }
         },
         right: {
           axisLabel: {
             ...baseSvgLabel,
-            dx: "1.25em",
+            dx: '1.25em'
           },
           axisLine: {
             stroke: config.gridColor,
             strokeWidth: 1,
-            ...config.yAxisLineStyles,
+            ...config.yAxisLineStyles
           },
           tickLabel: {
             ...baseTickLabel,
-            textAnchor: "start",
-            dx: "0.25em",
-            dy: "0.25em",
+            textAnchor: 'start',
+            dx: '0.25em',
+            dy: '0.25em'
           },
           tickLength: config.tickLength,
           tickLine: {
             strokeWidth: 1,
             stroke: config.gridColor,
-            ...config.yTickLineStyles,
-          },
-        },
-      },
-    },
-  };
+            ...config.yTickLineStyles
+          }
+        }
+      }
+    }
+  }
 }

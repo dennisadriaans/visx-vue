@@ -1,18 +1,18 @@
-import { Delaunay } from "@visx-vue/vendor/d3-delaunay";
+import { Delaunay } from '@visx-vue/vendor/d3-delaunay'
 
-const CLIP_PADDING = 1;
+const CLIP_PADDING = 1
 
 interface Config<Datum> {
   /** The data for the voronoi diagram */
-  data?: Datum[];
+  data?: Datum[]
   /** The total width of the voronoi diagram. */
-  width?: number;
+  width?: number
   /** The total width of the voronoi diagram. */
-  height?: number;
+  height?: number
   /** Set the x-value accessor function for the voronoi diagram. */
-  x: (d: Datum) => number;
+  x: (d: Datum) => number
   /** Set the y-value accessor function for the voronoi diagram. */
-  y: (d: Datum) => number;
+  y: (d: Datum) => number
 }
 
 /**
@@ -20,11 +20,11 @@ interface Config<Datum> {
  * for the complete API reference.
  */
 export default function voronoi<Datum>({ data = [], width = 0, height = 0, x, y }: Config<Datum>) {
-  const delaunay = Delaunay.from(data, x, y);
+  const delaunay = Delaunay.from(data, x, y)
   return delaunay.voronoi([
     -CLIP_PADDING,
     -CLIP_PADDING,
     width + CLIP_PADDING,
-    height + CLIP_PADDING,
-  ]);
+    height + CLIP_PADDING
+  ])
 }

@@ -3,20 +3,35 @@
     title="Zoom I"
     :packages="['@visx-vue/zoom', '@visx-vue/clip-path', '@visx-vue/scale', '@visx-vue/mock-data']"
   >
-    <div ref="parentRef" class="chart-container">
-      <div v-if="width > 0" style="position: relative">
+    <div
+      ref="parentRef"
+      class="chart-container"
+    >
+      <div
+        v-if="width > 0"
+        style="position: relative"
+      >
         <svg
           :width="width"
           :height="height"
           :style="{ cursor: zoom.isDragging ? 'grabbing' : 'grab', touchAction: 'none' }"
           :ref="
             (el) => {
-              zoom.containerRef = el;
+              zoom.containerRef = el
             }
           "
         >
-          <RectClipPath id="zoom-clip" :width="width" :height="height" />
-          <rect :width="width" :height="height" :rx="14" fill="#0a0a0a" />
+          <RectClipPath
+            id="zoom-clip"
+            :width="width"
+            :height="height"
+          />
+          <rect
+            :width="width"
+            :height="height"
+            :rx="14"
+            fill="#0a0a0a"
+          />
           <g :transform="zoom.toString()">
             <circle
               v-for="({ x, y }, i) in phyllotaxis"
@@ -33,7 +48,11 @@
             clip-path="url(#zoom-clip)"
             :transform="`scale(0.25) translate(${width * 4 - width - 60}, ${height * 4 - height - 60})`"
           >
-            <rect :width="width" :height="height" fill="#1a1a1a" />
+            <rect
+              :width="width"
+              :height="height"
+              fill="#1a1a1a"
+            />
             <circle
               v-for="({ x, y }, i) in phyllotaxis"
               :key="`dot-sm-${i}`"
@@ -54,17 +73,43 @@
           </g>
         </svg>
         <div class="controls">
-          <button class="btn btn-zoom" @click="zoom.scale({ scaleX: 1.2, scaleY: 1.2 })">+</button>
-          <button class="btn btn-zoom btn-bottom" @click="zoom.scale({ scaleX: 0.8, scaleY: 0.8 })">
+          <button
+            class="btn btn-zoom"
+            @click="zoom.scale({ scaleX: 1.2, scaleY: 1.2 })"
+          >
+            +
+          </button>
+          <button
+            class="btn btn-zoom btn-bottom"
+            @click="zoom.scale({ scaleX: 0.8, scaleY: 0.8 })"
+          >
             -
           </button>
-          <button class="btn btn-lg" @click="zoom.center()">Center</button>
-          <button class="btn btn-lg" @click="zoom.reset()">Reset</button>
-          <button class="btn btn-lg" @click="zoom.clear()">Clear</button>
+          <button
+            class="btn btn-lg"
+            @click="zoom.center()"
+          >
+            Center
+          </button>
+          <button
+            class="btn btn-lg"
+            @click="zoom.reset()"
+          >
+            Reset
+          </button>
+          <button
+            class="btn btn-lg"
+            @click="zoom.clear()"
+          >
+            Clear
+          </button>
         </div>
         <div class="mini-map-toggle">
-          <button class="btn btn-lg" @click="showMiniMap = !showMiniMap">
-            {{ showMiniMap ? "Hide" : "Show" }} Mini Map
+          <button
+            class="btn btn-lg"
+            @click="showMiniMap = !showMiniMap"
+          >
+            {{ showMiniMap ? 'Hide' : 'Show' }} Mini Map
           </button>
         </div>
       </div>
@@ -73,43 +118,43 @@
 </template>
 
 <script setup lang="ts">
-import { useZoom } from "@visx-vue/zoom";
-import { RectClipPath } from "@visx-vue/clip-path";
-import { scaleLinear } from "@visx-vue/scale";
-import { genPhyllotaxis } from "@visx-vue/mock-data";
-import type { GenPhyllotaxisFunction, PhyllotaxisPoint } from "@visx-vue/mock-data";
-import { useParentSize } from "@visx-vue/responsive";
+import { useZoom } from '@visx-vue/zoom'
+import { RectClipPath } from '@visx-vue/clip-path'
+import { scaleLinear } from '@visx-vue/scale'
+import { genPhyllotaxis } from '@visx-vue/mock-data'
+import type { GenPhyllotaxisFunction, PhyllotaxisPoint } from '@visx-vue/mock-data'
+import { useParentSize } from '@visx-vue/responsive'
 
-useHead({ title: "Zoom I — visx-vue" });
+useHead({ title: 'Zoom I — visx-vue' })
 
-const { parentRef, width } = useParentSize({ debounceTime: 0 });
-const height = computed(() => Math.round(width.value * 0.6) || 400);
+const { parentRef, width } = useParentSize({ debounceTime: 0 })
+const height = computed(() => Math.round(width.value * 0.6) || 400)
 
-const showMiniMap = ref(true);
+const showMiniMap = ref(true)
 
-const colorScale = scaleLinear<number>({ range: [0, 1], domain: [0, 1000] });
-const sizeScale = scaleLinear<number>({ domain: [0, 600], range: [0.5, 8] });
+const colorScale = scaleLinear<number>({ range: [0, 1], domain: [0, 1000] })
+const sizeScale = scaleLinear<number>({ domain: [0, 600], range: [0.5, 8] })
 
 function rainbowColor(t: number): string {
-  const h = t * 360;
-  return `hsl(${h}, 100%, 55%)`;
+  const h = t * 360
+  return `hsl(${h}, 100%, 55%)`
 }
 
 const phyllotaxis = computed<PhyllotaxisPoint[]>(() => {
   const gen: GenPhyllotaxisFunction = genPhyllotaxis({
     radius: 10,
     width: width.value,
-    height: height.value,
-  });
-  return Array.from({ length: 1000 }, (_, i) => gen(i));
-});
+    height: height.value
+  })
+  return Array.from({ length: 1000 }, (_, i) => gen(i))
+})
 
 const zoom = useZoom<SVGSVGElement>({
   get width() {
-    return width.value;
+    return width.value
   },
   get height() {
-    return height.value;
+    return height.value
   },
   scaleXMin: 0.5,
   scaleXMax: 4,
@@ -121,9 +166,9 @@ const zoom = useZoom<SVGSVGElement>({
     translateX: -211.62,
     translateY: 162.59,
     skewX: 0,
-    skewY: 0,
-  },
-});
+    skewY: 0
+  }
+})
 </script>
 
 <style scoped>

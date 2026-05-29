@@ -1,9 +1,9 @@
-import { defineComponent, useAttrs, useSlots, ref } from "vue";
-import type { CSSProperties, PropType } from "vue";
-import { defaultStyles } from "./defaultStyles";
+import { defineComponent, useAttrs, useSlots, ref } from 'vue'
+import type { CSSProperties, PropType } from 'vue'
+import { defaultStyles } from './defaultStyles'
 
 export const Tooltip = defineComponent({
-  name: "Tooltip",
+  name: 'Tooltip',
   inheritAttrs: false,
   props: {
     className: { type: String as PropType<string>, default: undefined },
@@ -13,14 +13,14 @@ export const Tooltip = defineComponent({
     offsetTop: { type: Number as PropType<number>, default: 10 },
     style: { type: Object as PropType<CSSProperties>, default: () => defaultStyles },
     unstyled: { type: Boolean as PropType<boolean>, default: false },
-    applyPositionStyle: { type: Boolean as PropType<boolean>, default: false },
+    applyPositionStyle: { type: Boolean as PropType<boolean>, default: false }
   },
   setup(props, { expose }) {
-    const attrs = useAttrs();
-    const slots = useSlots();
-    const elRef = ref<HTMLDivElement | null>(null);
+    const attrs = useAttrs()
+    const slots = useSlots()
+    const elRef = ref<HTMLDivElement | null>(null)
 
-    expose({ el: elRef });
+    expose({ el: elRef })
 
     return () => {
       const computedStyle: CSSProperties = {
@@ -36,15 +36,20 @@ export const Tooltip = defineComponent({
               ? `${props.left}px`
               : undefined
             : `${props.left + props.offsetLeft}px`,
-        ...(props.applyPositionStyle && { position: "absolute" as const }),
-        ...(!props.unstyled && props.style),
-      };
+        ...(props.applyPositionStyle && { position: 'absolute' as const }),
+        ...(!props.unstyled && props.style)
+      }
 
       return (
-        <div ref={elRef} class={["visx-tooltip", props.className]} style={computedStyle} {...attrs}>
+        <div
+          ref={elRef}
+          class={['visx-tooltip', props.className]}
+          style={computedStyle}
+          {...attrs}
+        >
           {slots.default?.()}
         </div>
-      );
-    };
-  },
-});
+      )
+    }
+  }
+})

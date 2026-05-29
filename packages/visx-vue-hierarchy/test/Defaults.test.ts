@@ -1,4 +1,4 @@
-import { describe, test, expect } from "vite-plus/test";
+import { describe, test, expect } from 'vite-plus/test'
 import {
   HierarchyDefaultLink,
   HierarchyDefaultNode,
@@ -10,50 +10,50 @@ import {
   treemapResquarify,
   treemapSlice,
   treemapSliceDice,
-  treemapSquarify,
-} from "../src";
+  treemapSquarify
+} from '../src'
 
-describe("<DefaultLink />", () => {
-  test("should be defined", () => {
-    expect(HierarchyDefaultLink).toBeDefined();
-  });
-});
+describe('<DefaultLink />', () => {
+  test('should be defined', () => {
+    expect(HierarchyDefaultLink).toBeDefined()
+  })
+})
 
-describe("<DefaultNode />", () => {
-  test("should be defined", () => {
-    expect(HierarchyDefaultNode).toBeDefined();
-  });
-});
+describe('<DefaultNode />', () => {
+  test('should be defined', () => {
+    expect(HierarchyDefaultNode).toBeDefined()
+  })
+})
 
-describe("<DefaultRectNode />", () => {
-  test("should be defined", () => {
-    expect(HierarchyDefaultRectNode).toBeDefined();
-  });
-});
+describe('<DefaultRectNode />', () => {
+  test('should be defined', () => {
+    expect(HierarchyDefaultRectNode).toBeDefined()
+  })
+})
 
-describe("d3 exports", () => {
-  test("should export hierarchy", () => {
-    expect(hierarchy).toBeDefined();
-  });
+describe('d3 exports', () => {
+  test('should export hierarchy', () => {
+    expect(hierarchy).toBeDefined()
+  })
 
-  test("should export stratify", () => {
-    expect(stratify).toBeDefined();
-  });
+  test('should export stratify', () => {
+    expect(stratify).toBeDefined()
+  })
 
-  test("should export treemap tiling functions", () => {
+  test('should export treemap tiling functions', () => {
     const tilers = [
       treemapBinary,
       treemapDice,
       treemapResquarify,
       treemapSlice,
       treemapSliceDice,
-      treemapSquarify,
-    ];
+      treemapSquarify
+    ]
 
-    expect.assertions(tilers.length);
+    expect.assertions(tilers.length)
 
     tilers.forEach((tiler) => {
-      expect(tiler).toBeDefined();
-    });
-  });
-});
+      expect(tiler).toBeDefined()
+    })
+  })
+})

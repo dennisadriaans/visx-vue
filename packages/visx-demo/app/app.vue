@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import type { ContentNavigationItem, PageCollections } from "@nuxt/content";
+import type { ContentNavigationItem, PageCollections } from '@nuxt/content'
 
-const { data: navigation } = await useAsyncData("navigation", () =>
-  queryCollectionNavigation("docs" as keyof PageCollections),
-);
+const { data: navigation } = await useAsyncData('navigation', () =>
+  queryCollectionNavigation('docs' as keyof PageCollections)
+)
 
 const { data: files } = useLazyAsyncData(
-  "search",
-  () => queryCollectionSearchSections("docs" as keyof PageCollections),
-  { server: false },
-);
+  'search',
+  () => queryCollectionSearchSections('docs' as keyof PageCollections),
+  { server: false }
+)
 
-provide("navigation", navigation);
+provide('navigation', navigation)
 </script>
 
 <template>
@@ -23,7 +23,10 @@ provide("navigation", navigation);
     </NuxtLayout>
     <AppFooter />
     <ClientOnly>
-      <LazyUContentSearch :files="files" :navigation="navigation" />
+      <LazyUContentSearch
+        :files="files"
+        :navigation="navigation"
+      />
     </ClientOnly>
   </UApp>
 </template>

@@ -5,31 +5,31 @@
 export function debounce<Args extends unknown[]>(
   fn: (...args: Args) => void,
   delay: number,
-  options: { leading?: boolean } = {},
+  options: { leading?: boolean } = {}
 ): ((...args: Args) => void) & { cancel: () => void } {
-  let timeoutId: ReturnType<typeof setTimeout> | null = null;
+  let timeoutId: ReturnType<typeof setTimeout> | null = null
 
   const debounced = (...args: Args) => {
-    const callLeading = options.leading && timeoutId === null;
+    const callLeading = options.leading && timeoutId === null
 
-    if (timeoutId !== null) clearTimeout(timeoutId);
+    if (timeoutId !== null) clearTimeout(timeoutId)
 
     if (callLeading) {
-      fn(...args);
+      fn(...args)
     }
 
     timeoutId = setTimeout(() => {
-      timeoutId = null;
-      fn(...args);
-    }, delay);
-  };
+      timeoutId = null
+      fn(...args)
+    }, delay)
+  }
 
   debounced.cancel = () => {
     if (timeoutId !== null) {
-      clearTimeout(timeoutId);
-      timeoutId = null;
+      clearTimeout(timeoutId)
+      timeoutId = null
     }
-  };
+  }
 
-  return debounced;
+  return debounced
 }

@@ -32,19 +32,28 @@ pnpm add @visx-vue/axis
 
 ```vue
 <script setup lang="ts">
-import { AxisBottom, AxisLeft } from "@visx-vue/axis";
-import { scaleLinear } from "@visx-vue/scale";
+import { AxisBottom, AxisLeft } from '@visx-vue/axis'
+import { scaleLinear } from '@visx-vue/scale'
 
-const xScale = scaleLinear({ domain: [0, 10], range: [0, 400] });
-const yScale = scaleLinear({ domain: [0, 100], range: [200, 0] });
+const xScale = scaleLinear({ domain: [0, 10], range: [0, 400] })
+const yScale = scaleLinear({ domain: [0, 100], range: [200, 0] })
 </script>
 
 <template>
-  <svg width="500" height="300">
+  <svg
+    width="500"
+    height="300"
+  >
     <g transform="translate(50, 20)">
-      <AxisLeft :scale="yScale" label="Value" />
+      <AxisLeft
+        :scale="yScale"
+        label="Value"
+      />
       <g transform="translate(0, 200)">
-        <AxisBottom :scale="xScale" label="Time" />
+        <AxisBottom
+          :scale="xScale"
+          label="Time"
+        />
       </g>
     </g>
   </svg>

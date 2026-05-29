@@ -1,4 +1,4 @@
-import type { GlyphProps } from "../../../types";
+import type { GlyphProps } from '../../../types'
 
 export default function defaultRenderGlyph<Datum extends object>({
   key,
@@ -10,7 +10,7 @@ export default function defaultRenderGlyph<Datum extends object>({
   onFocus,
   onPointerMove,
   onPointerOut,
-  onPointerUp,
+  onPointerUp
 }: GlyphProps<Datum>) {
   return (
     <circle
@@ -27,5 +27,5 @@ export default function defaultRenderGlyph<Datum extends object>({
       onPointerout={onPointerOut}
       onPointerup={onPointerUp}
     />
-  );
+  )
 }

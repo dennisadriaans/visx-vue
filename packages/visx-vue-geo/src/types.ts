@@ -1,17 +1,17 @@
 import type {
   GeoProjection,
-  GeoPermissibleObjects as GeoPermissibleObjectType,
-} from "@visx-vue/vendor/d3-geo";
+  GeoPermissibleObjects as GeoPermissibleObjectType
+} from '@visx-vue/vendor/d3-geo'
 
-export type GeoPermissibleObjects = GeoPermissibleObjectType;
+export type GeoPermissibleObjects = GeoPermissibleObjectType
 
-export type Projection = ProjectionPreset | (() => GeoProjection);
+export type Projection = ProjectionPreset | (() => GeoProjection)
 
 // @TODO: Implement all projections of d3-geo
 export type ProjectionPreset =
-  | "orthographic"
-  | "albers"
-  | "albersUsa"
-  | "mercator"
-  | "naturalEarth"
-  | "equalEarth";
+  | 'orthographic'
+  | 'albers'
+  | 'albersUsa'
+  | 'mercator'
+  | 'naturalEarth'
+  | 'equalEarth'

@@ -123,23 +123,44 @@ Each package is standalone. Peer dependency: `vue ^3.4.0`.
 
 ```vue
 <script setup lang="ts">
-import { BarStack } from "@visx-vue/shape";
-import { AxisBottom, AxisLeft } from "@visx-vue/axis";
-import { createScale } from "@visx-vue/scale";
-import { Grid } from "@visx-vue/grid";
-import { useTooltip, TooltipWithBounds } from "@visx-vue/tooltip";
+import { BarStack } from '@visx-vue/shape'
+import { AxisBottom, AxisLeft } from '@visx-vue/axis'
+import { createScale } from '@visx-vue/scale'
+import { Grid } from '@visx-vue/grid'
+import { useTooltip, TooltipWithBounds } from '@visx-vue/tooltip'
 
-const { tooltipData, tooltipLeft, tooltipTop, showTooltip, hideTooltip } = useTooltip();
+const { tooltipData, tooltipLeft, tooltipTop, showTooltip, hideTooltip } = useTooltip()
 </script>
 
 <template>
-  <svg :width="width" :height="height">
-    <Grid :x-scale="xScale" :y-scale="yScale" :width="innerWidth" :height="innerHeight" />
-    <BarStack :data="data" :x-scale="xScale" :y-scale="yScale" :keys="keys" :color="colorScale" />
-    <AxisBottom :scale="xScale" :top="innerHeight" />
+  <svg
+    :width="width"
+    :height="height"
+  >
+    <Grid
+      :x-scale="xScale"
+      :y-scale="yScale"
+      :width="innerWidth"
+      :height="innerHeight"
+    />
+    <BarStack
+      :data="data"
+      :x-scale="xScale"
+      :y-scale="yScale"
+      :keys="keys"
+      :color="colorScale"
+    />
+    <AxisBottom
+      :scale="xScale"
+      :top="innerHeight"
+    />
     <AxisLeft :scale="yScale" />
   </svg>
-  <TooltipWithBounds v-if="tooltipData" :top="tooltipTop" :left="tooltipLeft">
+  <TooltipWithBounds
+    v-if="tooltipData"
+    :top="tooltipTop"
+    :left="tooltipLeft"
+  >
     {{ tooltipData }}
   </TooltipWithBounds>
 </template>

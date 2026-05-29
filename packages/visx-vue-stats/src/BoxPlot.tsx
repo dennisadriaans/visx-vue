@@ -1,64 +1,64 @@
-import { defineComponent, useSlots, type PropType, type SVGAttributes } from "vue";
-import { Group } from "@visx-vue/group";
-import type { PickD3Scale, ContinuousDomainScaleType } from "@visx-vue/scale";
-import type { SharedProps, ChildRenderProps, LineCoords } from "./types";
+import { defineComponent, useSlots, type PropType, type SVGAttributes } from 'vue'
+import { Group } from '@visx-vue/group'
+import type { PickD3Scale, ContinuousDomainScaleType } from '@visx-vue/scale'
+import type { SharedProps, ChildRenderProps, LineCoords } from './types'
 
 function verticalToHorizontal({ x1, x2, y1, y2 }: LineCoords) {
   return {
     x1: y1,
     x2: y2,
     y1: x1,
-    y2: x2,
-  };
+    y2: x2
+  }
 }
 
 export type BoxPlotProps = SharedProps & {
   /** Scale for converting input values to pixel offsets. */
-  valueScale: PickD3Scale<ContinuousDomainScaleType, number>;
+  valueScale: PickD3Scale<ContinuousDomainScaleType, number>
   /** Maximum BoxPlot value. */
-  max?: number;
+  max?: number
   /** Minimum BoxPlot value. */
-  min?: number;
+  min?: number
   /** First quartile BoxPlot value. */
-  firstQuartile?: number;
+  firstQuartile?: number
   /** Third quartile BoxPlot value. */
-  thirdQuartile?: number;
+  thirdQuartile?: number
   /** Median BoxPlot value. */
-  median?: number;
+  median?: number
   /** Width of the BoxPlot. */
-  boxWidth?: number;
+  boxWidth?: number
   /** Fill color to apply to outlier circles and BoxPlot rect. */
-  fill?: string;
+  fill?: string
   /** Fill color opacity to apply to outlier circles and BoxPlot rect. */
-  fillOpacity?: number | string;
+  fillOpacity?: number | string
   /** Stroke color to apply to outlier circles, BoxPlot rect, and min/median/max lines. */
-  stroke?: string;
+  stroke?: string
   /** Stroke width to apply to outlier circles, BoxPlot rect, and min/median/max lines. */
-  strokeWidth?: number | string;
+  strokeWidth?: number | string
   /** Rx to apply to BoxPlot rect. */
-  rx?: number;
+  rx?: number
   /** Ry to apply to BoxPlot rect. */
-  ry?: number;
+  ry?: number
   /** Array of outlier values to be rendered. */
-  outliers?: number[];
+  outliers?: number[]
   /** Props to pass to the median glyph line. */
-  medianProps?: SVGAttributes;
+  medianProps?: SVGAttributes
   /** Props to pass to the maximum glyph line. */
-  maxProps?: SVGAttributes;
+  maxProps?: SVGAttributes
   /** Props to pass to the minimum glyph line. */
-  minProps?: SVGAttributes;
+  minProps?: SVGAttributes
   /** Props to pass to the box glyph rect. */
-  boxProps?: SVGAttributes;
+  boxProps?: SVGAttributes
   /** Props to pass to the outlier glyph circles. */
-  outlierProps?: SVGAttributes;
+  outlierProps?: SVGAttributes
   /** Whether to render a container rect element (e.g., to capture mouse events). */
-  container?: boolean;
+  container?: boolean
   /** Props to pass to the container glyph rect if rendered. */
-  containerProps?: SVGAttributes;
-};
+  containerProps?: SVGAttributes
+}
 
 export const BoxPlot = defineComponent({
-  name: "BoxPlot",
+  name: 'BoxPlot',
   props: {
     left: { type: Number as PropType<number>, default: 0 },
     top: { type: Number as PropType<number>, default: 0 },
@@ -77,7 +77,7 @@ export const BoxPlot = defineComponent({
     ry: { type: Number as PropType<number>, default: 2 },
     valueScale: {
       type: Function as PropType<PickD3Scale<ContinuousDomainScaleType, number>>,
-      required: true,
+      required: true
     },
     outliers: { type: Array as PropType<number[]>, default: () => [] },
     horizontal: { type: Boolean as PropType<boolean>, default: undefined },
@@ -87,21 +87,21 @@ export const BoxPlot = defineComponent({
     boxProps: { type: Object as PropType<SVGAttributes>, default: () => ({}) },
     outlierProps: { type: Object as PropType<SVGAttributes>, default: () => ({}) },
     container: { type: Boolean as PropType<boolean>, default: false },
-    containerProps: { type: Object as PropType<SVGAttributes>, default: () => ({}) },
+    containerProps: { type: Object as PropType<SVGAttributes>, default: () => ({}) }
   },
   setup(props) {
-    const slots = useSlots();
+    const slots = useSlots()
 
     return () => {
-      const offset = props.horizontal ? props.top : props.left;
-      const center = offset + (props.boxWidth || 0) / 2;
-      const valueRange = props.valueScale.range();
+      const offset = props.horizontal ? props.top : props.left
+      const center = offset + (props.boxWidth || 0) / 2
+      const valueRange = props.valueScale.range()
 
-      const minValue = props.valueScale(props.min ?? 0);
-      const firstQuartileValue = props.valueScale(props.firstQuartile ?? 0);
-      const medianValue = props.valueScale(props.median ?? 0);
-      const thirdQuartileValue = props.valueScale(props.thirdQuartile ?? 0);
-      const maxValue = props.valueScale(props.max ?? 0);
+      const minValue = props.valueScale(props.min ?? 0)
+      const firstQuartileValue = props.valueScale(props.firstQuartile ?? 0)
+      const medianValue = props.valueScale(props.median ?? 0)
+      const thirdQuartileValue = props.valueScale(props.thirdQuartile ?? 0)
+      const maxValue = props.valueScale(props.max ?? 0)
 
       const boxplot: ChildRenderProps = {
         valueRange,
@@ -112,65 +112,65 @@ export const BoxPlot = defineComponent({
           x1: center - (props.boxWidth || 0) / 4,
           x2: center + (props.boxWidth || 0) / 4,
           y1: maxValue,
-          y2: maxValue,
+          y2: maxValue
         },
         maxToThird: {
           x1: center,
           x2: center,
           y1: maxValue,
-          y2: thirdQuartileValue,
+          y2: thirdQuartileValue
         },
         median: {
           x1: offset,
           x2: offset + (props.boxWidth || 0),
           y1: medianValue,
-          y2: medianValue,
+          y2: medianValue
         },
         minToFirst: {
           x1: center,
           x2: center,
           y1: firstQuartileValue,
-          y2: minValue,
+          y2: minValue
         },
         min: {
           x1: center - (props.boxWidth || 0) / 4,
           x2: center + (props.boxWidth || 0) / 4,
           y1: minValue,
-          y2: minValue,
+          y2: minValue
         },
         box: {
           x1: offset,
           x2: props.boxWidth || 0,
           y1: thirdQuartileValue,
-          y2: Math.abs(thirdQuartileValue - firstQuartileValue),
+          y2: Math.abs(thirdQuartileValue - firstQuartileValue)
         },
         container: {
           x1: offset,
           x2: props.boxWidth || 0,
           y1: Math.min(...valueRange),
-          y2: Math.abs(valueRange[0] - valueRange[1]),
-        },
-      };
-
-      if (props.horizontal) {
-        boxplot.max = verticalToHorizontal(boxplot.max);
-        boxplot.maxToThird = verticalToHorizontal(boxplot.maxToThird);
-        boxplot.box.y1 = firstQuartileValue;
-        boxplot.box = verticalToHorizontal(boxplot.box);
-        boxplot.median = verticalToHorizontal(boxplot.median);
-        boxplot.minToFirst = verticalToHorizontal(boxplot.minToFirst);
-        boxplot.min = verticalToHorizontal(boxplot.min);
-        boxplot.container = verticalToHorizontal(boxplot.container);
-        boxplot.container.y1 = Math.min(...valueRange);
+          y2: Math.abs(valueRange[0] - valueRange[1])
+        }
       }
 
-      if (slots.default) return <>{slots.default(boxplot)}</>;
+      if (props.horizontal) {
+        boxplot.max = verticalToHorizontal(boxplot.max)
+        boxplot.maxToThird = verticalToHorizontal(boxplot.maxToThird)
+        boxplot.box.y1 = firstQuartileValue
+        boxplot.box = verticalToHorizontal(boxplot.box)
+        boxplot.median = verticalToHorizontal(boxplot.median)
+        boxplot.minToFirst = verticalToHorizontal(boxplot.minToFirst)
+        boxplot.min = verticalToHorizontal(boxplot.min)
+        boxplot.container = verticalToHorizontal(boxplot.container)
+        boxplot.container.y1 = Math.min(...valueRange)
+      }
+
+      if (slots.default) return <>{slots.default(boxplot)}</>
 
       return (
-        <Group class={["visx-boxplot", props.className]}>
+        <Group class={['visx-boxplot', props.className]}>
           {props.outliers.map((d, i) => {
-            const cx = props.horizontal ? props.valueScale(d) : center;
-            const cy = props.horizontal ? center : props.valueScale(d);
+            const cx = props.horizontal ? props.valueScale(d) : center
+            const cy = props.horizontal ? center : props.valueScale(d)
             return (
               <circle
                 key={`visx-boxplot-outlier-${i}`}
@@ -184,7 +184,7 @@ export const BoxPlot = defineComponent({
                 fill-opacity={props.fillOpacity}
                 {...props.outlierProps}
               />
-            );
+            )
           })}
           <line
             class="visx-boxplot-max"
@@ -259,7 +259,7 @@ export const BoxPlot = defineComponent({
             />
           )}
         </Group>
-      );
-    };
-  },
-});
+      )
+    }
+  }
+})

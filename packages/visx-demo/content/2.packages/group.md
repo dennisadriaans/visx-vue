@@ -21,13 +21,23 @@ pnpm add @visx-vue/group
 
 ```vue
 <script setup lang="ts">
-import { Group } from "@visx-vue/group";
+import { Group } from '@visx-vue/group'
 </script>
 
 <template>
-  <svg width="100" height="100">
-    <Group :top="10" :left="10">
-      <rect width="80" height="80" fill="orange" />
+  <svg
+    width="100"
+    height="100"
+  >
+    <Group
+      :top="10"
+      :left="10"
+    >
+      <rect
+        width="80"
+        height="80"
+        fill="orange"
+      />
     </Group>
   </svg>
 </template>

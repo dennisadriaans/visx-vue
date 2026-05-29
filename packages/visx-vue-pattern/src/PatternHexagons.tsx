@@ -1,33 +1,33 @@
-import { defineComponent, type PropType } from "vue";
-import { PatternPath } from "./PatternPath";
+import { defineComponent, type PropType } from 'vue'
+import { PatternPath } from './PatternPath'
 
 export type PatternHexagonsProps = {
   /** Unique id for the pattern. */
-  id: string;
+  id: string
   /** Height of the pattern element. */
-  height: number;
+  height: number
   /** Size of the hexagon shape. */
-  size?: number;
+  size?: number
   /** Fill applied to hexagons. */
-  fill?: string;
+  fill?: string
   /** className applied to hexagon path element. */
-  className?: string;
+  className?: string
   /** Background color applied behind hexagons. */
-  background?: string;
+  background?: string
   /** Stroke color applied to hexagon paths. */
-  stroke?: string;
+  stroke?: string
   /** strokeWidth applied to hexagon paths. */
-  strokeWidth?: number | string;
+  strokeWidth?: number | string
   /** strokeDasharray applied to hexagon paths. */
-  strokeDasharray?: string | number;
+  strokeDasharray?: string | number
   /** strokeLinecap applied to hexagon paths. */
-  strokeLinecap?: "square" | "butt" | "round" | "inherit";
+  strokeLinecap?: 'square' | 'butt' | 'round' | 'inherit'
   /** shapeRendering applied to hexagon paths. */
-  shapeRendering?: string | number;
-};
+  shapeRendering?: string | number
+}
 
 export const PatternHexagons = defineComponent({
-  name: "PatternHexagons",
+  name: 'PatternHexagons',
   props: {
     id: { type: String as PropType<string>, required: true },
     height: { type: Number as PropType<number>, required: true },
@@ -39,17 +39,17 @@ export const PatternHexagons = defineComponent({
     strokeWidth: { type: [Number, String] as PropType<number | string>, default: undefined },
     strokeDasharray: { type: [String, Number] as PropType<string | number>, default: undefined },
     strokeLinecap: {
-      type: String as PropType<"square" | "butt" | "round" | "inherit">,
-      default: undefined,
+      type: String as PropType<'square' | 'butt' | 'round' | 'inherit'>,
+      default: undefined
     },
-    shapeRendering: { type: [String, Number] as PropType<string | number>, default: undefined },
+    shapeRendering: { type: [String, Number] as PropType<string | number>, default: undefined }
   },
   setup(props) {
     return () => {
-      const sqrtSize = Math.sqrt(props.size);
+      const sqrtSize = Math.sqrt(props.size)
       return (
         <PatternPath
-          className={["visx-pattern-hexagon", props.className].filter(Boolean).join(" ")}
+          className={['visx-pattern-hexagon', props.className].filter(Boolean).join(' ')}
           path={`M ${props.height},0 l ${props.height},0 l ${props.height / 2},${(props.height * sqrtSize) / 2} l ${
             -props.height / 2
           },${(props.height * sqrtSize) / 2} l ${-props.height},0 l ${-props.height / 2},${
@@ -68,7 +68,7 @@ export const PatternHexagons = defineComponent({
           shapeRendering={props.shapeRendering}
           background={props.background}
         />
-      );
-    };
-  },
-});
+      )
+    }
+  }
+})

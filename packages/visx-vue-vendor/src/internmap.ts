@@ -1,1 +1,1 @@
-export * from "internmap";
+export * from 'internmap'

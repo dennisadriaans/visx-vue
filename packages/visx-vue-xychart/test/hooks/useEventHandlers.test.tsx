@@ -1,75 +1,75 @@
 // @vitest-environment jsdom
-import { describe, it, expect, vi } from "vite-plus/test";
-import { mount, flushPromises } from "@vue/test-utils";
-import { defineComponent, h, onMounted } from "vue";
-import EventEmitterProvider from "../../src/providers/EventEmitterProvider";
-import useEventEmitter from "../../src/hooks/useEventEmitter";
-import useEventHandlers, { POINTER_EVENTS_ALL } from "../../src/hooks/useEventHandlers";
-import { DataContextKey } from "../../src/context/DataContext";
-import getDataContext from "../mocks/getDataContext";
+import { describe, it, expect, vi } from 'vite-plus/test'
+import { mount, flushPromises } from '@vue/test-utils'
+import { defineComponent, h, onMounted } from 'vue'
+import EventEmitterProvider from '../../src/providers/EventEmitterProvider'
+import useEventEmitter from '../../src/hooks/useEventEmitter'
+import useEventHandlers, { POINTER_EVENTS_ALL } from '../../src/hooks/useEventHandlers'
+import { DataContextKey } from '../../src/context/DataContext'
+import getDataContext from '../mocks/getDataContext'
 
-const series1 = { key: "series1", data: [{}], xAccessor: () => 4, yAccessor: () => 7 };
-const series2 = { key: "series2", data: [{}], xAccessor: () => 4, yAccessor: () => 7 };
+const series1 = { key: 'series1', data: [{}], xAccessor: () => 4, yAccessor: () => 7 }
+const series2 = { key: 'series2', data: [{}], xAccessor: () => 4, yAccessor: () => 7 }
 
 // Create a properly formed PointerEvent with a target
 const getEvent = (eventType: string) => {
-  const svg = document.querySelector("svg") || document.createElement("svg");
+  const svg = document.querySelector('svg') || document.createElement('svg')
   const event = new PointerEvent(eventType, {
     bubbles: true,
     clientX: 50,
-    clientY: 50,
-  });
-  Object.defineProperty(event, "target", {
+    clientY: 50
+  })
+  Object.defineProperty(event, 'target', {
     value: svg,
-    enumerable: true,
-  });
-  return event;
-};
+    enumerable: true
+  })
+  return event
+}
 
 // Create a properly formed FocusEvent with a target
-const getFocusEvent = (eventType: "focus" | "blur") => {
-  const svg = document.querySelector("svg") || document.createElement("svg");
+const getFocusEvent = (eventType: 'focus' | 'blur') => {
+  const svg = document.querySelector('svg') || document.createElement('svg')
   const event = new FocusEvent(eventType, {
-    bubbles: true,
-  });
-  Object.defineProperty(event, "target", {
+    bubbles: true
+  })
+  Object.defineProperty(event, 'target', {
     value: svg,
-    enumerable: true,
-  });
-  return event;
-};
+    enumerable: true
+  })
+  return event
+}
 
-describe("useEventHandlers", () => {
+describe('useEventHandlers', () => {
   function setup(child: ReturnType<typeof defineComponent>) {
     return mount(EventEmitterProvider, {
       global: {
         provide: {
-          [DataContextKey as symbol]: getDataContext([series1, series2]),
-        },
+          [DataContextKey as symbol]: getDataContext([series1, series2])
+        }
       },
       slots: {
-        default: () => h(child),
-      },
-    });
+        default: () => h(child)
+      }
+    })
   }
 
-  it("should be defined", () => {
-    expect(useEventHandlers).toBeDefined();
-  });
+  it('should be defined', () => {
+    expect(useEventHandlers).toBeDefined()
+  })
 
-  it("should invoke handlers for each pointer event handler specified", async () => {
-    expect.assertions(5);
+  it('should invoke handlers for each pointer event handler specified', async () => {
+    expect.assertions(5)
 
-    const sourceId = "sourceId";
-    const pointerMoveListener = vi.fn();
-    const pointerOutListener = vi.fn();
-    const pointerUpListener = vi.fn();
-    const focusListener = vi.fn();
-    const blurListener = vi.fn();
+    const sourceId = 'sourceId'
+    const pointerMoveListener = vi.fn()
+    const pointerOutListener = vi.fn()
+    const pointerUpListener = vi.fn()
+    const focusListener = vi.fn()
+    const blurListener = vi.fn()
 
     const Component = defineComponent({
       setup() {
-        const emit = useEventEmitter();
+        const emit = useEventEmitter()
 
         useEventHandlers({
           allowedSources: [sourceId],
@@ -78,78 +78,78 @@ describe("useEventHandlers", () => {
           onBlur: blurListener,
           onPointerMove: pointerMoveListener,
           onPointerOut: pointerOutListener,
-          onPointerUp: pointerUpListener,
-        });
+          onPointerUp: pointerUpListener
+        })
 
         onMounted(() => {
           if (emit) {
-            emit("pointermove", getEvent("pointermove"), sourceId);
-            emit("pointermove", getEvent("pointermove"), "invalidSource");
-            emit("pointerout", getEvent("pointerout"), sourceId);
-            emit("pointerout", getEvent("pointerout"), "invalidSource");
-            emit("pointerup", getEvent("pointerup"), sourceId);
-            emit("pointerup", getEvent("pointerup"), "invalidSource");
-            emit("focus", getFocusEvent("focus"), sourceId);
-            emit("focus", getFocusEvent("focus"), "invalidSource");
-            emit("blur", getFocusEvent("blur"), sourceId);
-            emit("blur", getFocusEvent("blur"), "invalidSource");
+            emit('pointermove', getEvent('pointermove'), sourceId)
+            emit('pointermove', getEvent('pointermove'), 'invalidSource')
+            emit('pointerout', getEvent('pointerout'), sourceId)
+            emit('pointerout', getEvent('pointerout'), 'invalidSource')
+            emit('pointerup', getEvent('pointerup'), sourceId)
+            emit('pointerup', getEvent('pointerup'), 'invalidSource')
+            emit('focus', getFocusEvent('focus'), sourceId)
+            emit('focus', getFocusEvent('focus'), 'invalidSource')
+            emit('blur', getFocusEvent('blur'), sourceId)
+            emit('blur', getFocusEvent('blur'), 'invalidSource')
           }
-        });
+        })
 
-        return () => null;
-      },
-    });
+        return () => null
+      }
+    })
 
-    setup(Component);
+    setup(Component)
 
-    await flushPromises();
-    expect(pointerMoveListener).toHaveBeenCalledTimes(1);
-    expect(pointerOutListener).toHaveBeenCalledTimes(1);
-    expect(pointerUpListener).toHaveBeenCalledTimes(1);
-    expect(focusListener).toHaveBeenCalledTimes(1);
-    expect(blurListener).toHaveBeenCalledTimes(1);
-  });
+    await flushPromises()
+    expect(pointerMoveListener).toHaveBeenCalledTimes(1)
+    expect(pointerOutListener).toHaveBeenCalledTimes(1)
+    expect(pointerUpListener).toHaveBeenCalledTimes(1)
+    expect(focusListener).toHaveBeenCalledTimes(1)
+    expect(blurListener).toHaveBeenCalledTimes(1)
+  })
 
-  it("should invoke handlers once for each dataKey specified", async () => {
-    expect.assertions(4);
+  it('should invoke handlers once for each dataKey specified', async () => {
+    expect.assertions(4)
 
-    const sourceId = "sourceId";
-    const pointerMoveListenerAll = vi.fn();
-    const pointerMoveListenerMultipleKeys = vi.fn();
+    const sourceId = 'sourceId'
+    const pointerMoveListenerAll = vi.fn()
+    const pointerMoveListenerMultipleKeys = vi.fn()
 
     const Component = defineComponent({
       setup() {
-        const emit = useEventEmitter();
+        const emit = useEventEmitter()
 
         useEventHandlers({
           allowedSources: [sourceId],
           dataKey: POINTER_EVENTS_ALL,
-          onPointerMove: pointerMoveListenerAll,
-        });
+          onPointerMove: pointerMoveListenerAll
+        })
         useEventHandlers({
           allowedSources: [sourceId],
           dataKey: [series1.key, series2.key],
-          onPointerMove: pointerMoveListenerMultipleKeys,
-        });
+          onPointerMove: pointerMoveListenerMultipleKeys
+        })
 
         onMounted(() => {
           if (emit) {
-            emit("pointermove", getEvent("pointermove"), sourceId);
-            emit("pointermove", getEvent("pointermove"), "invalidSource");
+            emit('pointermove', getEvent('pointermove'), sourceId)
+            emit('pointermove', getEvent('pointermove'), 'invalidSource')
           }
-        });
+        })
 
-        return () => null;
-      },
-    });
+        return () => null
+      }
+    })
 
-    setup(Component);
+    setup(Component)
 
-    await flushPromises();
-    expect(pointerMoveListenerAll).toHaveBeenCalledTimes(2);
-    expect(pointerMoveListenerMultipleKeys).toHaveBeenCalledTimes(2);
+    await flushPromises()
+    expect(pointerMoveListenerAll).toHaveBeenCalledTimes(2)
+    expect(pointerMoveListenerMultipleKeys).toHaveBeenCalledTimes(2)
     // After invalid source, counts should stay the same
-    expect(pointerMoveListenerAll).toHaveBeenCalledTimes(2);
-    expect(pointerMoveListenerMultipleKeys).toHaveBeenCalledTimes(2);
-  });
-});
+    expect(pointerMoveListenerAll).toHaveBeenCalledTimes(2)
+    expect(pointerMoveListenerMultipleKeys).toHaveBeenCalledTimes(2)
+  })
+})

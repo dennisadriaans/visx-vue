@@ -1,4 +1,4 @@
-import type { CountableTimeInterval } from "@visx-vue/vendor/d3-time";
+import type { CountableTimeInterval } from '@visx-vue/vendor/d3-time'
 import {
   timeSecond,
   timeMinute,
@@ -13,17 +13,17 @@ import {
   utcDay,
   utcWeek,
   utcMonth,
-  utcYear,
-} from "@visx-vue/vendor/d3-time";
-import type { ScaleTime } from "@visx-vue/vendor/d3-scale";
-import type { StringLike } from "../types/Base";
-import type { DefaultThresholdInput, D3Scale } from "../types/Scale";
-import type { ScaleConfigWithoutType } from "../types/ScaleConfig";
-import type { NiceTime } from "../types/Nice";
-import isUtcScale from "../utils/isUtcScale";
+  utcYear
+} from '@visx-vue/vendor/d3-time'
+import type { ScaleTime } from '@visx-vue/vendor/d3-scale'
+import type { StringLike } from '../types/Base'
+import type { DefaultThresholdInput, D3Scale } from '../types/Scale'
+import type { ScaleConfigWithoutType } from '../types/ScaleConfig'
+import type { NiceTime } from '../types/Nice'
+import isUtcScale from '../utils/isUtcScale'
 
 const localTimeIntervals: {
-  [key in NiceTime]: CountableTimeInterval;
+  [key in NiceTime]: CountableTimeInterval
 } = {
   day: timeDay,
   hour: timeHour,
@@ -31,11 +31,11 @@ const localTimeIntervals: {
   month: timeMonth,
   second: timeSecond,
   week: timeWeek,
-  year: timeYear,
-};
+  year: timeYear
+}
 
 const utcIntervals: {
-  [key in NiceTime]: CountableTimeInterval;
+  [key in NiceTime]: CountableTimeInterval
 } = {
   day: utcDay,
   hour: utcHour,
@@ -43,37 +43,37 @@ const utcIntervals: {
   month: utcMonth,
   second: utcSecond,
   week: utcWeek,
-  year: utcYear,
-};
+  year: utcYear
+}
 
 export default function applyNice<
   Output,
   DiscreteInput extends StringLike,
-  ThresholdInput extends DefaultThresholdInput,
+  ThresholdInput extends DefaultThresholdInput
 >(
   scale: D3Scale<Output, DiscreteInput, ThresholdInput>,
-  config: ScaleConfigWithoutType<Output, DiscreteInput, ThresholdInput>,
+  config: ScaleConfigWithoutType<Output, DiscreteInput, ThresholdInput>
 ) {
-  if ("nice" in config && typeof config.nice !== "undefined" && "nice" in scale) {
-    const { nice } = config;
-    if (typeof nice === "boolean") {
+  if ('nice' in config && typeof config.nice !== 'undefined' && 'nice' in scale) {
+    const { nice } = config
+    if (typeof nice === 'boolean') {
       if (nice) {
-        scale.nice();
+        scale.nice()
       }
-    } else if (typeof nice === "number") {
-      scale.nice(nice);
+    } else if (typeof nice === 'number') {
+      scale.nice(nice)
     } else {
-      const timeScale = scale as ScaleTime<Output, Output>;
-      const isUtc = isUtcScale(timeScale);
-      if (typeof nice === "string") {
-        timeScale.nice(isUtc ? utcIntervals[nice] : localTimeIntervals[nice]);
+      const timeScale = scale as ScaleTime<Output, Output>
+      const isUtc = isUtcScale(timeScale)
+      if (typeof nice === 'string') {
+        timeScale.nice(isUtc ? utcIntervals[nice] : localTimeIntervals[nice])
       } else {
-        const { interval, step } = nice;
+        const { interval, step } = nice
         const parsedInterval = (
           isUtc ? utcIntervals[interval] : localTimeIntervals[interval]
-        ).every(step);
+        ).every(step)
         if (parsedInterval != null) {
-          timeScale.nice(parsedInterval as CountableTimeInterval);
+          timeScale.nice(parsedInterval as CountableTimeInterval)
         }
       }
     }

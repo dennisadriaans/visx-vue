@@ -12,23 +12,38 @@
       '@visx-vue/tooltip',
       '@visx-vue/mock-data',
       '@visx-vue/curve',
-      '@visx-vue/event',
+      '@visx-vue/event'
     ]"
   >
     <!-- Toggle -->
     <div class="controls">
-      <button :class="{ active: variant === 'single' }" @click="variant = 'single'">
+      <button
+        :class="{ active: variant === 'single' }"
+        @click="variant = 'single'"
+      >
         Single Area
       </button>
-      <button :class="{ active: variant === 'stacked' }" @click="variant = 'stacked'">
+      <button
+        :class="{ active: variant === 'stacked' }"
+        @click="variant = 'stacked'"
+      >
         Stacked Area
       </button>
     </div>
 
     <!-- Single Area Chart -->
     <template v-if="variant === 'single'">
-      <div ref="parentRef" class="chart-outer bg-elevated/40 rounded-xl" @mouseleave="hideTooltip">
-        <svg v-if="width > 0" :width="width" :height="height" @mousemove="handleMouseMove">
+      <div
+        ref="parentRef"
+        class="chart-outer bg-elevated/40 rounded-xl"
+        @mouseleave="hideTooltip"
+      >
+        <svg
+          v-if="width > 0"
+          :width="width"
+          :height="height"
+          @mousemove="handleMouseMove"
+        >
           <defs>
             <LinearGradient
               id="area-fill"
@@ -42,8 +57,16 @@
               y2="1"
             />
           </defs>
-          <rect :width="width" :height="height" fill="transparent" :rx="12" />
-          <Group :left="margin.left" :top="margin.top">
+          <rect
+            :width="width"
+            :height="height"
+            fill="transparent"
+            :rx="12"
+          />
+          <Group
+            :left="margin.left"
+            :top="margin.top"
+          >
             <GridRows
               :scale="priceScale"
               :width="xMax"
@@ -116,10 +139,25 @@
 
     <!-- Stacked Area Chart -->
     <template v-else>
-      <div ref="parentRef2" class="chart-outer bg-elevated/40 rounded-xl">
-        <svg v-if="width2 > 0" :width="width2" :height="height2">
-          <rect :width="width2" :height="height2" fill="transparent" :rx="12" />
-          <Group :left="marginS.left" :top="marginS.top">
+      <div
+        ref="parentRef2"
+        class="chart-outer bg-elevated/40 rounded-xl"
+      >
+        <svg
+          v-if="width2 > 0"
+          :width="width2"
+          :height="height2"
+        >
+          <rect
+            :width="width2"
+            :height="height2"
+            fill="transparent"
+            :rx="12"
+          />
+          <Group
+            :left="marginS.left"
+            :top="marginS.top"
+          >
             <GridRows
               :scale="yScaleS"
               :width="xMaxS"
@@ -167,8 +205,15 @@
         </svg>
         <!-- legend -->
         <div class="legend">
-          <span v-for="k in browserKeys" :key="k" class="legend-item">
-            <span class="legend-dot" :style="{ background: stackColors[k] }" />
+          <span
+            v-for="k in browserKeys"
+            :key="k"
+            class="legend-item"
+          >
+            <span
+              class="legend-dot"
+              :style="{ background: stackColors[k] }"
+            />
             {{ k }}
           </span>
         </div>
@@ -178,119 +223,119 @@
 </template>
 
 <script setup lang="ts">
-import { AreaClosed, AreaStack, Line } from "@visx-vue/shape";
-import { GridRows } from "@visx-vue/grid";
-import { AxisBottom, AxisLeft } from "@visx-vue/axis";
-import { scaleTime, scaleLinear } from "@visx-vue/scale";
-import { LinearGradient } from "@visx-vue/gradient";
-import { Group } from "@visx-vue/group";
-import { useTooltip, TooltipWithBounds } from "@visx-vue/tooltip";
-import { localPoint } from "@visx-vue/event";
-import { appleStock, browserUsage } from "@visx-vue/mock-data";
-import type { AppleStock, BrowserUsage } from "@visx-vue/mock-data";
-import { curveMonotoneX } from "@visx-vue/curve";
-import { max, extent, bisector } from "@visx-vue/vendor/d3-array";
-import { timeFormat, timeParse } from "@visx-vue/vendor/d3-time-format";
-import { useParentSize } from "@visx-vue/responsive";
+import { AreaClosed, AreaStack, Line } from '@visx-vue/shape'
+import { GridRows } from '@visx-vue/grid'
+import { AxisBottom, AxisLeft } from '@visx-vue/axis'
+import { scaleTime, scaleLinear } from '@visx-vue/scale'
+import { LinearGradient } from '@visx-vue/gradient'
+import { Group } from '@visx-vue/group'
+import { useTooltip, TooltipWithBounds } from '@visx-vue/tooltip'
+import { localPoint } from '@visx-vue/event'
+import { appleStock, browserUsage } from '@visx-vue/mock-data'
+import type { AppleStock, BrowserUsage } from '@visx-vue/mock-data'
+import { curveMonotoneX } from '@visx-vue/curve'
+import { max, extent, bisector } from '@visx-vue/vendor/d3-array'
+import { timeFormat, timeParse } from '@visx-vue/vendor/d3-time-format'
+import { useParentSize } from '@visx-vue/responsive'
 
-useHead({ title: "Area Chart — visx-vue" });
+useHead({ title: 'Area Chart — visx-vue' })
 
-const variant = ref<"single" | "stacked">("single");
+const variant = ref<'single' | 'stacked'>('single')
 
 // ── Single area ──────────────────────────────────────────────
-const { parentRef, width } = useParentSize({ debounceTime: 0 });
-const height = computed(() => Math.round(width.value * 0.55) || 400);
+const { parentRef, width } = useParentSize({ debounceTime: 0 })
+const height = computed(() => Math.round(width.value * 0.55) || 400)
 
-const margin = { top: 20, right: 20, bottom: 40, left: 55 };
-const stock = appleStock.slice(800) as AppleStock[];
-const formatDate = timeFormat("%b %d '%y");
-const getDate = (d: AppleStock) => new Date(d.date);
-const getClose = (d: AppleStock) => d.close;
-const bisectDate = bisector<AppleStock, Date>((d) => new Date(d.date)).left;
+const margin = { top: 20, right: 20, bottom: 40, left: 55 }
+const stock = appleStock.slice(800) as AppleStock[]
+const formatDate = timeFormat("%b %d '%y")
+const getDate = (d: AppleStock) => new Date(d.date)
+const getClose = (d: AppleStock) => d.close
+const bisectDate = bisector<AppleStock, Date>((d) => new Date(d.date)).left
 
-const xMax = computed(() => width.value - margin.left - margin.right);
-const yMax = computed(() => height.value - margin.top - margin.bottom);
+const xMax = computed(() => width.value - margin.left - margin.right)
+const yMax = computed(() => height.value - margin.top - margin.bottom)
 
 const dateScale = computed(() =>
-  scaleTime({ range: [0, xMax.value], domain: extent(stock, getDate) as [Date, Date] }),
-);
+  scaleTime({ range: [0, xMax.value], domain: extent(stock, getDate) as [Date, Date] })
+)
 const priceScale = computed(() =>
   scaleLinear({
     range: [yMax.value, 0],
     domain: [0, (max(stock, getClose) ?? 0) * 1.1],
-    nice: true,
-  }),
-);
+    nice: true
+  })
+)
 
-const xTickProps = { fill: "#ffffff55", fontSize: 11, textAnchor: "middle" as const };
+const xTickProps = { fill: '#ffffff55', fontSize: 11, textAnchor: 'middle' as const }
 const yTickProps = {
-  fill: "#ffffff55",
+  fill: '#ffffff55',
   fontSize: 11,
-  textAnchor: "end" as const,
-  dx: "-0.3em",
-  dy: "0.33em",
-};
+  textAnchor: 'end' as const,
+  dx: '-0.3em',
+  dy: '0.33em'
+}
 
 const ttStyle = {
-  background: "#1e1e2e",
-  border: "1px solid #00DC8233",
-  borderRadius: "8px",
-  padding: "8px 12px",
-  color: "#fff",
-  pointerEvents: "none" as const,
-};
+  background: '#1e1e2e',
+  border: '1px solid #00DC8233',
+  borderRadius: '8px',
+  padding: '8px 12px',
+  color: '#fff',
+  pointerEvents: 'none' as const
+}
 
-const { showTooltip, hideTooltip, tooltipData, tooltipLeft } = useTooltip<AppleStock>();
+const { showTooltip, hideTooltip, tooltipData, tooltipLeft } = useTooltip<AppleStock>()
 
 function handleMouseMove(e: MouseEvent) {
-  const svg = e.currentTarget as SVGElement;
-  const pt = localPoint(svg, e);
-  if (!pt) return;
-  const x0 = dateScale.value.invert(pt.x - margin.left);
-  const idx = bisectDate(stock, x0, 1);
-  const d0 = stock[idx - 1];
-  const d1 = stock[idx];
+  const svg = e.currentTarget as SVGElement
+  const pt = localPoint(svg, e)
+  if (!pt) return
+  const x0 = dateScale.value.invert(pt.x - margin.left)
+  const idx = bisectDate(stock, x0, 1)
+  const d0 = stock[idx - 1]
+  const d1 = stock[idx]
   const d =
-    d1 && x0.valueOf() - getDate(d0).valueOf() > getDate(d1).valueOf() - x0.valueOf() ? d1 : d0;
-  showTooltip({ tooltipData: d, tooltipLeft: pt.x, tooltipTop: pt.y });
+    d1 && x0.valueOf() - getDate(d0).valueOf() > getDate(d1).valueOf() - x0.valueOf() ? d1 : d0
+  showTooltip({ tooltipData: d, tooltipLeft: pt.x, tooltipTop: pt.y })
 }
 
 // ── Stacked area ─────────────────────────────────────────────
-const { parentRef: parentRef2, width: width2 } = useParentSize({ debounceTime: 0 });
-const height2 = computed(() => Math.round(width2.value * 0.55) || 400);
+const { parentRef: parentRef2, width: width2 } = useParentSize({ debounceTime: 0 })
+const height2 = computed(() => Math.round(width2.value * 0.55) || 400)
 
-const marginS = { top: 20, right: 20, bottom: 40, left: 55 };
-const parseDate = timeParse("%Y %b %d");
-const formatDateS = timeFormat("%b '%y");
-const browserData = browserUsage as BrowserUsage[];
-type BrowserKey = keyof BrowserUsage;
-const browserKeys = Object.keys(browserData[0]).filter((k) => k !== "date") as BrowserKey[];
-const getDateS = (d: BrowserUsage) => parseDate(d.date) as Date;
+const marginS = { top: 20, right: 20, bottom: 40, left: 55 }
+const parseDate = timeParse('%Y %b %d')
+const formatDateS = timeFormat("%b '%y")
+const browserData = browserUsage as BrowserUsage[]
+type BrowserKey = keyof BrowserUsage
+const browserKeys = Object.keys(browserData[0]).filter((k) => k !== 'date') as BrowserKey[]
+const getDateS = (d: BrowserUsage) => parseDate(d.date) as Date
 
 const stackColors: Record<string, string> = {
-  "Google Chrome": "#00DC82",
-  "Internet Explorer": "#00b368",
-  Firefox: "#33e394",
-  Safari: "#007a47",
-  "Microsoft Edge": "#00f59a",
-  Opera: "#009a5c",
-  Mozilla: "#006b3f",
-  "Other/Unknown": "#4db890",
-};
+  'Google Chrome': '#00DC82',
+  'Internet Explorer': '#00b368',
+  Firefox: '#33e394',
+  Safari: '#007a47',
+  'Microsoft Edge': '#00f59a',
+  Opera: '#009a5c',
+  Mozilla: '#006b3f',
+  'Other/Unknown': '#4db890'
+}
 
-const xMaxS = computed(() => width2.value - marginS.left - marginS.right);
-const yMaxS = computed(() => height2.value - marginS.top - marginS.bottom);
+const xMaxS = computed(() => width2.value - marginS.left - marginS.right)
+const yMaxS = computed(() => height2.value - marginS.top - marginS.bottom)
 
 const xScaleS = computed(() =>
   scaleTime({
     range: [0, xMaxS.value],
     domain: [
       Math.min(...browserData.map((d) => (parseDate(d.date) as Date).valueOf())),
-      Math.max(...browserData.map((d) => (parseDate(d.date) as Date).valueOf())),
-    ],
-  }),
-);
-const yScaleS = computed(() => scaleLinear<number>({ range: [yMaxS.value, 0], domain: [0, 1] }));
+      Math.max(...browserData.map((d) => (parseDate(d.date) as Date).valueOf()))
+    ]
+  })
+)
+const yScaleS = computed(() => scaleLinear<number>({ range: [yMaxS.value, 0], domain: [0, 1] }))
 </script>
 
 <style scoped>

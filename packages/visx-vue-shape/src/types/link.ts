@@ -1,31 +1,31 @@
 export type AccessorProps<Link, Node> = {
   /** Given a node, returns its x coordinate. */
-  x?: (node: Node) => number;
+  x?: (node: Node) => number
   /** Given a node, returns its y coordinate. */
-  y?: (node: Node) => number;
+  y?: (node: Node) => number
   /** Given a link, returns the source node. */
-  source?: (link: Link) => Node;
+  source?: (link: Link) => Node
   /** Given a link, returns the target node. */
-  target?: (link: Link) => Node;
-};
+  target?: (link: Link) => Node
+}
 
 export type RadialAccessorProps<Link, Node> = Pick<
   AccessorProps<Link, Node>,
-  "source" | "target"
+  'source' | 'target'
 > & {
   /** Given a node, returns its x coordinate. */
-  angle?: (node: Node) => number;
+  angle?: (node: Node) => number
   /** Given a node, returns its y coordinate. */
-  radius?: (node: Node) => number;
-};
+  radius?: (node: Node) => number
+}
 
-type PathType<Link> = (link: Link) => string | null;
+type PathType<Link> = (link: Link) => string | null
 
 export type SharedLinkProps<Link> = {
   /** className applied to path element. */
-  className?: string;
+  className?: string
   /** Path generator, given a link returns a path d attribute string */
-  path?: PathType<Link>;
+  path?: PathType<Link>
   /** Datum for which to render a link. */
-  data: Link;
-};
+  data: Link
+}

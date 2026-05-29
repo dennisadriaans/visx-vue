@@ -1,22 +1,22 @@
 export interface DefaultNode {
-  x: number;
-  y: number;
+  x: number
+  y: number
 }
 
 export interface Link<Node> {
-  source: Node;
-  target: Node;
+  source: Node
+  target: Node
 }
 
 export interface Graph<L, Node> {
-  links: L[];
-  nodes: Node[];
+  links: L[]
+  nodes: Node[]
 }
 
 export interface LinkProvidedProps<L> {
-  link: L;
+  link: L
 }
 
 export interface NodeProvidedProps<Node> {
-  node: Node;
+  node: Node
 }

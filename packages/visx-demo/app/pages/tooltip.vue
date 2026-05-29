@@ -4,48 +4,48 @@ import {
   TooltipWithBounds,
   useTooltip,
   useTooltipInPortal,
-  defaultStyles,
-} from "@visx-vue/tooltip";
+  defaultStyles
+} from '@visx-vue/tooltip'
 
-const width = 500;
-const height = 300;
-const positionIndicatorSize = 8;
+const width = 500
+const height = 300
+const positionIndicatorSize = 8
 
 const tooltipStyles = {
   ...defaultStyles,
-  backgroundColor: "rgba(53,71,125,0.8)",
-  color: "white",
-  width: "152px",
-  height: "72px",
-  padding: "12px",
-};
+  backgroundColor: 'rgba(53,71,125,0.8)',
+  color: 'white',
+  width: '152px',
+  height: '72px',
+  padding: '12px'
+}
 
-const tooltipShouldDetectBounds = ref(true);
-const renderTooltipInPortal = ref(false);
+const tooltipShouldDetectBounds = ref(true)
+const renderTooltipInPortal = ref(false)
 
 const { containerRef, containerBounds, TooltipInPortal } = useTooltipInPortal({
   scroll: true,
-  detectBounds: computed(() => tooltipShouldDetectBounds.value),
-});
+  detectBounds: computed(() => tooltipShouldDetectBounds.value)
+})
 
 const { showTooltip, hideTooltip, tooltipOpen, tooltipData, tooltipLeft, tooltipTop } =
   useTooltip<string>({
     tooltipOpen: true,
     tooltipLeft: width / 3,
     tooltipTop: height / 3,
-    tooltipData: "Move me with your mouse or finger",
-  });
+    tooltipData: 'Move me with your mouse or finger'
+  })
 
 function handlePointerMove(event: PointerEvent) {
-  const containerX = event.clientX - (containerBounds.left.value ?? 0);
-  const containerY = event.clientY - (containerBounds.top.value ?? 0);
+  const containerX = event.clientX - (containerBounds.left.value ?? 0)
+  const containerY = event.clientY - (containerBounds.top.value ?? 0)
   showTooltip({
     tooltipLeft: containerX,
     tooltipTop: containerY,
     tooltipData: tooltipShouldDetectBounds.value
-      ? "I detect my container boundary"
-      : "I will get clipped by my container",
-  });
+      ? 'I detect my container boundary'
+      : 'I will get clipped by my container'
+  })
 }
 </script>
 
@@ -65,7 +65,10 @@ function handlePointerMove(event: PointerEvent) {
           />
           Tooltip with boundary detection
         </label>
-        <button class="px-3 py-1 border border-gray-300 rounded text-sm" @click="hideTooltip">
+        <button
+          class="px-3 py-1 border border-gray-300 rounded text-sm"
+          @click="hideTooltip"
+        >
           Hide tooltip
         </button>
         <label class="flex items-center gap-1 cursor-pointer">
@@ -82,7 +85,7 @@ function handlePointerMove(event: PointerEvent) {
     <div
       :ref="
         (el) => {
-          containerRef = el as HTMLElement;
+          containerRef = el as HTMLElement
         }
       "
       class="tooltip-example"
@@ -93,7 +96,7 @@ function handlePointerMove(event: PointerEvent) {
         <div
           class="position-indicator"
           :style="{
-            transform: `translate(${(tooltipLeft ?? 0) - positionIndicatorSize / 2}px, ${(tooltipTop ?? 0) - positionIndicatorSize / 2}px)`,
+            transform: `translate(${(tooltipLeft ?? 0) - positionIndicatorSize / 2}px, ${(tooltipTop ?? 0) - positionIndicatorSize / 2}px)`
           }"
         />
         <div
@@ -138,10 +141,19 @@ function handlePointerMove(event: PointerEvent) {
           <strong>top</strong> {{ (tooltipTop ?? 0).toFixed(0) }}px
         </Tooltip>
       </template>
-      <div v-else class="no-tooltip">Move or touch the canvas to see the tooltip</div>
+      <div
+        v-else
+        class="no-tooltip"
+      >
+        Move or touch the canvas to see the tooltip
+      </div>
       <div class="z-index-bummer">
         I have an annoying z-index.
-        <span role="img" aria-label="yay">🥳</span>
+        <span
+          role="img"
+          aria-label="yay"
+          >🥳</span
+        >
       </div>
     </div>
   </ExamplePage>

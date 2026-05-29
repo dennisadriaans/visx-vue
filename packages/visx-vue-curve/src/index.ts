@@ -17,5 +17,5 @@ export {
   curveCatmullRomOpen,
   curveMonotoneX,
   curveMonotoneY,
-  curveNatural,
-} from "@visx-vue/vendor/d3-shape";
+  curveNatural
+} from '@visx-vue/vendor/d3-shape'

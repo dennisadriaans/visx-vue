@@ -1,15 +1,15 @@
-export { LinearGradient } from "./LinearGradient";
-export { RadialGradient } from "./RadialGradient";
-export { GradientDarkgreenGreen } from "./GradientDarkgreenGreen";
-export { GradientLightgreenGreen } from "./GradientLightgreenGreen";
-export { GradientOrangeRed } from "./GradientOrangeRed";
-export { GradientPinkBlue } from "./GradientPinkBlue";
-export { GradientPinkRed } from "./GradientPinkRed";
-export { GradientPurpleOrange } from "./GradientPurpleOrange";
-export { GradientPurpleRed } from "./GradientPurpleRed";
-export { GradientPurpleTeal } from "./GradientPurpleTeal";
-export { GradientSteelPurple } from "./GradientSteelPurple";
-export { GradientTealBlue } from "./GradientTealBlue";
+export { LinearGradient } from './LinearGradient'
+export { RadialGradient } from './RadialGradient'
+export { GradientDarkgreenGreen } from './GradientDarkgreenGreen'
+export { GradientLightgreenGreen } from './GradientLightgreenGreen'
+export { GradientOrangeRed } from './GradientOrangeRed'
+export { GradientPinkBlue } from './GradientPinkBlue'
+export { GradientPinkRed } from './GradientPinkRed'
+export { GradientPurpleOrange } from './GradientPurpleOrange'
+export { GradientPurpleRed } from './GradientPurpleRed'
+export { GradientPurpleTeal } from './GradientPurpleTeal'
+export { GradientSteelPurple } from './GradientSteelPurple'
+export { GradientTealBlue } from './GradientTealBlue'
 
-export type { LinearGradientProps } from "./LinearGradient";
-export type { RadialGradientProps } from "./RadialGradient";
+export type { LinearGradientProps } from './LinearGradient'
+export type { RadialGradientProps } from './RadialGradient'

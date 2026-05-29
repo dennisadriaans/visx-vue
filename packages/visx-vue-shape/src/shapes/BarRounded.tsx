@@ -1,37 +1,37 @@
-import { defineComponent, ref, useAttrs, useSlots, type PropType } from "vue";
+import { defineComponent, ref, useAttrs, useSlots, type PropType } from 'vue'
 
 export type BarRoundedProps = {
   /** className to apply to path element. */
-  className?: string;
+  className?: string
   /** left position of the bar */
-  x: number;
+  x: number
   /** top position of the bar */
-  y: number;
+  y: number
   /** width of the bar starting from x */
-  width: number;
+  width: number
   /** height of the bar starting from y */
-  height: number;
+  height: number
   /** corner radius of the bar. clamped to center of the shorter side of the bar (Math.min(width,height) / 2) */
-  radius: number;
+  radius: number
   /** apply corner radius to top left corner, top right corner, bottom right corner, and bottom left corner */
-  all?: boolean;
+  all?: boolean
   /** apply corner radius to top left corner, and top right corner */
-  top?: boolean;
+  top?: boolean
   /** apply corner radius to bottom right corner, and bottom left corner */
-  bottom?: boolean;
+  bottom?: boolean
   /** apply corner radius to top left corner, and bottom left corner */
-  left?: boolean;
+  left?: boolean
   /** apply corner radius to top right corner, and bottom right corner */
-  right?: boolean;
+  right?: boolean
   /** apply corner radius to top left corner */
-  topLeft?: boolean;
+  topLeft?: boolean
   /** apply corner radius to top right corner */
-  topRight?: boolean;
+  topRight?: boolean
   /** apply corner radius to bottom left corner */
-  bottomLeft?: boolean;
+  bottomLeft?: boolean
   /** apply corner radius to bottom right */
-  bottomRight?: boolean;
-};
+  bottomRight?: boolean
+}
 
 /** Returns a BarRounded path string. */
 export function getBarRoundedPath({
@@ -48,33 +48,33 @@ export function getBarRoundedPath({
   topRight: _topRight = false,
   width,
   x,
-  y,
+  y
 }: Pick<
   BarRoundedProps,
-  | "all"
-  | "top"
-  | "bottom"
-  | "left"
-  | "right"
-  | "x"
-  | "y"
-  | "width"
-  | "height"
-  | "radius"
-  | "topLeft"
-  | "topRight"
-  | "bottomRight"
-  | "bottomLeft"
+  | 'all'
+  | 'top'
+  | 'bottom'
+  | 'left'
+  | 'right'
+  | 'x'
+  | 'y'
+  | 'width'
+  | 'height'
+  | 'radius'
+  | 'topLeft'
+  | 'topRight'
+  | 'bottomRight'
+  | 'bottomLeft'
 >) {
-  const topRight = all || top || right || _topRight;
-  const bottomRight = all || bottom || right || _bottomRight;
-  const bottomLeft = all || bottom || left || _bottomLeft;
-  const topLeft = all || top || left || _topLeft;
+  const topRight = all || top || right || _topRight
+  const bottomRight = all || bottom || right || _bottomRight
+  const bottomLeft = all || bottom || left || _bottomLeft
+  const topLeft = all || top || left || _topLeft
 
   // clamp radius to center of shortest side of the rect
-  const r = Math.max(1, Math.min(radius, Math.min(width, height) / 2));
+  const r = Math.max(1, Math.min(radius, Math.min(width, height) / 2))
 
-  const diameter = 2 * r;
+  const diameter = 2 * r
   const path = `M${x + r},${y} h${width - diameter}
  ${topRight ? `a${r},${r} 0 0 1 ${r},${r}` : `h${r}v${r}`}
  v${height - diameter}
@@ -84,14 +84,14 @@ export function getBarRoundedPath({
  v${diameter - height}
  ${topLeft ? `a${r},${r} 0 0 1 ${r},${-r}` : `v${-r}h${r}`}
 z`
-    .split("\n")
-    .join("");
+    .split('\n')
+    .join('')
 
-  return path;
+  return path
 }
 
 export const BarRounded = defineComponent({
-  name: "BarRounded",
+  name: 'BarRounded',
   inheritAttrs: false,
   props: {
     className: { type: String as PropType<string>, default: undefined },
@@ -108,12 +108,12 @@ export const BarRounded = defineComponent({
     topLeft: { type: Boolean as PropType<boolean>, default: false },
     topRight: { type: Boolean as PropType<boolean>, default: false },
     bottomLeft: { type: Boolean as PropType<boolean>, default: false },
-    bottomRight: { type: Boolean as PropType<boolean>, default: false },
+    bottomRight: { type: Boolean as PropType<boolean>, default: false }
   },
   setup(props) {
-    const attrs = useAttrs();
-    const slots = useSlots();
-    const innerRef = ref<SVGPathElement | null>(null);
+    const attrs = useAttrs()
+    const slots = useSlots()
+    const innerRef = ref<SVGPathElement | null>(null)
 
     return () => {
       const path = getBarRoundedPath({
@@ -130,16 +130,21 @@ export const BarRounded = defineComponent({
         topLeft: props.topLeft,
         topRight: props.topRight,
         bottomLeft: props.bottomLeft,
-        bottomRight: props.bottomRight,
-      });
+        bottomRight: props.bottomRight
+      })
 
-      if (slots.default) return slots.default({ path });
+      if (slots.default) return slots.default({ path })
 
       return (
-        <path ref={innerRef} class={["visx-bar-rounded", props.className]} d={path} {...attrs} />
-      );
-    };
-  },
-});
+        <path
+          ref={innerRef}
+          class={['visx-bar-rounded', props.className]}
+          d={path}
+          {...attrs}
+        />
+      )
+    }
+  }
+})
 
-export default BarRounded;
+export default BarRounded

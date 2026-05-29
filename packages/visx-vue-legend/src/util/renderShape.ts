@@ -1,7 +1,7 @@
-import { h, isVNode, cloneVNode, type Component, type VNode } from "vue";
-import RectShape from "../shapes/Rect";
-import CircleShape from "../shapes/Circle";
-import LineShape from "../shapes/Line";
+import { h, isVNode, cloneVNode, type Component, type VNode } from 'vue'
+import RectShape from '../shapes/Rect'
+import CircleShape from '../shapes/Circle'
+import LineShape from '../shapes/Line'
 
 import type {
   LegendShape,
@@ -9,25 +9,25 @@ import type {
   FillAccessor,
   SizeAccessor,
   ShapeStyleAccessor,
-  RenderShapeProvidedProps,
-} from "../types";
+  RenderShapeProvidedProps
+} from '../types'
 
 type RenderShapeArgs<Data, Output> = {
-  shape?: LegendShape<Data, Output>;
-  label: FormattedLabel<Data, Output>;
-  item: Data;
-  itemIndex: number;
-  fill?: FillAccessor<Data, Output>;
-  size?: SizeAccessor<Data, Output>;
-  shapeStyle?: ShapeStyleAccessor<Data, Output>;
-  width?: string | number;
-  height?: string | number;
-};
+  shape?: LegendShape<Data, Output>
+  label: FormattedLabel<Data, Output>
+  item: Data
+  itemIndex: number
+  fill?: FillAccessor<Data, Output>
+  size?: SizeAccessor<Data, Output>
+  shapeStyle?: ShapeStyleAccessor<Data, Output>
+  width?: string | number
+  height?: string | number
+}
 
-const NO_OP = () => undefined;
+const NO_OP = () => undefined
 
 export default function renderShape<Data, Output>({
-  shape = "rect",
+  shape = 'rect',
   fill = NO_OP,
   size = NO_OP,
   width,
@@ -35,7 +35,7 @@ export default function renderShape<Data, Output>({
   label,
   item,
   itemIndex,
-  shapeStyle = NO_OP,
+  shapeStyle = NO_OP
 }: RenderShapeArgs<Data, Output>): VNode | null {
   const props: RenderShapeProvidedProps<Data, Output> = {
     width,
@@ -45,19 +45,19 @@ export default function renderShape<Data, Output>({
     label,
     fill: fill({ ...label }),
     size: size({ ...label }),
-    style: shapeStyle({ ...label }),
-  };
+    style: shapeStyle({ ...label })
+  }
 
-  if (typeof shape === "string") {
-    if (shape === "circle") return h(CircleShape, props);
-    if (shape === "line") return h(LineShape, props);
-    return h(RectShape, props);
+  if (typeof shape === 'string') {
+    if (shape === 'circle') return h(CircleShape, props)
+    if (shape === 'line') return h(LineShape, props)
+    return h(RectShape, props)
   }
   if (isVNode(shape)) {
-    return cloneVNode(shape, props);
+    return cloneVNode(shape, props)
   }
   if (shape) {
-    return h(shape as Component, props);
+    return h(shape as Component, props)
   }
-  return null;
+  return null
 }

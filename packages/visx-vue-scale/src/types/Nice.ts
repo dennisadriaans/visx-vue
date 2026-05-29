@@ -1,1 +1,1 @@
-export type NiceTime = "second" | "minute" | "hour" | "day" | "week" | "month" | "year";
+export type NiceTime = 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year'

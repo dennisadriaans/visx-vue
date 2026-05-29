@@ -1,2 +1,2 @@
-export { useBoundingRects } from "./useBoundingRects";
-export type { RectShape } from "./types";
+export { useBoundingRects } from './useBoundingRects'
+export type { RectShape } from './types'

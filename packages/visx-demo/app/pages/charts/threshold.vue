@@ -7,19 +7,63 @@
       '@visx-vue/axis',
       '@visx-vue/grid',
       '@visx-vue/scale',
-      '@visx-vue/mock-data',
+      '@visx-vue/mock-data'
     ]"
   >
-    <div ref="parentRef" class="chart-container bg-elevated/40 rounded-xl">
-      <svg v-if="width > 0" :width="width" :height="height">
-        <rect x="0" y="0" :width="width" :height="height" fill="transparent" :rx="14" />
-        <Group :left="margin.left" :top="margin.top">
-          <GridRows :scale="temperatureScale" :width="xMax" :height="yMax" stroke="#ffffff11" />
-          <GridColumns :scale="timeScale" :width="xMax" :height="yMax" stroke="#ffffff11" />
-          <line :x1="xMax" :x2="xMax" :y1="0" :y2="yMax" stroke="#ffffff11" />
-          <AxisBottom :top="yMax" :scale="timeScale" :num-ticks="width > 520 ? 10 : 5" />
+    <div
+      ref="parentRef"
+      class="chart-container bg-elevated/40 rounded-xl"
+    >
+      <svg
+        v-if="width > 0"
+        :width="width"
+        :height="height"
+      >
+        <rect
+          x="0"
+          y="0"
+          :width="width"
+          :height="height"
+          fill="transparent"
+          :rx="14"
+        />
+        <Group
+          :left="margin.left"
+          :top="margin.top"
+        >
+          <GridRows
+            :scale="temperatureScale"
+            :width="xMax"
+            :height="yMax"
+            stroke="#ffffff11"
+          />
+          <GridColumns
+            :scale="timeScale"
+            :width="xMax"
+            :height="yMax"
+            stroke="#ffffff11"
+          />
+          <line
+            :x1="xMax"
+            :x2="xMax"
+            :y1="0"
+            :y2="yMax"
+            stroke="#ffffff11"
+          />
+          <AxisBottom
+            :top="yMax"
+            :scale="timeScale"
+            :num-ticks="width > 520 ? 10 : 5"
+          />
           <AxisLeft :scale="temperatureScale" />
-          <text x="-70" y="15" transform="rotate(-90)" font-size="10">Temperature (°F)</text>
+          <text
+            x="-70"
+            y="15"
+            transform="rotate(-90)"
+            font-size="10"
+          >
+            Temperature (°F)
+          </text>
           <Threshold
             id="threshold-demo"
             :data="cityTemperature"
@@ -57,50 +101,50 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
-import { Group } from "@visx-vue/group";
-import { curveBasis } from "@visx-vue/curve";
-import { LinePath } from "@visx-vue/shape";
-import { Threshold } from "@visx-vue/threshold";
-import { scaleTime, scaleLinear } from "@visx-vue/scale";
-import { AxisLeft, AxisBottom } from "@visx-vue/axis";
-import { GridRows, GridColumns } from "@visx-vue/grid";
-import { cityTemperature } from "@visx-vue/mock-data";
-import type { CityTemperature } from "@visx-vue/mock-data";
-import { useParentSize } from "@visx-vue/responsive";
+import { computed } from 'vue'
+import { Group } from '@visx-vue/group'
+import { curveBasis } from '@visx-vue/curve'
+import { LinePath } from '@visx-vue/shape'
+import { Threshold } from '@visx-vue/threshold'
+import { scaleTime, scaleLinear } from '@visx-vue/scale'
+import { AxisLeft, AxisBottom } from '@visx-vue/axis'
+import { GridRows, GridColumns } from '@visx-vue/grid'
+import { cityTemperature } from '@visx-vue/mock-data'
+import type { CityTemperature } from '@visx-vue/mock-data'
+import { useParentSize } from '@visx-vue/responsive'
 
-useHead({ title: "Threshold — visx-vue" });
+useHead({ title: 'Threshold — visx-vue' })
 
-const { parentRef, width } = useParentSize({ debounceTime: 0 });
-const height = computed(() => Math.round(width.value * 0.6) || 400);
+const { parentRef, width } = useParentSize({ debounceTime: 0 })
+const height = computed(() => Math.round(width.value * 0.6) || 400)
 
-const margin = { top: 40, right: 30, bottom: 50, left: 40 };
+const margin = { top: 40, right: 30, bottom: 50, left: 40 }
 
-const date = (d: CityTemperature) => new Date(d.date).valueOf();
-const ny = (d: CityTemperature) => Number(d["New York"]);
-const sf = (d: CityTemperature) => Number(d["San Francisco"]);
+const date = (d: CityTemperature) => new Date(d.date).valueOf()
+const ny = (d: CityTemperature) => Number(d['New York'])
+const sf = (d: CityTemperature) => Number(d['San Francisco'])
 
-const xMax = computed(() => width.value - margin.left - margin.right);
-const yMax = computed(() => height.value - margin.top - margin.bottom);
+const xMax = computed(() => width.value - margin.left - margin.right)
+const yMax = computed(() => height.value - margin.top - margin.bottom)
 
 const timeScale = computed(() => {
   const s = scaleTime<number>({
-    domain: [Math.min(...cityTemperature.map(date)), Math.max(...cityTemperature.map(date))],
-  });
-  s.range([0, xMax.value]);
-  return s;
-});
+    domain: [Math.min(...cityTemperature.map(date)), Math.max(...cityTemperature.map(date))]
+  })
+  s.range([0, xMax.value])
+  return s
+})
 const temperatureScale = computed(() => {
   const s = scaleLinear<number>({
     domain: [
       Math.min(...cityTemperature.map((d) => Math.min(ny(d), sf(d)))),
-      Math.max(...cityTemperature.map((d) => Math.max(ny(d), sf(d)))),
+      Math.max(...cityTemperature.map((d) => Math.max(ny(d), sf(d))))
     ],
-    nice: true,
-  });
-  s.range([yMax.value, 0]);
-  return s;
-});
+    nice: true
+  })
+  s.range([yMax.value, 0])
+  return s
+})
 </script>
 
 <style scoped>

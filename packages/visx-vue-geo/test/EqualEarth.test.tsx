@@ -1,8 +1,8 @@
-import { describe, test, expect } from "vite-plus/test";
-import { EqualEarth } from "../src";
+import { describe, test, expect } from 'vite-plus/test'
+import { EqualEarth } from '../src'
 
-describe("<EqualEarth />", () => {
-  test("it should be defined", () => {
-    expect(EqualEarth).toBeDefined();
-  });
-});
+describe('<EqualEarth />', () => {
+  test('it should be defined', () => {
+    expect(EqualEarth).toBeDefined()
+  })
+})

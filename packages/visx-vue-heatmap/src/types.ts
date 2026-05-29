@@ -1,22 +1,22 @@
 export interface GenericCell<ColumnDatum, BinDatum> {
   /** BinDatum for cell. */
-  bin: BinDatum;
+  bin: BinDatum
   /** Cell row index. */
-  row: number;
+  row: number
   /** Cell column index. */
-  column: number;
+  column: number
   /** ColumnDatum for the cell. */
-  datum: ColumnDatum;
+  datum: ColumnDatum
   /** Cell gap specified. */
-  gap: number;
+  gap: number
   /** Count returned for this BinDatum. */
-  count?: number | null;
+  count?: number | null
   /** Opacity returned for this BinDatum's count. */
-  opacity: number | undefined;
+  opacity: number | undefined
   /** Color returned for this BinDatum's count. */
-  color: string | undefined;
+  color: string | undefined
 }
 
-export type ColorScale = (count: number | { valueOf(): number }) => string | undefined;
+export type ColorScale = (count: number | { valueOf(): number }) => string | undefined
 
-export type OpacityScale = (count: number | { valueOf(): number }) => number | undefined;
+export type OpacityScale = (count: number | { valueOf(): number }) => number | undefined

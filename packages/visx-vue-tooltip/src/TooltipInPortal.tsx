@@ -1,16 +1,16 @@
-import { defineComponent, useAttrs, useSlots, Teleport } from "vue";
-import type { CSSProperties, PropType } from "vue";
-import type { UseElementBoundingReturn } from "@vueuse/core";
-import { Tooltip } from "./Tooltip";
-import { TooltipWithBounds } from "./TooltipWithBounds";
+import { defineComponent, useAttrs, useSlots, Teleport } from 'vue'
+import type { CSSProperties, PropType } from 'vue'
+import type { UseElementBoundingReturn } from '@vueuse/core'
+import { Tooltip } from './Tooltip'
+import { TooltipWithBounds } from './TooltipWithBounds'
 
 export function createTooltipInPortal(
   detectBoundsOption: boolean,
   zIndexOption: number | string | undefined,
-  containerBounds: UseElementBoundingReturn,
+  containerBounds: UseElementBoundingReturn
 ) {
   return defineComponent({
-    name: "TooltipInPortal",
+    name: 'TooltipInPortal',
     inheritAttrs: false,
     props: {
       left: { type: Number as PropType<number>, default: 0 },
@@ -22,24 +22,24 @@ export function createTooltipInPortal(
       unstyled: { type: Boolean as PropType<boolean>, default: false },
       applyPositionStyle: { type: Boolean as PropType<boolean>, default: false },
       detectBounds: { type: Boolean as PropType<boolean>, default: undefined },
-      zIndex: { type: [Number, String] as PropType<number | string>, default: undefined },
+      zIndex: { type: [Number, String] as PropType<number | string>, default: undefined }
     },
     setup(tooltipProps) {
-      const attrs = useAttrs();
-      const slots = useSlots();
+      const attrs = useAttrs()
+      const slots = useSlots()
 
       return () => {
-        const detectBounds = tooltipProps.detectBounds ?? detectBoundsOption;
-        const zIndex = tooltipProps.zIndex ?? zIndexOption;
-        const TooltipComponent = detectBounds ? TooltipWithBounds : Tooltip;
+        const detectBounds = tooltipProps.detectBounds ?? detectBoundsOption
+        const zIndex = tooltipProps.zIndex ?? zIndexOption
+        const TooltipComponent = detectBounds ? TooltipWithBounds : Tooltip
 
-        const scrollX = typeof window !== "undefined" ? window.scrollX : 0;
-        const scrollY = typeof window !== "undefined" ? window.scrollY : 0;
-        const portalLeft = (tooltipProps.left ?? 0) + (containerBounds.left.value || 0) + scrollX;
-        const portalTop = (tooltipProps.top ?? 0) + (containerBounds.top.value || 0) + scrollY;
+        const scrollX = typeof window !== 'undefined' ? window.scrollX : 0
+        const scrollY = typeof window !== 'undefined' ? window.scrollY : 0
+        const portalLeft = (tooltipProps.left ?? 0) + (containerBounds.left.value || 0) + scrollX
+        const portalTop = (tooltipProps.top ?? 0) + (containerBounds.top.value || 0) + scrollY
 
         const portalStyle: CSSProperties | undefined =
-          zIndex != null ? { position: "absolute" as const, zIndex } : undefined;
+          zIndex != null ? { position: 'absolute' as const, zIndex } : undefined
 
         return (
           <Teleport to="body">
@@ -49,7 +49,7 @@ export function createTooltipInPortal(
                   left={portalLeft}
                   top={portalTop}
                   className={
-                    ["visx-tooltip-portal", tooltipProps.className].filter(Boolean).join(" ") ||
+                    ['visx-tooltip-portal', tooltipProps.className].filter(Boolean).join(' ') ||
                     undefined
                   }
                   offsetLeft={tooltipProps.offsetLeft}
@@ -67,7 +67,7 @@ export function createTooltipInPortal(
                 left={portalLeft}
                 top={portalTop}
                 className={
-                  ["visx-tooltip-portal", tooltipProps.className].filter(Boolean).join(" ") ||
+                  ['visx-tooltip-portal', tooltipProps.className].filter(Boolean).join(' ') ||
                   undefined
                 }
                 offsetLeft={tooltipProps.offsetLeft}
@@ -81,8 +81,8 @@ export function createTooltipInPortal(
               </TooltipComponent>
             )}
           </Teleport>
-        );
-      };
-    },
-  });
+        )
+      }
+    }
+  })
 }

@@ -1,20 +1,20 @@
 // @visx-vue/geo
-export { Albers } from "./Albers";
-export { AlbersUsa } from "./AlbersUsa";
-export { Mercator } from "./Mercator";
-export { Orthographic } from "./Orthographic";
-export { NaturalEarth } from "./NaturalEarth";
-export { EqualEarth } from "./EqualEarth";
-export { CustomProjection } from "./CustomProjection";
-export { Graticule } from "./Graticule";
+export { Albers } from './Albers'
+export { AlbersUsa } from './AlbersUsa'
+export { Mercator } from './Mercator'
+export { Orthographic } from './Orthographic'
+export { NaturalEarth } from './NaturalEarth'
+export { EqualEarth } from './EqualEarth'
+export { CustomProjection } from './CustomProjection'
+export { Graticule } from './Graticule'
 
-export type * from "./types";
-export type { GraticuleProps } from "./Graticule";
-export type { ProjectionProps, ParsedFeature } from "./Projection";
-export type { AlbersProps } from "./Albers";
-export type { AlbersUsaProps } from "./AlbersUsa";
-export type { MercatorProps } from "./Mercator";
-export type { OrthographicProps } from "./Orthographic";
-export type { NaturalEarthProps } from "./NaturalEarth";
-export type { EqualEarthProps } from "./EqualEarth";
-export type { CustomProjectionProps } from "./CustomProjection";
+export type * from './types'
+export type { GraticuleProps } from './Graticule'
+export type { ProjectionProps, ParsedFeature } from './Projection'
+export type { AlbersProps } from './Albers'
+export type { AlbersUsaProps } from './AlbersUsa'
+export type { MercatorProps } from './Mercator'
+export type { OrthographicProps } from './Orthographic'
+export type { NaturalEarthProps } from './NaturalEarth'
+export type { EqualEarthProps } from './EqualEarth'
+export type { CustomProjectionProps } from './CustomProjection'

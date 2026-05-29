@@ -1,1 +1,1 @@
-export * from "d3-interpolate";
+export * from 'd3-interpolate'

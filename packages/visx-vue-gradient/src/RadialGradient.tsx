@@ -1,46 +1,46 @@
-import { defineComponent, useAttrs, useSlots, type PropType } from "vue";
+import { defineComponent, useAttrs, useSlots, type PropType } from 'vue'
 
 export type RadialGradientProps = {
   /** Unique id for the gradient. Should be unique across all page elements. */
-  id: string;
+  id: string
   /** Start color of gradient. */
-  from?: string;
+  from?: string
   /** End color of gradient. */
-  to?: string;
+  to?: string
   /** Number or percent defining the where the 'from' starting color is placed along the gradient. */
-  fromOffset?: string | number;
+  fromOffset?: string | number
   /** Opacity of the 'from' starting color. */
-  fromOpacity?: string | number;
+  fromOpacity?: string | number
   /** Number or percent defining the where the 'to' ending color is placed along the gradient. */
-  toOffset?: string | number;
+  toOffset?: string | number
   /** Opacity of the 'to' ending color. */
-  toOpacity?: string | number;
+  toOpacity?: string | number
   /** Rotation to apply to gradient. */
-  rotate?: string | number;
+  rotate?: string | number
   /** Transform to apply to radialGradient, overrides rotate. */
-  transform?: string;
-};
+  transform?: string
+}
 
 export const RadialGradient = defineComponent({
-  name: "RadialGradient",
+  name: 'RadialGradient',
   inheritAttrs: false,
   props: {
     id: { type: String as PropType<string>, required: true },
     from: { type: String as PropType<string>, default: undefined },
     to: { type: String as PropType<string>, default: undefined },
-    fromOffset: { type: [String, Number] as PropType<string | number>, default: "0%" },
+    fromOffset: { type: [String, Number] as PropType<string | number>, default: '0%' },
     fromOpacity: { type: [String, Number] as PropType<string | number>, default: 1 },
-    toOffset: { type: [String, Number] as PropType<string | number>, default: "100%" },
+    toOffset: { type: [String, Number] as PropType<string | number>, default: '100%' },
     toOpacity: { type: [String, Number] as PropType<string | number>, default: 1 },
     rotate: { type: [String, Number] as PropType<string | number>, default: undefined },
-    transform: { type: String as PropType<string>, default: undefined },
+    transform: { type: String as PropType<string>, default: undefined }
   },
   setup(props) {
-    const attrs = useAttrs();
-    const slots = useSlots();
+    const attrs = useAttrs()
+    const slots = useSlots()
 
     return () => {
-      const hasChildren = !!slots.default;
+      const hasChildren = !!slots.default
 
       return (
         <defs>
@@ -58,11 +58,15 @@ export const RadialGradient = defineComponent({
               />
             )}
             {!hasChildren && (
-              <stop offset={props.toOffset} stop-color={props.to} stop-opacity={props.toOpacity} />
+              <stop
+                offset={props.toOffset}
+                stop-color={props.to}
+                stop-opacity={props.toOpacity}
+              />
             )}
           </radialGradient>
         </defs>
-      );
-    };
-  },
-});
+      )
+    }
+  }
+})

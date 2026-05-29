@@ -1,8 +1,8 @@
-import getSeededRandom from "./getSeededRandom";
+import getSeededRandom from './getSeededRandom'
 
 export interface DateValue {
-  date: Date;
-  value: number;
+  date: Date
+  value: number
 }
 
 export default function genDateValue(
@@ -10,13 +10,13 @@ export default function genDateValue(
   /** Optional random seed in the interval [0, 1). */
   seed?: number,
   /** Optional start time in ms UTC. */
-  startTimeMs?: number,
+  startTimeMs?: number
 ): DateValue[] {
-  const random = seed == null ? Math.random : getSeededRandom(seed);
-  const startDateMs = startTimeMs == null ? Date.now() : new Date(startTimeMs).valueOf();
+  const random = seed == null ? Math.random : getSeededRandom(seed)
+  const startDateMs = startTimeMs == null ? Date.now() : new Date(startTimeMs).valueOf()
   return Array.from({ length }).map((_, idx: number) => ({
     date: new Date(startDateMs - idx * 3600000),
     // eslint-disable-next-line no-bitwise
-    value: (random() * 3000) | 0,
-  }));
+    value: (random() * 3000) | 0
+  }))
 }

@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import { CustomProjection, Graticule } from "@visx-vue/geo";
-import { useZoom } from "@visx-vue/zoom";
-import { scaleQuantize } from "@visx-vue/scale";
+import { computed, ref } from 'vue'
+import { CustomProjection, Graticule } from '@visx-vue/geo'
+import { useZoom } from '@visx-vue/zoom'
+import { scaleQuantize } from '@visx-vue/scale'
 import {
   geoConicConformal,
   geoTransverseMercator,
   geoNaturalEarth1,
   geoConicEquidistant,
   geoOrthographic,
-  geoStereographic,
-} from "@visx-vue/vendor/d3-geo";
-import { useParentSize } from "@visx-vue/responsive";
+  geoStereographic
+} from '@visx-vue/vendor/d3-geo'
+import { useParentSize } from '@visx-vue/responsive'
 
-const { parentRef, width, height: rawHeight } = useParentSize();
-const height = computed(() => rawHeight.value || 400);
+const { parentRef, width, height: rawHeight } = useParentSize()
+const height = computed(() => rawHeight.value || 400)
 
-const background = "transparent";
-const purple = "#00DC8233";
+const background = 'transparent'
+const purple = '#00DC8233'
 
 const PROJECTIONS = {
   geoConicConformal,
@@ -25,14 +25,14 @@ const PROJECTIONS = {
   geoNaturalEarth1,
   geoConicEquidistant,
   geoOrthographic,
-  geoStereographic,
-} as const;
+  geoStereographic
+} as const
 
-type ProjectionKey = keyof typeof PROJECTIONS;
+type ProjectionKey = keyof typeof PROJECTIONS
 
-const projection = ref<ProjectionKey>("geoConicConformal");
+const projection = ref<ProjectionKey>('geoConicConformal')
 
-const initialScale = computed(() => (width.value / 630) * 100);
+const initialScale = computed(() => (width.value / 630) * 100)
 
 const zoom = useZoom({
   scaleXMin: 100,
@@ -45,50 +45,50 @@ const zoom = useZoom({
     translateX: width.value / 2,
     translateY: height.value / 2,
     skewX: 0,
-    skewY: 0,
-  })),
-});
+    skewY: 0
+  }))
+})
 
-const { data: worldData } = await useAsyncData("geo-custom-world", async () => {
+const { data: worldData } = await useAsyncData('geo-custom-world', async () => {
   const [topojson, topo] = await Promise.all([
-    import("topojson-client"),
-    $fetch<{ objects: { units: { type: string } }; type: string }>("/data/world-topo.json"),
-  ]);
+    import('topojson-client'),
+    $fetch<{ objects: { units: { type: string } }; type: string }>('/data/world-topo.json')
+  ])
   return (
     topojson.feature(
       topo as never,
-      (topo as never as { objects: { units: object } }).objects.units,
+      (topo as never as { objects: { units: object } }).objects.units
     ) as {
       features: {
-        id: string;
-        geometry: { coordinates: [number, number][][]; type: string };
-        properties: { name: string };
-      }[];
+        id: string
+        geometry: { coordinates: [number, number][][]; type: string }
+        properties: { name: string }
+      }[]
     }
-  ).features;
-});
+  ).features
+})
 
 const colorScale = computed(() => {
-  if (!worldData.value?.length) return null;
-  const lengths = worldData.value.map((f) => f.geometry.coordinates.length);
+  if (!worldData.value?.length) return null
+  const lengths = worldData.value.map((f) => f.geometry.coordinates.length)
   return scaleQuantize({
     domain: [Math.min(...lengths), Math.max(...lengths)],
     range: [
-      "#00DC82",
-      "#00b368",
-      "#33e394",
-      "#007a47",
-      "#00f59a",
-      "#009a5c",
-      "#006b3f",
-      "#4db890",
-      "#00DC82cc",
-      "#00b368cc",
-      "#33e394cc",
-      "#007a47cc",
-    ],
-  });
-});
+      '#00DC82',
+      '#00b368',
+      '#33e394',
+      '#007a47',
+      '#00f59a',
+      '#009a5c',
+      '#006b3f',
+      '#4db890',
+      '#00DC82cc',
+      '#00b368cc',
+      '#33e394cc',
+      '#007a47cc'
+    ]
+  })
+})
 </script>
 
 <template>
@@ -101,8 +101,15 @@ const colorScale = computed(() => {
       <div class="flex items-center gap-2 text-sm">
         <label class="flex items-center gap-1">
           projection:
-          <select v-model="projection" class="border border-gray-300 rounded px-1">
-            <option v-for="key in Object.keys(PROJECTIONS)" :key="key" :value="key">
+          <select
+            v-model="projection"
+            class="border border-gray-300 rounded px-1"
+          >
+            <option
+              v-for="key in Object.keys(PROJECTIONS)"
+              :key="key"
+              :value="key"
+            >
               {{ key }}
             </option>
           </select>
@@ -119,17 +126,27 @@ const colorScale = computed(() => {
         >
           -
         </button>
-        <button class="px-2 py-0.5 border border-gray-300 rounded text-sm" @click="zoom.reset">
+        <button
+          class="px-2 py-0.5 border border-gray-300 rounded text-sm"
+          @click="zoom.reset"
+        >
           Reset
         </button>
       </div>
     </template>
-    <div ref="parentRef" class="w-full bg-elevated/40 rounded-xl" style="height: 500px">
-      <div v-if="width > 10 && worldData && colorScale" class="relative">
+    <div
+      ref="parentRef"
+      class="w-full bg-elevated/40 rounded-xl"
+      style="height: 500px"
+    >
+      <div
+        v-if="width > 10 && worldData && colorScale"
+        class="relative"
+      >
         <svg
           :ref="
             (el) => {
-              zoom.containerRef = el as SVGSVGElement;
+              zoom.containerRef = el as SVGSVGElement
             }
           "
           :width="width"
@@ -137,7 +154,14 @@ const colorScale = computed(() => {
           :class="zoom.isDragging ? 'cursor-grabbing' : 'cursor-grab'"
           style="touch-action: none"
         >
-          <rect x="0" y="0" :width="width" :height="height" fill="transparent" rx="14" />
+          <rect
+            x="0"
+            y="0"
+            :width="width"
+            :height="height"
+            fill="transparent"
+            rx="14"
+          />
           <CustomProjection
             :projection="PROJECTIONS[projection]"
             :data="worldData"
@@ -146,7 +170,10 @@ const colorScale = computed(() => {
           >
             <template #default="{ path, features }">
               <g>
-                <Graticule :graticule="(g) => path(g) || ''" :stroke="purple" />
+                <Graticule
+                  :graticule="(g) => path(g) || ''"
+                  :stroke="purple"
+                />
                 <path
                   v-for="({ feature, path: featurePath }, i) in features"
                   :key="`map-feature-${i}`"
@@ -174,7 +201,7 @@ const colorScale = computed(() => {
             @mouseup="zoom.dragEnd"
             @mouseleave="
               () => {
-                if (zoom.isDragging) zoom.dragEnd();
+                if (zoom.isDragging) zoom.dragEnd()
               }
             "
           />

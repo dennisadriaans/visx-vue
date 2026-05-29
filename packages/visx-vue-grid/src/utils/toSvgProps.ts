@@ -4,10 +4,10 @@
  * when passing SVG attributes through component layers to native elements.
  */
 export default function toSvgProps(obj: Record<string, unknown>): Record<string, unknown> {
-  const result: Record<string, unknown> = {};
+  const result: Record<string, unknown> = {}
   for (const [key, value] of Object.entries(obj)) {
-    if (value === undefined) continue;
-    result[key.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`)] = value;
+    if (value === undefined) continue
+    result[key.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`)] = value
   }
-  return result;
+  return result
 }

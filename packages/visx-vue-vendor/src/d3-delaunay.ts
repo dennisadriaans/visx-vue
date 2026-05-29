@@ -1,1 +1,1 @@
-export * from "d3-delaunay";
+export * from 'd3-delaunay'

@@ -1,6 +1,6 @@
-import type { AxisScale } from "@visx-vue/axis";
-import { coerceNumber } from "@visx-vue/scale";
-import isValidNumber from "../typeguards/isValidNumber";
+import type { AxisScale } from '@visx-vue/axis'
+import { coerceNumber } from '@visx-vue/scale'
+import isValidNumber from '../typeguards/isValidNumber'
 
 /**
  * Returns the output value of a scale's baseline value, which is either zero
@@ -9,10 +9,10 @@ import isValidNumber from "../typeguards/isValidNumber";
 export default function getScaleBaseline<Scale extends AxisScale>(scale: Scale) {
   const [a, b] = scale
     .range()
-    .map((rangeBoundary: number | { valueOf(): number }) => coerceNumber(rangeBoundary) ?? 0);
-  const isDescending = a != null && b != null && b < a;
-  const maybeScaleZero = scale(0);
-  const [minOutput, maxOutput] = isDescending ? [b, a] : [a, b];
+    .map((rangeBoundary: number | { valueOf(): number }) => coerceNumber(rangeBoundary) ?? 0)
+  const isDescending = a != null && b != null && b < a
+  const maybeScaleZero = scale(0)
+  const [minOutput, maxOutput] = isDescending ? [b, a] : [a, b]
 
   // if maybeScaleZero _is_ a number, but the scale is not clamped and it's outside the domain
   // fallback to the scale's minimum
@@ -22,5 +22,5 @@ export default function getScaleBaseline<Scale extends AxisScale>(scale: Scale) 
       : maxOutput
     : isValidNumber(maybeScaleZero)
       ? Math.max(maybeScaleZero, minOutput)
-      : minOutput;
+      : minOutput
 }

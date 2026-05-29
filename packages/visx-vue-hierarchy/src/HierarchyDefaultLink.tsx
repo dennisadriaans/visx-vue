@@ -1,20 +1,20 @@
-import { defineComponent, type PropType } from "vue";
+import { defineComponent, type PropType } from 'vue'
 
-type Node = { x: number; y: number };
+type Node = { x: number; y: number }
 
 export type LinkProps = {
-  link?: { source: Node; target: Node };
-};
+  link?: { source: Node; target: Node }
+}
 
-const DEFAULT_LINK = { source: { x: 0, y: 0 }, target: { x: 0, y: 0 } };
+const DEFAULT_LINK = { source: { x: 0, y: 0 }, target: { x: 0, y: 0 } }
 
 export const HierarchyDefaultLink = defineComponent({
-  name: "HierarchyDefaultLink",
+  name: 'HierarchyDefaultLink',
   props: {
     link: {
       type: Object as PropType<{ source: Node; target: Node }>,
-      default: () => DEFAULT_LINK,
-    },
+      default: () => DEFAULT_LINK
+    }
   },
   setup(props) {
     return () => (
@@ -27,8 +27,8 @@ export const HierarchyDefaultLink = defineComponent({
         stroke="#999"
         stroke-opacity={0.6}
       />
-    );
-  },
-});
+    )
+  }
+})
 
-export default HierarchyDefaultLink;
+export default HierarchyDefaultLink

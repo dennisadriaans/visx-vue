@@ -1,28 +1,28 @@
-import { defineComponent, useAttrs, useSlots, type PropType } from "vue";
-import type { $TSFIXME, AccessorForArrayItem, StackKey } from "../types";
-import { Stack } from "./Stack";
+import { defineComponent, useAttrs, useSlots, type PropType } from 'vue'
+import type { $TSFIXME, AccessorForArrayItem, StackKey } from '../types'
+import { Stack } from './Stack'
 
 export type AreaStackProps<Datum, Key> = {
-  className?: string;
-  top?: number;
-  left?: number;
-  keys?: Key[];
-  data: Datum[];
-  curve?: $TSFIXME;
-  defined?: AccessorForArrayItem<$TSFIXME, boolean>;
-  x?: number | AccessorForArrayItem<$TSFIXME, number>;
-  x0?: number | AccessorForArrayItem<$TSFIXME, number>;
-  x1?: number | AccessorForArrayItem<$TSFIXME, number>;
-  y0?: number | AccessorForArrayItem<$TSFIXME, number>;
-  y1?: number | AccessorForArrayItem<$TSFIXME, number>;
-  value?: number | ((...args: any[]) => number);
-  order?: string;
-  offset?: string;
-  color?: (key: Key, index: number) => string;
-};
+  className?: string
+  top?: number
+  left?: number
+  keys?: Key[]
+  data: Datum[]
+  curve?: $TSFIXME
+  defined?: AccessorForArrayItem<$TSFIXME, boolean>
+  x?: number | AccessorForArrayItem<$TSFIXME, number>
+  x0?: number | AccessorForArrayItem<$TSFIXME, number>
+  x1?: number | AccessorForArrayItem<$TSFIXME, number>
+  y0?: number | AccessorForArrayItem<$TSFIXME, number>
+  y1?: number | AccessorForArrayItem<$TSFIXME, number>
+  value?: number | ((...args: any[]) => number)
+  order?: string
+  offset?: string
+  color?: (key: Key, index: number) => string
+}
 
 export const AreaStack = defineComponent({
-  name: "AreaStack",
+  name: 'AreaStack',
   inheritAttrs: false,
   props: {
     className: { type: String as PropType<string>, default: undefined },
@@ -33,54 +33,54 @@ export const AreaStack = defineComponent({
     curve: { type: Function as PropType<$TSFIXME>, default: undefined },
     defined: {
       type: Function as PropType<AccessorForArrayItem<$TSFIXME, boolean>>,
-      default: undefined,
+      default: undefined
     },
     x: {
       type: [Number, Function] as PropType<number | AccessorForArrayItem<$TSFIXME, number>>,
-      default: undefined,
+      default: undefined
     },
     x0: {
       type: [Number, Function] as PropType<number | AccessorForArrayItem<$TSFIXME, number>>,
-      default: undefined,
+      default: undefined
     },
     x1: {
       type: [Number, Function] as PropType<number | AccessorForArrayItem<$TSFIXME, number>>,
-      default: undefined,
+      default: undefined
     },
     y0: {
       type: [Number, Function] as PropType<number | AccessorForArrayItem<$TSFIXME, number>>,
-      default: undefined,
+      default: undefined
     },
     y1: {
       type: [Number, Function] as PropType<number | AccessorForArrayItem<$TSFIXME, number>>,
-      default: undefined,
+      default: undefined
     },
     value: {
       type: [Number, Function] as PropType<number | ((...args: any[]) => number)>,
-      default: undefined,
+      default: undefined
     },
     order: { type: String as PropType<string>, default: undefined },
     offset: { type: String as PropType<string>, default: undefined },
     color: {
       type: Function as PropType<(key: StackKey, index: number) => string>,
-      default: undefined,
-    },
+      default: undefined
+    }
   },
   setup(props) {
-    const attrs = useAttrs();
-    const slots = useSlots();
+    const attrs = useAttrs()
+    const slots = useSlots()
 
     return () => {
       const defaultRenderer = ({ stacks, path }: { stacks: $TSFIXME[]; path: $TSFIXME }) =>
         stacks.map((series: $TSFIXME, i: number) => (
           <path
-            class={["visx-area-stack", props.className]}
-            key={`area-stack-${i}-${series.key || ""}`}
-            d={path(series) || ""}
+            class={['visx-area-stack', props.className]}
+            key={`area-stack-${i}-${series.key || ''}`}
+            d={path(series) || ''}
             fill={props.color?.(series.key, i)}
             {...attrs}
           />
-        ));
+        ))
 
       return (
         <Stack
@@ -102,12 +102,12 @@ export const AreaStack = defineComponent({
           color={props.color}
         >
           {{
-            default: slots.default || defaultRenderer,
+            default: slots.default || defaultRenderer
           }}
         </Stack>
-      );
-    };
-  },
-});
+      )
+    }
+  }
+})
 
-export default AreaStack;
+export default AreaStack

@@ -10,22 +10,44 @@
       '@visx-vue/scale',
       '@visx-vue/tooltip',
       '@visx-vue/mock-data',
-      '@visx-vue/event',
+      '@visx-vue/event'
     ]"
   >
     <div class="controls">
-      <button :class="{ active: variant === 'rect' }" @click="variant = 'rect'">
+      <button
+        :class="{ active: variant === 'rect' }"
+        @click="variant = 'rect'"
+      >
         Rect Heatmap
       </button>
-      <button :class="{ active: variant === 'circle' }" @click="variant = 'circle'">
+      <button
+        :class="{ active: variant === 'circle' }"
+        @click="variant = 'circle'"
+      >
         Circle Heatmap
       </button>
     </div>
 
-    <div ref="parentRef" class="chart-outer bg-elevated/40 rounded-xl" @mouseleave="hideTooltip">
-      <svg v-if="width > 0" :width="width" :height="height">
-        <rect :width="width" :height="height" fill="transparent" :rx="12" />
-        <Group :left="margin.left" :top="margin.top">
+    <div
+      ref="parentRef"
+      class="chart-outer bg-elevated/40 rounded-xl"
+      @mouseleave="hideTooltip"
+    >
+      <svg
+        v-if="width > 0"
+        :width="width"
+        :height="height"
+      >
+        <rect
+          :width="width"
+          :height="height"
+          fill="transparent"
+          :rx="12"
+        />
+        <Group
+          :left="margin.left"
+          :top="margin.top"
+        >
           <!-- Rect variant -->
           <template v-if="variant === 'rect'">
             <HeatmapRect
@@ -110,118 +132,121 @@
         :style="ttStyle"
       >
         <div class="tt-label">col {{ tooltipData.column }}, row {{ tooltipData.row }}</div>
-        <div class="tt-value">{{ tooltipData.count?.toFixed(2) ?? "—" }}</div>
+        <div class="tt-value">{{ tooltipData.count?.toFixed(2) ?? '—' }}</div>
       </Tooltip>
     </div>
 
     <!-- color scale legend -->
     <div class="color-legend">
       <span class="legend-label">Low</span>
-      <div class="gradient-bar" :style="gradientStyle" />
+      <div
+        class="gradient-bar"
+        :style="gradientStyle"
+      />
       <span class="legend-label">High</span>
     </div>
   </ExamplePage>
 </template>
 
 <script setup lang="ts">
-import { Group } from "@visx-vue/group";
-import { HeatmapRect, HeatmapCircle } from "@visx-vue/heatmap";
-import { AxisBottom, AxisLeft } from "@visx-vue/axis";
-import { scaleLinear, scaleBand } from "@visx-vue/scale";
-import { useTooltip, Tooltip } from "@visx-vue/tooltip";
-import { localPoint } from "@visx-vue/event";
-import { genBins, getSeededRandom } from "@visx-vue/mock-data";
-import { useParentSize } from "@visx-vue/responsive";
+import { Group } from '@visx-vue/group'
+import { HeatmapRect, HeatmapCircle } from '@visx-vue/heatmap'
+import { AxisBottom, AxisLeft } from '@visx-vue/axis'
+import { scaleLinear, scaleBand } from '@visx-vue/scale'
+import { useTooltip, Tooltip } from '@visx-vue/tooltip'
+import { localPoint } from '@visx-vue/event'
+import { genBins, getSeededRandom } from '@visx-vue/mock-data'
+import { useParentSize } from '@visx-vue/responsive'
 
-useHead({ title: "Heatmap Chart — visx-vue" });
+useHead({ title: 'Heatmap Chart — visx-vue' })
 
-const variant = ref<"rect" | "circle">("rect");
+const variant = ref<'rect' | 'circle'>('rect')
 
-const { parentRef, width } = useParentSize({ debounceTime: 0 });
-const height = computed(() => Math.round(width.value * 0.55) || 400);
-const margin = { top: 20, right: 20, bottom: 40, left: 55 };
+const { parentRef, width } = useParentSize({ debounceTime: 0 })
+const height = computed(() => Math.round(width.value * 0.55) || 400)
+const margin = { top: 20, right: 20, bottom: 40, left: 55 }
 
-const COLS = 14;
-const ROWS = 10;
-const seededRandom = getSeededRandom(0.41);
+const COLS = 14
+const ROWS = 10
+const seededRandom = getSeededRandom(0.41)
 const binData = genBins(
   COLS,
   ROWS,
   () => seededRandom() * 10,
-  () => seededRandom() * 10,
-);
+  () => seededRandom() * 10
+)
 
-const xMax = computed(() => width.value - margin.left - margin.right);
-const yMax = computed(() => height.value - margin.top - margin.bottom);
+const xMax = computed(() => width.value - margin.left - margin.right)
+const yMax = computed(() => height.value - margin.top - margin.bottom)
 
-const binWidth = computed(() => Math.floor(xMax.value / COLS));
+const binWidth = computed(() => Math.floor(xMax.value / COLS))
 
-const xScale = computed(() => scaleLinear<number>({ range: [0, xMax.value], domain: [0, COLS] }));
-const yScale = computed(() => scaleLinear<number>({ range: [yMax.value, 0], domain: [0, ROWS] }));
+const xScale = computed(() => scaleLinear<number>({ range: [0, xMax.value], domain: [0, COLS] }))
+const yScale = computed(() => scaleLinear<number>({ range: [yMax.value, 0], domain: [0, ROWS] }))
 
 const xAxisScale = computed(() =>
-  scaleLinear<number>({ range: [0, xMax.value], domain: [0, COLS] }),
-);
+  scaleLinear<number>({ range: [0, xMax.value], domain: [0, COLS] })
+)
 const yAxisScale = computed(() =>
-  scaleLinear<number>({ range: [yMax.value, 0], domain: [0, ROWS] }),
-);
+  scaleLinear<number>({ range: [yMax.value, 0], domain: [0, ROWS] })
+)
 
 const maxCount = computed(() =>
-  Math.max(...binData.flatMap((col) => col.bins.map((b) => b.count ?? 0))),
-);
+  Math.max(...binData.flatMap((col) => col.bins.map((b) => b.count ?? 0)))
+)
 
 const rectColorScale = computed(() =>
   scaleLinear<string>({
-    range: ["#0a2a1a", "#00DC82"],
-    domain: [0, maxCount.value],
-  }),
-);
+    range: ['#0a2a1a', '#00DC82'],
+    domain: [0, maxCount.value]
+  })
+)
 const circleColorScale = computed(() =>
   scaleLinear<string>({
-    range: ["#0a2a1a", "#33e394"],
-    domain: [0, maxCount.value],
-  }),
-);
+    range: ['#0a2a1a', '#33e394'],
+    domain: [0, maxCount.value]
+  })
+)
 const opacityScale = computed(() =>
-  scaleLinear<number>({ range: [0.15, 1], domain: [0, maxCount.value] }),
-);
+  scaleLinear<number>({ range: [0.15, 1], domain: [0, maxCount.value] })
+)
 
 const gradientStyle = computed(() => ({
   background:
-    variant.value === "rect"
-      ? "linear-gradient(to right, #0a2a1a, #00DC82)"
-      : "linear-gradient(to right, #0a2a1a, #33e394)",
-}));
+    variant.value === 'rect'
+      ? 'linear-gradient(to right, #0a2a1a, #00DC82)'
+      : 'linear-gradient(to right, #0a2a1a, #33e394)'
+}))
 
-const xTickProps = { fill: "#ffffff55", fontSize: 10, textAnchor: "middle" as const };
+const xTickProps = { fill: '#ffffff55', fontSize: 10, textAnchor: 'middle' as const }
 const yTickProps = {
-  fill: "#ffffff55",
+  fill: '#ffffff55',
   fontSize: 10,
-  textAnchor: "end" as const,
-  dx: "-0.3em",
-  dy: "0.33em",
-};
+  textAnchor: 'end' as const,
+  dx: '-0.3em',
+  dy: '0.33em'
+}
 
 const ttStyle = {
-  background: "#1e1e2e",
-  border: "1px solid #00DC8233",
-  borderRadius: "8px",
-  padding: "8px 12px",
-  color: "#fff",
-  pointerEvents: "none" as const,
-};
+  background: '#1e1e2e',
+  border: '1px solid #00DC8233',
+  borderRadius: '8px',
+  padding: '8px 12px',
+  color: '#fff',
+  pointerEvents: 'none' as const
+}
 
-type CellData = { row: number; column: number; count?: number };
+type CellData = { row: number; column: number; count?: number }
 const { showTooltip, hideTooltip, tooltipOpen, tooltipData, tooltipLeft, tooltipTop } =
-  useTooltip<CellData>();
+  useTooltip<CellData>()
 
 function handleCellHover(e: MouseEvent, bin: any) {
-  const pt = localPoint(e) ?? { x: 0, y: 0 };
+  const pt = localPoint(e) ?? { x: 0, y: 0 }
   showTooltip({
     tooltipData: { row: bin.row, column: bin.column, count: bin.count },
     tooltipLeft: pt.x + margin.left,
-    tooltipTop: pt.y + margin.top,
-  });
+    tooltipTop: pt.y + margin.top
+  })
 }
 </script>
 

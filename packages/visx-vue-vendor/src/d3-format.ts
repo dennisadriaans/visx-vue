@@ -1,1 +1,1 @@
-export * from "d3-format";
+export * from 'd3-format'

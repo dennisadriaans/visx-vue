@@ -1,23 +1,23 @@
-import { defineComponent, provide, onScopeDispose, type PropType } from "vue";
-import debounce from "lodash/debounce";
-import { useTooltip } from "@visx-vue/tooltip";
-import { TooltipContextKey } from "../context/TooltipContext";
-import type { EventHandlerParams, TooltipContextType, TooltipData } from "../types";
-import isValidNumber from "../typeguards/isValidNumber";
+import { defineComponent, provide, onScopeDispose, type PropType } from 'vue'
+import debounce from 'lodash/debounce'
+import { useTooltip } from '@visx-vue/tooltip'
+import { TooltipContextKey } from '../context/TooltipContext'
+import type { EventHandlerParams, TooltipContextType, TooltipData } from '../types'
+import isValidNumber from '../typeguards/isValidNumber'
 
 export type TooltipProviderProps = {
   /** Debounce time for when `hideTooltip` is invoked. */
-  hideTooltipDebounceMs?: number;
-};
+  hideTooltipDebounceMs?: number
+}
 
 /** Simple wrapper around useTooltip, to provide tooltip data via context. */
 export const TooltipProvider = defineComponent({
-  name: "TooltipProvider",
+  name: 'TooltipProvider',
   props: {
     hideTooltipDebounceMs: {
       type: Number as PropType<number>,
-      default: 400,
-    },
+      default: 400
+    }
   },
   setup(props, { slots }) {
     const {
@@ -26,19 +26,19 @@ export const TooltipProvider = defineComponent({
       tooltipTop,
       tooltipData,
       updateTooltip,
-      hideTooltip: privateHideTooltip,
-    } = useTooltip<TooltipData<object>>();
+      hideTooltip: privateHideTooltip
+    } = useTooltip<TooltipData<object>>()
 
-    let debouncedHideTooltip: ReturnType<typeof debounce> | null = null;
+    let debouncedHideTooltip: ReturnType<typeof debounce> | null = null
 
     function cancelDebouncedHideTooltip() {
       if (debouncedHideTooltip) {
-        debouncedHideTooltip.cancel();
-        debouncedHideTooltip = null;
+        debouncedHideTooltip.cancel()
+        debouncedHideTooltip = null
       }
     }
 
-    onScopeDispose(cancelDebouncedHideTooltip);
+    onScopeDispose(cancelDebouncedHideTooltip)
 
     function showTooltip({
       svgPoint,
@@ -46,27 +46,27 @@ export const TooltipProvider = defineComponent({
       key,
       datum,
       distanceX,
-      distanceY,
+      distanceY
     }: EventHandlerParams<object>) {
       // cancel any hideTooltip calls so it won't hide after invoking the logic below
-      cancelDebouncedHideTooltip();
-      const cleanDistanceX = isValidNumber(distanceX) ? distanceX : Infinity;
-      const cleanDistanceY = isValidNumber(distanceY) ? distanceY : Infinity;
-      const distance = Math.sqrt(cleanDistanceX ** 2 + cleanDistanceY ** 2);
+      cancelDebouncedHideTooltip()
+      const cleanDistanceX = isValidNumber(distanceX) ? distanceX : Infinity
+      const cleanDistanceY = isValidNumber(distanceY) ? distanceY : Infinity
+      const distance = Math.sqrt(cleanDistanceX ** 2 + cleanDistanceY ** 2)
 
       updateTooltip((current) => {
-        const currData = current.tooltipData;
+        const currData = current.tooltipData
         const currNearestDatumDistance =
           currData?.nearestDatum && isValidNumber(currData.nearestDatum.distance)
             ? currData.nearestDatum.distance
-            : Infinity;
+            : Infinity
         return {
           tooltipOpen: true,
           tooltipLeft: svgPoint?.x,
           tooltipTop: svgPoint?.y,
           tooltipData: {
             nearestDatum:
-              (currData?.nearestDatum?.key ?? "") !== key && currNearestDatumDistance < distance
+              (currData?.nearestDatum?.key ?? '') !== key && currNearestDatumDistance < distance
                 ? currData?.nearestDatum
                 : { key, index, datum, distance },
             datumByKey: {
@@ -74,17 +74,17 @@ export const TooltipProvider = defineComponent({
               [key]: {
                 datum,
                 index,
-                key,
-              },
-            },
-          },
-        };
-      });
+                key
+              }
+            }
+          }
+        }
+      })
     }
 
     function hideTooltip() {
-      debouncedHideTooltip = debounce(privateHideTooltip, props.hideTooltipDebounceMs);
-      debouncedHideTooltip();
+      debouncedHideTooltip = debounce(privateHideTooltip, props.hideTooltipDebounceMs)
+      debouncedHideTooltip()
     }
 
     const contextValue = {
@@ -93,14 +93,14 @@ export const TooltipProvider = defineComponent({
       tooltipTop,
       tooltipData,
       updateTooltip,
-      showTooltip: showTooltip as TooltipContextType<object>["showTooltip"],
-      hideTooltip,
-    } satisfies TooltipContextType<object>;
+      showTooltip: showTooltip as TooltipContextType<object>['showTooltip'],
+      hideTooltip
+    } satisfies TooltipContextType<object>
 
-    provide(TooltipContextKey, contextValue);
+    provide(TooltipContextKey, contextValue)
 
-    return () => slots.default?.();
-  },
-});
+    return () => slots.default?.()
+  }
+})
 
-export default TooltipProvider;
+export default TooltipProvider

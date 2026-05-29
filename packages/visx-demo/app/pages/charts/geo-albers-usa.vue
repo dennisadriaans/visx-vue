@@ -1,6 +1,12 @@
 <template>
-  <ExamplePage title="Geo Albers USA" :packages="['@visx-vue/geo']">
-    <div ref="parentRef" class="chart-container bg-elevated/40 rounded-xl">
+  <ExamplePage
+    title="Geo Albers USA"
+    :packages="['@visx-vue/geo']"
+  >
+    <div
+      ref="parentRef"
+      class="chart-container bg-elevated/40 rounded-xl"
+    >
       <svg
         v-if="width > 0 && states && states.length > 0"
         :width="width"
@@ -25,41 +31,46 @@
           </template>
         </AlbersUsa>
       </svg>
-      <p v-else-if="width > 0" class="loading">Loading USA map…</p>
+      <p
+        v-else-if="width > 0"
+        class="loading"
+      >
+        Loading USA map…
+      </p>
     </div>
   </ExamplePage>
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
-import { AlbersUsa } from "@visx-vue/geo";
-import { useParentSize } from "@visx-vue/responsive";
+import { computed } from 'vue'
+import { AlbersUsa } from '@visx-vue/geo'
+import { useParentSize } from '@visx-vue/responsive'
 
-useHead({ title: "Geo Albers USA — visx-vue" });
+useHead({ title: 'Geo Albers USA — visx-vue' })
 
-const { parentRef, width } = useParentSize({ debounceTime: 0 });
-const height = computed(() => Math.round(width.value * 0.6) || 400);
+const { parentRef, width } = useParentSize({ debounceTime: 0 })
+const height = computed(() => Math.round(width.value * 0.6) || 400)
 
-const stateColors = ["#00DC82", "#00b368", "#33e394", "#007a47"];
+const stateColors = ['#00DC82', '#00b368', '#33e394', '#007a47']
 
 interface FeatureShape {
-  type: "Feature";
-  id: string;
-  geometry: { coordinates: [number, number][][]; type: "Polygon" };
-  properties: { name: string };
+  type: 'Feature'
+  id: string
+  geometry: { coordinates: [number, number][][]; type: 'Polygon' }
+  properties: { name: string }
 }
 
-const { data: states } = await useAsyncData<FeatureShape[]>("usa-states", async () => {
+const { data: states } = await useAsyncData<FeatureShape[]>('usa-states', async () => {
   const [topojson, topology] = await Promise.all([
-    import("topojson-client"),
-    $fetch<any>("/data/usa-topo.json"),
-  ]);
+    import('topojson-client'),
+    $fetch<any>('/data/usa-topo.json')
+  ])
   const fc = topojson.feature(topology, topology.objects.states) as {
-    type: string;
-    features: FeatureShape[];
-  };
-  return fc.features;
-});
+    type: string
+    features: FeatureShape[]
+  }
+  return fc.features
+})
 </script>
 
 <style scoped>

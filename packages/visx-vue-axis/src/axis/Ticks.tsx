@@ -1,10 +1,10 @@
-import type { VNode } from "vue";
-import { Line } from "@visx-vue/shape";
-import { Group } from "@visx-vue/group";
-import { Text } from "@visx-vue/text";
+import type { VNode } from 'vue'
+import { Line } from '@visx-vue/shape'
+import { Group } from '@visx-vue/group'
+import { Text } from '@visx-vue/text'
 
-import Orientation from "../constants/orientation";
-import type { TicksRendererProps, AxisScale } from "../types";
+import Orientation from '../constants/orientation'
+import type { TicksRendererProps, AxisScale } from '../types'
 
 export default function Ticks<Scale extends AxisScale>({
   hideTicks,
@@ -13,26 +13,26 @@ export default function Ticks<Scale extends AxisScale>({
   tickClassName,
   tickComponent,
   tickLabelProps: allTickLabelProps,
-  tickStroke = "#222",
+  tickStroke = '#222',
   tickTransform,
   ticks,
   strokeWidth,
-  tickLineProps,
+  tickLineProps
 }: TicksRendererProps<Scale>): VNode[] {
   return ticks.map(({ value, index, from, to, formattedValue }) => {
-    const tickLabelProps = allTickLabelProps[index] ?? {};
+    const tickLabelProps = allTickLabelProps[index] ?? {}
     const tickLabelFontSize = Math.max(
       10,
-      (typeof tickLabelProps.fontSize === "number" && tickLabelProps.fontSize) || 0,
-    );
+      (typeof tickLabelProps.fontSize === 'number' && tickLabelProps.fontSize) || 0
+    )
 
     const tickYCoord =
-      to.y + (horizontal && orientation !== Orientation.top ? tickLabelFontSize : 0);
+      to.y + (horizontal && orientation !== Orientation.top ? tickLabelFontSize : 0)
 
     return (
       <Group
         key={`visx-tick-${value}-${index}`}
-        className={["visx-axis-tick", tickClassName].filter(Boolean).join(" ")}
+        className={['visx-axis-tick', tickClassName].filter(Boolean).join(' ')}
         transform={tickTransform}
       >
         {{
@@ -43,9 +43,9 @@ export default function Ticks<Scale extends AxisScale>({
                 to={to}
                 {...{
                   stroke: tickStroke,
-                  "stroke-width": strokeWidth,
-                  "stroke-linecap": "square",
-                  ...tickLineProps,
+                  'stroke-width': strokeWidth,
+                  'stroke-linecap': 'square',
+                  ...tickLineProps
                 }}
               />
             ) : null,
@@ -54,14 +54,19 @@ export default function Ticks<Scale extends AxisScale>({
                 ...tickLabelProps,
                 x: to.x,
                 y: tickYCoord,
-                formattedValue,
+                formattedValue
               })
             ) : (
-              <Text x={to.x} y={tickYCoord} {...tickLabelProps} text={formattedValue} />
-            ),
-          ],
+              <Text
+                x={to.x}
+                y={tickYCoord}
+                {...tickLabelProps}
+                text={formattedValue}
+              />
+            )
+          ]
         }}
       </Group>
-    );
-  }) as VNode[];
+    )
+  }) as VNode[]
 }

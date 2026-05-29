@@ -1,10 +1,10 @@
 export type AnnotationContextType = {
   /** x position of the Subject. */
-  x?: number;
+  x?: number
   /** y position of the Subject. */
-  y?: number;
+  y?: number
   /** x delta of the Label from the Subject. */
-  dx?: number;
+  dx?: number
   /** y delta of the Label from the Subject. */
-  dy?: number;
-};
+  dy?: number
+}

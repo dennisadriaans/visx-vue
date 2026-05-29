@@ -1,8 +1,8 @@
-import { describe, test, expect } from "vite-plus/test";
-import { Mercator } from "../src";
+import { describe, test, expect } from 'vite-plus/test'
+import { Mercator } from '../src'
 
-describe("<Mercator />", () => {
-  test("it should be defined", () => {
-    expect(Mercator).toBeDefined();
-  });
-});
+describe('<Mercator />', () => {
+  test('it should be defined', () => {
+    expect(Mercator).toBeDefined()
+  })
+})

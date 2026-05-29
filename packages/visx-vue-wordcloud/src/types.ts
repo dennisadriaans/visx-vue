@@ -1,56 +1,56 @@
 export interface BaseDatum {
-  text: string;
+  text: string
 }
 
 export interface WordcloudConfig<Datum extends BaseDatum> {
   /**
    * Width of the wordcloud layout.
    */
-  width: number;
+  width: number
   /**
    * Height of the wordcloud layout.
    */
-  height: number;
+  height: number
   /**
    * Sets the words array.
    */
-  words: Datum[];
+  words: Datum[]
   /**
    * Sets the padding accessor function, which indicates the numerical padding for each word.
    *
    * @default 1
    */
-  padding?: number | ((datum: Datum, index: number) => number);
+  padding?: number | ((datum: Datum, index: number) => number)
   /**
    * Sets the font accessor function, which indicates the font face for each word.
    *
    * @default serif
    */
-  font?: string | ((datum: Datum, index: number) => string);
+  font?: string | ((datum: Datum, index: number) => string)
   /**
    * Sets the fontSize accessor function, which indicates the numerical font size for each word.
    *
    * @default function(datum) { return Math.sqrt(datum.value); }
    */
-  fontSize?: number | ((datum: Datum, index: number) => number);
+  fontSize?: number | ((datum: Datum, index: number) => number)
   /**
    * Sets the fontStyle accessor function, which indicates the font style for each word.
    *
    * @default normal
    */
-  fontStyle?: string | ((datum: Datum, index: number) => string);
+  fontStyle?: string | ((datum: Datum, index: number) => string)
   /**
    * Sets the fontWeight accessor function, which indicates the font weight for each word.
    *
    * @default normal
    */
-  fontWeight?: string | number | ((datum: Datum, index: number) => string | number);
+  fontWeight?: string | number | ((datum: Datum, index: number) => string | number)
   /**
    * Sets the rotate accessor function, which indicates the rotation angle (in degrees) for each word.
    *
    * @default function() { return (~~(Math.random() * 6) -3) * 30; }
    */
-  rotate?: number | ((datum: Datum, index: number) => number);
+  rotate?: number | ((datum: Datum, index: number) => number)
   /**
    * Sets the current type of spiral used for positioning words.
    * This can either be one of the two built-in spirals, "archimedean" and "rectangular", or an arbitrary spiral generator can be used.
@@ -58,9 +58,9 @@ export interface WordcloudConfig<Datum extends BaseDatum> {
    * @default archimedean
    */
   spiral?:
-    | "archimedean"
-    | "rectangular"
-    | ((size: [number, number]) => (t: number) => [number, number]);
+    | 'archimedean'
+    | 'rectangular'
+    | ((size: [number, number]) => (t: number) => [number, number])
   /**
    * Sets the internal random number generator, used for selecting the initial position of each word,
    * and the clockwise/counterclockwise direction of the spiral for each word. Random function should return a number in the range [0, 1).
@@ -69,7 +69,7 @@ export interface WordcloudConfig<Datum extends BaseDatum> {
    *
    * @default Math.random
    */
-  random?: () => number;
+  random?: () => number
 }
 
 /**
@@ -77,53 +77,53 @@ export interface WordcloudConfig<Datum extends BaseDatum> {
  * they are copied below because TS@^4.8 is incompatible with its @d3/types dep.
  */
 export interface CloudWord {
-  text?: string | undefined;
-  font?: string | undefined;
-  style?: string | undefined;
-  weight?: string | number | undefined;
-  rotate?: number | undefined;
-  size?: number | undefined;
-  padding?: number | undefined;
-  x?: number | undefined;
-  y?: number | undefined;
+  text?: string | undefined
+  font?: string | undefined
+  style?: string | undefined
+  weight?: string | number | undefined
+  rotate?: number | undefined
+  size?: number | undefined
+  padding?: number | undefined
+  x?: number | undefined
+  y?: number | undefined
 }
 
 export interface Cloud<T extends CloudWord> {
-  start(): Cloud<T>;
-  stop(): Cloud<T>;
+  start(): Cloud<T>
+  stop(): Cloud<T>
 
-  timeInterval(): number;
-  timeInterval(interval: number): Cloud<T>;
+  timeInterval(): number
+  timeInterval(interval: number): Cloud<T>
 
-  words(): T[];
-  words(words: T[]): Cloud<T>;
+  words(): T[]
+  words(words: T[]): Cloud<T>
 
-  size(): [number, number];
-  size(size: [number, number]): Cloud<T>;
+  size(): [number, number]
+  size(size: [number, number]): Cloud<T>
 
-  font(): (datum: T, index: number) => string;
-  font(font: string | ((datum: T, index: number) => string)): Cloud<T>;
+  font(): (datum: T, index: number) => string
+  font(font: string | ((datum: T, index: number) => string)): Cloud<T>
 
-  fontStyle(): (datum: T, index: number) => string;
-  fontStyle(style: string | ((datum: T, index: number) => string)): Cloud<T>;
+  fontStyle(): (datum: T, index: number) => string
+  fontStyle(style: string | ((datum: T, index: number) => string)): Cloud<T>
 
-  fontWeight(): (datum: T, index: number) => string | number;
-  fontWeight(weight: string | number | ((datum: T, index: number) => string | number)): Cloud<T>;
+  fontWeight(): (datum: T, index: number) => string | number
+  fontWeight(weight: string | number | ((datum: T, index: number) => string | number)): Cloud<T>
 
-  rotate(): (datum: T, index: number) => number;
-  rotate(rotate: number | ((datum: T, index: number) => number)): Cloud<T>;
+  rotate(): (datum: T, index: number) => number
+  rotate(rotate: number | ((datum: T, index: number) => number)): Cloud<T>
 
-  text(): (datum: T, index: number) => string;
-  text(text: string | ((datum: T, index: number) => string)): Cloud<T>;
+  text(): (datum: T, index: number) => string
+  text(text: string | ((datum: T, index: number) => string)): Cloud<T>
 
-  spiral(): (size: [number, number]) => (t: number) => [number, number];
-  spiral(name: string | ((size: [number, number]) => (t: number) => [number, number])): Cloud<T>;
+  spiral(): (size: [number, number]) => (t: number) => [number, number]
+  spiral(name: string | ((size: [number, number]) => (t: number) => [number, number])): Cloud<T>
 
-  fontSize(): (datum: T, index: number) => number;
-  fontSize(size: number | ((datum: T, index: number) => number)): Cloud<T>;
+  fontSize(): (datum: T, index: number) => number
+  fontSize(size: number | ((datum: T, index: number) => number)): Cloud<T>
 
-  padding(): (datum: T, index: number) => number;
-  padding(padding: number | ((datum: T, index: number) => number)): Cloud<T>;
+  padding(): (datum: T, index: number) => number
+  padding(padding: number | ((datum: T, index: number) => number)): Cloud<T>
 
   /**
    * If specified, sets the internal random number generator,used for selecting the initial position of each word,
@@ -131,22 +131,22 @@ export interface Cloud<T extends CloudWord> {
    *
    * @param randomFunction should return a number in the range [0, 1).The default is Math.random.
    */
-  random(): Cloud<T>;
-  random(randomFunction: () => number): Cloud<T>;
+  random(): Cloud<T>
+  random(randomFunction: () => number): Cloud<T>
 
   /**
    * If specified, sets the canvas generator function, which is used internally to draw text.
    * When using Node.js, you will almost definitely override the default, e.g. using the canvas module.
    * @param canvasGenerator should return a HTMLCanvasElement.The default is:  ()=>{document.createElement("canvas");}
    */
-  canvas(): Cloud<T>;
-  canvas(canvasGenerator: () => HTMLCanvasElement): Cloud<T>;
+  canvas(): Cloud<T>
+  canvas(canvasGenerator: () => HTMLCanvasElement): Cloud<T>
 
-  on(type: "word", listener: (word: T) => void): Cloud<T>;
-  on(type: "end", listener: (tags: T[], bounds: Array<{ x: number; y: number }>) => void): Cloud<T>;
-  on(type: string, listener: (...args: any[]) => void): Cloud<T>;
+  on(type: 'word', listener: (word: T) => void): Cloud<T>
+  on(type: 'end', listener: (tags: T[], bounds: Array<{ x: number; y: number }>) => void): Cloud<T>
+  on(type: string, listener: (...args: any[]) => void): Cloud<T>
 
-  on(type: "word"): (word: T) => void;
-  on(type: "end"): (tags: T[], bounds: Array<{ x: number; y: number }>) => void;
-  on(type: string): (...args: any[]) => void;
+  on(type: 'word'): (word: T) => void
+  on(type: 'end'): (tags: T[], bounds: Array<{ x: number; y: number }>) => void
+  on(type: string): (...args: any[]) => void
 }

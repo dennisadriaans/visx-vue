@@ -1,33 +1,33 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  extends: ["docus"],
-  modules: ["@nuxt/ui"],
-  compatibilityDate: "2025-07-15",
+  extends: ['docus'],
+  modules: ['@nuxt/ui'],
+  compatibilityDate: '2025-07-15',
   app: {
-    baseURL: "/visx-vue/",
+    baseURL: '/visx-vue/'
   },
   nitro: {
-    preset: "cloudflare_module",
-    baseURL: "/visx-vue/",
+    preset: 'cloudflare_module',
+    baseURL: '/visx-vue/',
     cloudflare: {
-      nodeCompat: true,
+      nodeCompat: true
     },
     alias: {
-      "agents/mcp": "unenv/mock/empty",
-    },
+      'agents/mcp': 'unenv/mock/empty'
+    }
   },
   ogImage: {
-    enabled: false,
+    enabled: false
   },
   devtools: { enabled: true },
-  css: ["~/assets/css/main.css"],
+  css: ['~/assets/css/main.css'],
   colorMode: {
-    preference: "light",
-    fallback: "light",
+    preference: 'light',
+    fallback: 'light'
   },
   mdc: {
     highlight: {
-      theme: "github-dark-default",
-    },
-  },
-});
+      theme: 'github-dark-default'
+    }
+  }
+})

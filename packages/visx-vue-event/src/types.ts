@@ -1,1 +1,1 @@
-export type EventType = MouseEvent | TouchEvent | FocusEvent;
+export type EventType = MouseEvent | TouchEvent | FocusEvent

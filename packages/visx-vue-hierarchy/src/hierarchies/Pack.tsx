@@ -1,37 +1,37 @@
-import { defineComponent, useSlots, type PropType, type Component } from "vue";
-import { Group } from "@visx-vue/group";
-import type { HierarchyNode, HierarchyCircularNode } from "d3-hierarchy";
-import { pack as d3pack } from "d3-hierarchy";
-import DefaultNode from "../HierarchyDefaultNode";
+import { defineComponent, useSlots, type PropType, type Component } from 'vue'
+import { Group } from '@visx-vue/group'
+import type { HierarchyNode, HierarchyCircularNode } from 'd3-hierarchy'
+import { pack as d3pack } from 'd3-hierarchy'
+import DefaultNode from '../HierarchyDefaultNode'
 
-export type NodeComponentProps<Datum> = { node: HierarchyCircularNode<Datum> };
+export type NodeComponentProps<Datum> = { node: HierarchyCircularNode<Datum> }
 
 export type PackProps<Datum> = {
   /** The root hierarchy node from which to derive the pack layout. */
-  root: HierarchyNode<Datum>;
+  root: HierarchyNode<Datum>
   /** top offset applied to the g element container. */
-  top?: number;
+  top?: number
   /** left offset applied to the g element container. */
-  left?: number;
+  left?: number
   /** className applied to the g element container. */
-  className?: string;
+  className?: string
   /**
    * Radius accessor function which defines the radius of each leaf node.
    */
-  radius?: (node: HierarchyNode<Datum>) => number;
+  radius?: (node: HierarchyNode<Datum>) => number
   /** Sets the pack layout size to the defined [width, height]. */
-  size?: [number, number];
+  size?: [number, number]
   /**
    * Sets this pack layout's padding accessor to the specified number,
    * which determines approximate separation of nodes in the resulting pack.
    */
-  padding?: number;
+  padding?: number
   /** Component which renders a single pack node, passed the node object. */
-  nodeComponent?: Component;
-};
+  nodeComponent?: Component
+}
 
 export const Pack = defineComponent({
-  name: "Pack",
+  name: 'Pack',
   props: {
     root: { type: Object as PropType<HierarchyNode<unknown>>, required: true as const },
     top: { type: Number as PropType<number>, default: undefined },
@@ -39,29 +39,33 @@ export const Pack = defineComponent({
     className: { type: String as PropType<string>, default: undefined },
     radius: {
       type: Function as PropType<(node: HierarchyNode<unknown>) => number>,
-      default: undefined,
+      default: undefined
     },
     size: { type: Array as unknown as PropType<[number, number]>, default: undefined },
     padding: { type: Number as PropType<number>, default: undefined },
-    nodeComponent: { type: [Object, Function] as PropType<Component>, default: DefaultNode },
+    nodeComponent: { type: [Object, Function] as PropType<Component>, default: DefaultNode }
   },
   setup(props) {
-    const slots = useSlots();
+    const slots = useSlots()
 
     return () => {
-      const pack = d3pack<unknown>();
-      if (props.size) pack.size(props.size);
-      if (props.radius !== undefined) pack.radius(props.radius);
-      if (props.padding) pack.padding(props.padding);
+      const pack = d3pack<unknown>()
+      if (props.size) pack.size(props.size)
+      if (props.radius !== undefined) pack.radius(props.radius)
+      if (props.padding) pack.padding(props.padding)
 
-      const data = pack(props.root.copy());
+      const data = pack(props.root.copy())
 
-      if (slots.default) return slots.default({ data });
+      if (slots.default) return slots.default({ data })
 
-      const NodeComp = props.nodeComponent as any;
+      const NodeComp = props.nodeComponent as any
 
       return (
-        <Group top={props.top} left={props.left} class={["visx-pack", props.className]}>
+        <Group
+          top={props.top}
+          left={props.left}
+          class={['visx-pack', props.className]}
+        >
           {NodeComp &&
             data.descendants().map((node: any, i: number) => (
               <Group key={`pack-node-${i}`}>
@@ -69,9 +73,9 @@ export const Pack = defineComponent({
               </Group>
             ))}
         </Group>
-      );
-    };
-  },
-});
+      )
+    }
+  }
+})
 
-export default Pack;
+export default Pack

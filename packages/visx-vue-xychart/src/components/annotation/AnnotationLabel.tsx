@@ -1,25 +1,25 @@
-import { defineComponent, useAttrs, useSlots, type SVGAttributes } from "vue";
-import { Label as BaseLabel } from "@visx-vue/annotation";
-import type { LabelProps as BaseLabelProps } from "@visx-vue/annotation";
-import { useDataContext } from "../../context/DataContext";
+import { defineComponent, useAttrs, useSlots, type SVGAttributes } from 'vue'
+import { Label as BaseLabel } from '@visx-vue/annotation'
+import type { LabelProps as BaseLabelProps } from '@visx-vue/annotation'
+import { useDataContext } from '../../context/DataContext'
 
-export type AnnotationLabelProps = BaseLabelProps;
+export type AnnotationLabelProps = BaseLabelProps
 
-const defaultBackgroundProps = { "fill-opacity": 0.7 } as SVGAttributes;
+const defaultBackgroundProps = { 'fill-opacity': 0.7 } as SVGAttributes
 
 /** AnnotationLabel which provides text styles from theme. */
 const AnnotationLabel = defineComponent({
-  name: "AnnotationLabel",
+  name: 'AnnotationLabel',
   inheritAttrs: false,
   setup() {
-    const attrs = useAttrs();
-    const slots = useSlots();
-    const dataContext = useDataContext();
+    const attrs = useAttrs()
+    const slots = useSlots()
+    const dataContext = useDataContext()
 
     return () => {
-      const { theme, resizeObserverPolyfill } = dataContext;
-      const titleProps = theme?.svgLabelBig;
-      const subtitleProps = theme?.svgLabelSmall;
+      const { theme, resizeObserverPolyfill } = dataContext
+      const titleProps = theme?.svgLabelBig
+      const subtitleProps = theme?.svgLabelSmall
       return (
         <BaseLabel
           anchorLineStroke={theme?.axisStyles.x.bottom.axisLine.stroke as string | undefined}
@@ -37,9 +37,9 @@ const AnnotationLabel = defineComponent({
         >
           {slots.default?.()}
         </BaseLabel>
-      );
-    };
-  },
-});
+      )
+    }
+  }
+})
 
-export default AnnotationLabel;
+export default AnnotationLabel

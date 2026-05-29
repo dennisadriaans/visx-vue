@@ -1,21 +1,21 @@
-import { defineComponent, useAttrs, type PropType } from "vue";
-import { Marker } from "./Marker";
+import { defineComponent, useAttrs, type PropType } from 'vue'
+import { Marker } from './Marker'
 
 export const MarkerCircle = defineComponent({
-  name: "MarkerCircle",
+  name: 'MarkerCircle',
   inheritAttrs: false,
   props: {
     id: { type: String as PropType<string>, required: true },
     size: { type: Number as PropType<number>, default: 9 },
-    strokeWidth: { type: Number as PropType<number>, default: 1 },
+    strokeWidth: { type: Number as PropType<number>, default: 1 }
   },
   setup(props) {
-    const attrs = useAttrs();
+    const attrs = useAttrs()
 
     return () => {
-      const diameter = props.size * 2;
-      const bounds = diameter + props.strokeWidth;
-      const mid = bounds / 2;
+      const diameter = props.size * 2
+      const bounds = diameter + props.strokeWidth
+      const mid = bounds / 2
 
       return (
         <Marker
@@ -29,9 +29,13 @@ export const MarkerCircle = defineComponent({
           strokeWidth={props.strokeWidth}
           {...attrs}
         >
-          <circle r={props.size} cx={mid} cy={mid} />
+          <circle
+            r={props.size}
+            cx={mid}
+            cy={mid}
+          />
         </Marker>
-      );
-    };
-  },
-});
+      )
+    }
+  }
+})

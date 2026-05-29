@@ -8,11 +8,14 @@
         title:
           'mb-6 text-5xl font-semibold tracking-tight sm:text-7xl lg:text-[5rem] lg:leading-tighter text-highlighted',
         description: 'mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-muted text-center',
-        links: 'flex items-center justify-center gap-4',
+        links: 'flex items-center justify-center gap-4'
       }"
     >
       <template #headline>
-        <NuxtLink target="_blank" to="https://github.com/airbnb/visx">
+        <NuxtLink
+          target="_blank"
+          to="https://github.com/airbnb/visx"
+        >
           <UBadge
             class="px-4 py-1.5 text-sm backdrop-blur-sm"
             variant="soft"
@@ -20,7 +23,10 @@
             rounded
           >
             <span class="mr-2">inspired by airbnb/visx</span>
-            <UIcon name="i-heroicons-arrow-right" class="h-4 w-4" />
+            <UIcon
+              name="i-heroicons-arrow-right"
+              class="h-4 w-4"
+            />
           </UBadge>
         </NuxtLink>
       </template>
@@ -52,7 +58,10 @@
       </template>
       <div class="relative overflow-hidden">
         <div class="p-6">
-          <img src="/hero-image.png" alt="" />
+          <img
+            src="/hero-image.png"
+            alt=""
+          />
         </div>
       </div>
     </UPageHero>

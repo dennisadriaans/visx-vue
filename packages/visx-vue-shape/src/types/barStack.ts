@@ -1,6 +1,6 @@
-import type { BarGroupBar } from "./barGroup";
-import type { BaseStackProps, StackKey } from "./stack";
-import type { PositionScale } from "./base";
+import type { BarGroupBar } from './barGroup'
+import type { BaseStackProps, StackKey } from './stack'
+import type { PositionScale } from './base'
 
 /**
  * Each series point j in a stack chart corresponds to the jth element in the input data.
@@ -14,39 +14,39 @@ export interface SeriesPoint<Datum> extends Array<number> {
   /**
    * Corresponds to y0, the lower value (baseline).
    */
-  0: number;
+  0: number
   /**
    * Corresponds to y1, the upper value (topline).
    */
-  1: number;
+  1: number
   /**
    * The data element underlying the series point.
    */
-  data: Datum;
+  data: Datum
 }
 
 /** One BarStack is returned for each datum, which has multiple sub-bars (based on keys). */
 export interface BarStack<Datum, Key> {
-  index: number;
-  key: Key;
-  bars: (Omit<BarGroupBar<Key>, "key" | "value"> & {
+  index: number
+  key: Key
+  bars: (Omit<BarGroupBar<Key>, 'key' | 'value'> & {
     /** Processed bar Datum with bar bounds and original datum. */
-    bar: SeriesPoint<Datum>;
+    bar: SeriesPoint<Datum>
     /** stack key */
-    key: Key;
-  })[];
+    key: Key
+  })[]
 }
 
 export type BaseBarStackProps<
   Datum,
   Key extends StackKey = StackKey,
   XScale extends PositionScale = PositionScale,
-  YScale extends PositionScale = PositionScale,
+  YScale extends PositionScale = PositionScale
 > = BaseStackProps<Datum, Key> & {
   /** @visx/scale or d3-scale that takes an x value and maps it to an x axis position. */
-  xScale: XScale;
+  xScale: XScale
   /** @visx/scale or d3-scale that takes a y value and maps it to an y axis position. */
-  yScale: YScale;
+  yScale: YScale
   /** Returns the desired color for a bar with a given key and index. */
-  color: (key: Key, index: number) => string;
-};
+  color: (key: Key, index: number) => string
+}

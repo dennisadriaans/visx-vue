@@ -16,74 +16,72 @@
  *     color="#4ADE80"
  *   />
  */
-import { computed, ref } from "vue";
-import { Bar } from "@visx-vue/shape";
-import { Group } from "@visx-vue/group";
-import { GridRows } from "@visx-vue/grid";
-import { AxisBottom, AxisLeft } from "@visx-vue/axis";
-import { scaleBand, scaleLinear } from "@visx-vue/scale";
-import { useTooltip, TooltipWithBounds, defaultStyles } from "@visx-vue/tooltip";
-import { useParentSize } from "@visx-vue/responsive";
+import { computed, ref } from 'vue'
+import { Bar } from '@visx-vue/shape'
+import { Group } from '@visx-vue/group'
+import { GridRows } from '@visx-vue/grid'
+import { AxisBottom, AxisLeft } from '@visx-vue/axis'
+import { scaleBand, scaleLinear } from '@visx-vue/scale'
+import { useTooltip, TooltipWithBounds, defaultStyles } from '@visx-vue/tooltip'
+import { useParentSize } from '@visx-vue/responsive'
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 
 interface Margin {
-  top: number;
-  right: number;
-  bottom: number;
-  left: number;
+  top: number
+  right: number
+  bottom: number
+  left: number
 }
 
 const props = withDefaults(
   defineProps<{
     /** Dataset array */
-    data: T[];
+    data: T[]
     /** Returns the categorical x-value for a datum */
-    x: (d: T) => string;
+    x: (d: T) => string
     /** Returns the numeric y-value for a datum */
-    y: (d: T) => number;
+    y: (d: T) => number
     /** Returns a unique key for the datum (defaults to x value) */
-    dataKey?: (d: T) => string | number;
+    dataKey?: (d: T) => string | number
     /** Bar fill color */
-    color?: string;
+    color?: string
     /** Y-axis tick / tooltip value formatter */
-    yFormat?: (v: number) => string;
+    yFormat?: (v: number) => string
     /** X-axis tick formatter */
-    xFormat?: (v: string) => string;
+    xFormat?: (v: string) => string
     /** Label shown in tooltip header and legend */
-    seriesLabel?: string;
+    seriesLabel?: string
     /** Fixed chart height (px). If omitted, defaults to 320. */
-    height?: number;
+    height?: number
     /** Inner chart margins */
-    margin?: Margin;
+    margin?: Margin
     /** Number of Y-axis ticks */
-    numTicksY?: number;
+    numTicksY?: number
     /** Padding between bands (0–1) */
-    bandPadding?: number;
+    bandPadding?: number
   }>(),
   {
     dataKey: (d: any) => d.month || d.id || d.date || JSON.stringify(d),
-    color: "var(--ui-primary)",
+    color: 'var(--ui-primary)',
     yFormat: (v: number) => String(v),
     xFormat: (v: string) => v,
-    seriesLabel: "Value",
+    seriesLabel: 'Value',
     height: 320,
     margin: () => ({ top: 16, right: 16, bottom: 40, left: 64 }),
     numTicksY: 5,
-    bandPadding: 0.3,
-  },
-);
+    bandPadding: 0.3
+  }
+)
 
 // ─── Responsive sizing ────────────────────────────────────────────────────────
 
-const { parentRef, width } = useParentSize({ debounceTime: 0 });
+const { parentRef, width } = useParentSize({ debounceTime: 0 })
 
-const chartHeight = computed(() => props.height);
+const chartHeight = computed(() => props.height)
 
-const xMax = computed(() => Math.max(0, width.value - props.margin.left - props.margin.right));
-const yMax = computed(() =>
-  Math.max(0, chartHeight.value - props.margin.top - props.margin.bottom),
-);
+const xMax = computed(() => Math.max(0, width.value - props.margin.left - props.margin.right))
+const yMax = computed(() => Math.max(0, chartHeight.value - props.margin.top - props.margin.bottom))
 
 // ─── Scales ───────────────────────────────────────────────────────────────────
 
@@ -92,63 +90,63 @@ const xScale = computed(() =>
     range: [0, xMax.value],
     domain: props.data.map(props.x),
     padding: props.bandPadding,
-    round: true,
-  }),
-);
+    round: true
+  })
+)
 
 const yDomain = computed(() => {
-  const max = Math.max(...props.data.map(props.y));
+  const max = Math.max(...props.data.map(props.y))
   // round domain max up to a "nice" value so top grid line lands on a tick
-  return [0, max];
-});
+  return [0, max]
+})
 
 const yScale = computed(() =>
   scaleLinear<number>({
     range: [yMax.value, 0],
     domain: yDomain.value,
-    nice: true,
-  }),
-);
+    nice: true
+  })
+)
 
 // ─── Tooltip ─────────────────────────────────────────────────────────────────
 
 interface TooltipDatum {
-  x: string;
-  y: number;
+  x: string
+  y: number
 }
 
 const { showTooltip, hideTooltip, tooltipOpen, tooltipData, tooltipLeft, tooltipTop } = useTooltip<{
-  x: string;
-  y: number;
-  key: string | number;
-}>();
+  x: string
+  y: number
+  key: string | number
+}>()
 
 const tooltipStyles = {
   ...defaultStyles,
-  background: "#1e1e2e",
-  border: "1px solid #2e2e3e",
-  color: "#fff",
-  borderRadius: "8px",
-  padding: "10px 14px",
-  minWidth: "140px",
-  fontSize: "13px",
-};
+  background: '#1e1e2e',
+  border: '1px solid #2e2e3e',
+  color: '#fff',
+  borderRadius: '8px',
+  padding: '10px 14px',
+  minWidth: '140px',
+  fontSize: '13px'
+}
 
-const svgRef = ref<SVGSVGElement | null>(null);
+const svgRef = ref<SVGSVGElement | null>(null)
 
 function handleBarHover(event: MouseEvent, d: T) {
-  const svgEl = svgRef.value;
-  if (!svgEl) return;
-  const rect = svgEl.getBoundingClientRect();
+  const svgEl = svgRef.value
+  if (!svgEl) return
+  const rect = svgEl.getBoundingClientRect()
   showTooltip({
     tooltipData: {
       x: props.x(d),
       y: props.y(d),
-      key: props.dataKey!(d),
+      key: props.dataKey!(d)
     },
     tooltipLeft: event.clientX - rect.left,
-    tooltipTop: event.clientY - rect.top - 8,
-  });
+    tooltipTop: event.clientY - rect.top - 8
+  })
 }
 
 // ─── Legend ───────────────────────────────────────────────────────────────────
@@ -158,7 +156,10 @@ function handleBarHover(event: MouseEvent, d: T) {
 </script>
 
 <template>
-  <div ref="parentRef" class="relative w-full text-default">
+  <div
+    ref="parentRef"
+    class="relative w-full text-default"
+  >
     <!-- SVG canvas -->
     <svg
       v-if="width > 0"
@@ -181,7 +182,10 @@ function handleBarHover(event: MouseEvent, d: T) {
       />
 
       <!-- Bars -->
-      <Group :top="margin.top" :left="margin.left">
+      <Group
+        :top="margin.top"
+        :left="margin.left"
+      >
         <Bar
           v-for="d in data"
           :key="dataKey!(d)"
@@ -193,7 +197,7 @@ function handleBarHover(event: MouseEvent, d: T) {
           :rx="4"
           class="cursor-pointer transition-opacity duration-100"
           :style="{
-            opacity: tooltipOpen && tooltipData?.key !== dataKey!(d) ? 0.6 : 1,
+            opacity: tooltipOpen && tooltipData?.key !== dataKey!(d) ? 0.6 : 1
           }"
           @mousemove="(e: MouseEvent) => handleBarHover(e, d)"
           @mouseleave="hideTooltip"
@@ -215,7 +219,7 @@ function handleBarHover(event: MouseEvent, d: T) {
           textAnchor: 'end',
           dy: '0.33em',
           dx: '-0.25em',
-          class: 'text-muted opacity-60',
+          class: 'text-muted opacity-60'
         }"
       />
 
@@ -231,7 +235,7 @@ function handleBarHover(event: MouseEvent, d: T) {
           fill: 'currentColor',
           fontSize: 12,
           textAnchor: 'middle',
-          class: 'text-muted opacity-60',
+          class: 'text-muted opacity-60'
         }"
       />
     </svg>
@@ -246,7 +250,10 @@ function handleBarHover(event: MouseEvent, d: T) {
     >
       <div class="font-bold text-highlighted mb-1">{{ tooltipData.x }}</div>
       <div class="flex items-center gap-2">
-        <span class="inline-block w-2 h-2 rounded-full shrink-0" :style="{ background: color }" />
+        <span
+          class="inline-block w-2 h-2 rounded-full shrink-0"
+          :style="{ background: color }"
+        />
         <span class="text-muted">{{ seriesLabel }}</span>
         <strong class="ml-auto font-bold text-highlighted">{{ yFormat(tooltipData.y) }}</strong>
       </div>
@@ -255,7 +262,10 @@ function handleBarHover(event: MouseEvent, d: T) {
     <!-- Legend slot (default: colored dot + series label) -->
     <slot name="legend">
       <div class="flex items-center justify-center gap-2 mt-2 text-sm text-toned">
-        <span class="inline-block w-2 h-2 rounded-full shrink-0" :style="{ background: color }" />
+        <span
+          class="inline-block w-2 h-2 rounded-full shrink-0"
+          :style="{ background: color }"
+        />
         <span>{{ seriesLabel }}</span>
       </div>
     </slot>

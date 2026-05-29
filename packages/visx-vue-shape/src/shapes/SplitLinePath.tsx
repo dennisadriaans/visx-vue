@@ -1,36 +1,36 @@
-import { defineComponent, computed, useSlots, type PropType, type SVGAttributes } from "vue";
-import type { GetLineSegmentsConfig, LineSegmentation } from "../util/getSplitLineSegments";
-import getSplitLineSegments from "../util/getSplitLineSegments";
-import { line } from "../util/D3ShapeFactories";
-import type { AccessorForArrayItem, LinePathConfig } from "../types";
-import { LinePath } from "./LinePath";
+import { defineComponent, computed, useSlots, type PropType, type SVGAttributes } from 'vue'
+import type { GetLineSegmentsConfig, LineSegmentation } from '../util/getSplitLineSegments'
+import getSplitLineSegments from '../util/getSplitLineSegments'
+import { line } from '../util/D3ShapeFactories'
+import type { AccessorForArrayItem, LinePathConfig } from '../types'
+import { LinePath } from './LinePath'
 
 interface Point {
-  x: number;
-  y: number;
+  x: number
+  y: number
 }
 
-const getX = (d: unknown) => (d as Point).x || 0;
-const getY = (d: unknown) => (d as Point).y || 0;
+const getX = (d: unknown) => (d as Point).x || 0
+const getY = (d: unknown) => (d as Point).y || 0
 
 export type SplitLinePathRenderer = (renderProps: {
-  index: number;
-  segment: { x: number; y: number }[];
-  styles?: Omit<SVGAttributes, "x" | "y">;
-}) => any;
+  index: number
+  segment: { x: number; y: number }[]
+  styles?: Omit<SVGAttributes, 'x' | 'y'>
+}) => any
 
 export type SplitLinePathProps<Datum> = {
   /** Array of data segments, where each segment will be a separate path in the rendered line. */
-  segments: Datum[][];
+  segments: Datum[][]
   /** Styles to apply to each segment. If fewer styles are specified than the number of segments, they will be re-used. */
-  styles: Omit<SVGAttributes, "x" | "y">[];
+  styles: Omit<SVGAttributes, 'x' | 'y'>[]
   /** className applied to path element. */
-  className?: string;
+  className?: string
 } & LinePathConfig<Datum> &
-  Pick<GetLineSegmentsConfig, "segmentation" | "sampleRate">;
+  Pick<GetLineSegmentsConfig, 'segmentation' | 'sampleRate'>
 
 export const SplitLinePath = defineComponent({
-  name: "SplitLinePath",
+  name: 'SplitLinePath',
   props: {
     segments: { type: Array as PropType<unknown[][]>, required: true },
     styles: { type: Array as PropType<Record<string, any>[]>, required: true },
@@ -38,46 +38,46 @@ export const SplitLinePath = defineComponent({
     curve: { type: Function as PropType<any>, default: undefined },
     defined: {
       type: Function as PropType<AccessorForArrayItem<unknown, boolean>>,
-      default: undefined,
+      default: undefined
     },
     segmentation: { type: String as PropType<LineSegmentation>, default: undefined },
     sampleRate: { type: Number as PropType<number>, default: undefined },
     x: {
       type: [Number, Function] as PropType<number | AccessorForArrayItem<unknown, number>>,
-      default: undefined,
+      default: undefined
     },
     y: {
       type: [Number, Function] as PropType<number | AccessorForArrayItem<unknown, number>>,
-      default: undefined,
-    },
+      default: undefined
+    }
   },
   setup(props) {
-    const slots = useSlots();
+    const slots = useSlots()
 
     // Convert data in all segments to points.
     const pointsInSegments = computed(() => {
       const xFn =
-        typeof props.x === "number" || typeof props.x === "undefined" ? () => props.x : props.x;
+        typeof props.x === 'number' || typeof props.x === 'undefined' ? () => props.x : props.x
       const yFn =
-        typeof props.y === "number" || typeof props.y === "undefined" ? () => props.y : props.y;
+        typeof props.y === 'number' || typeof props.y === 'undefined' ? () => props.y : props.y
       return props.segments.map((s) =>
-        s.map((value, i) => ({ x: (xFn as any)(value, i, s), y: (yFn as any)(value, i, s) })),
-      );
-    });
+        s.map((value, i) => ({ x: (xFn as any)(value, i, s), y: (yFn as any)(value, i, s) }))
+      )
+    })
 
     const pathString = computed(() => {
-      const path = line({ x: props.x, y: props.y, defined: props.defined, curve: props.curve });
-      return path(props.segments.flat()) || "";
-    });
+      const path = line({ x: props.x, y: props.y, defined: props.defined, curve: props.curve })
+      return path(props.segments.flat()) || ''
+    })
 
     const splitLineSegments = computed(() =>
       getSplitLineSegments({
         path: pathString.value,
-        segmentation: props.segmentation || "x",
+        segmentation: props.segmentation || 'x',
         pointsInSegments: pointsInSegments.value,
-        sampleRate: props.sampleRate,
-      }),
-    );
+        sampleRate: props.sampleRate
+      })
+    )
 
     return () => (
       <g>
@@ -86,7 +86,7 @@ export const SplitLinePath = defineComponent({
             slots.default({
               index,
               segment,
-              styles: props.styles[index] || props.styles[index % props.styles.length],
+              styles: props.styles[index] || props.styles[index % props.styles.length]
             })
           ) : (
             <LinePath
@@ -97,11 +97,11 @@ export const SplitLinePath = defineComponent({
               y={getY}
               {...(props.styles[index] || props.styles[index % props.styles.length])}
             />
-          ),
+          )
         )}
       </g>
-    );
-  },
-});
+    )
+  }
+})
 
-export default SplitLinePath;
+export default SplitLinePath

@@ -1,52 +1,52 @@
-import { defineComponent, useSlots, type PropType, type SVGAttributes } from "vue";
-import { useDrag } from "@visx-vue/drag";
+import { defineComponent, useSlots, type PropType, type SVGAttributes } from 'vue'
+import { useDrag } from '@visx-vue/drag'
 import type {
   UseDrag,
   HandlerArgs as DragHandlerArgs,
-  MouseTouchOrPointerEvent,
-} from "@visx-vue/drag";
-import type { AnnotationContextType } from "../types";
-import Annotation from "./Annotation";
+  MouseTouchOrPointerEvent
+} from '@visx-vue/drag'
+import type { AnnotationContextType } from '../types'
+import Annotation from './Annotation'
 
-export type EditableAnnotationProps = Pick<AnnotationContextType, "x" | "y" | "dx" | "dy"> & {
+export type EditableAnnotationProps = Pick<AnnotationContextType, 'x' | 'y' | 'dx' | 'dy'> & {
   /** Width of the possible drag canvas (e.g., SVG container). */
-  width: number;
+  width: number
   /** Height of the possible drag canvas (e.g., SVG container). */
-  height: number;
+  height: number
   /** Whether the Label position (dx, dy) is editable. */
-  canEditLabel?: boolean;
+  canEditLabel?: boolean
   /** Whether the Subject position (x, y) is editable. */
-  canEditSubject?: boolean;
+  canEditSubject?: boolean
   /** Optional circle props to set on the subject drag handle. */
-  subjectDragHandleProps?: SVGAttributes;
+  subjectDragHandleProps?: SVGAttributes
   /** Optional circle props to set on the label drag handle. */
-  labelDragHandleProps?: SVGAttributes;
+  labelDragHandleProps?: SVGAttributes
   /** Callback invoked on drag start. */
-  onDragStart?: (args: EditableAnnotationHandlerArgs) => void;
+  onDragStart?: (args: EditableAnnotationHandlerArgs) => void
   /** Callback invoked on drag move. */
-  onDragMove?: (args: EditableAnnotationHandlerArgs) => void;
+  onDragMove?: (args: EditableAnnotationHandlerArgs) => void
   /** Callback invoked on drag end. */
-  onDragEnd?: (args: EditableAnnotationHandlerArgs) => void;
-};
+  onDragEnd?: (args: EditableAnnotationHandlerArgs) => void
+}
 
 export type EditableAnnotationHandlerArgs = {
-  x: number;
-  y: number;
-  dx: number;
-  dy: number;
-  event: MouseTouchOrPointerEvent;
-};
+  x: number
+  y: number
+  dx: number
+  dy: number
+  event: MouseTouchOrPointerEvent
+}
 
 const defaultDragHandleProps = {
   r: 10,
-  fill: "transparent",
-  stroke: "#777",
-  "stroke-dasharray": "4,2",
-  "stroke-width": 2,
-};
+  fill: 'transparent',
+  stroke: '#777',
+  'stroke-dasharray': '4,2',
+  'stroke-width': 2
+}
 
 export const EditableAnnotation = defineComponent({
-  name: "EditableAnnotation",
+  name: 'EditableAnnotation',
   props: {
     canEditLabel: { type: Boolean as PropType<boolean>, default: true },
     canEditSubject: { type: Boolean as PropType<boolean>, default: true },
@@ -56,28 +56,28 @@ export const EditableAnnotation = defineComponent({
     labelDragHandleProps: { type: Object as PropType<SVGAttributes>, default: undefined },
     onDragEnd: {
       type: Function as PropType<(args: EditableAnnotationHandlerArgs) => void>,
-      default: undefined,
+      default: undefined
     },
     onDragMove: {
       type: Function as PropType<(args: EditableAnnotationHandlerArgs) => void>,
-      default: undefined,
+      default: undefined
     },
     onDragStart: {
       type: Function as PropType<(args: EditableAnnotationHandlerArgs) => void>,
-      default: undefined,
+      default: undefined
     },
     subjectDragHandleProps: { type: Object as PropType<SVGAttributes>, default: undefined },
     width: { type: Number as PropType<number>, required: true },
     x: { type: Number as PropType<number>, default: 0 },
-    y: { type: Number as PropType<number>, default: 0 },
+    y: { type: Number as PropType<number>, default: 0 }
   },
   setup(props) {
-    const slots = useSlots();
+    const slots = useSlots()
 
     // Use let bindings to allow cross-referencing between drags
     // (functions close over these and they are assigned before any event fires)
-    let subjectDrag: UseDrag;
-    let labelDrag: UseDrag;
+    let subjectDrag: UseDrag
+    let labelDrag: UseDrag
 
     function handleDragStart({ event }: DragHandlerArgs) {
       if (props.onDragStart) {
@@ -86,8 +86,8 @@ export const EditableAnnotation = defineComponent({
           x: (props.x ?? 0) + (subjectDrag?.dx ?? 0),
           y: (props.y ?? 0) + (subjectDrag?.dy ?? 0),
           dx: (props.dx ?? 0) + (labelDrag?.dx ?? 0),
-          dy: (props.dy ?? 0) + (labelDrag?.dy ?? 0),
-        });
+          dy: (props.dy ?? 0) + (labelDrag?.dy ?? 0)
+        })
       }
     }
 
@@ -98,8 +98,8 @@ export const EditableAnnotation = defineComponent({
           x: (props.x ?? 0) + (subjectDrag?.dx ?? 0),
           y: (props.y ?? 0) + (subjectDrag?.dy ?? 0),
           dx: (props.dx ?? 0) + (labelDrag?.dx ?? 0),
-          dy: (props.dy ?? 0) + (labelDrag?.dy ?? 0),
-        });
+          dy: (props.dy ?? 0) + (labelDrag?.dy ?? 0)
+        })
       }
     }
 
@@ -110,8 +110,8 @@ export const EditableAnnotation = defineComponent({
           x: (props.x ?? 0) + (subjectDrag?.dx ?? 0),
           y: (props.y ?? 0) + (subjectDrag?.dy ?? 0),
           dx: (props.dx ?? 0) + (labelDrag?.dx ?? 0),
-          dy: (props.dy ?? 0) + (labelDrag?.dy ?? 0),
-        });
+          dy: (props.dy ?? 0) + (labelDrag?.dy ?? 0)
+        })
       }
     }
 
@@ -120,24 +120,24 @@ export const EditableAnnotation = defineComponent({
       onDragMove: handleDragMove,
       onDragEnd: handleDragEnd,
       get x() {
-        return props.x ?? 0;
+        return props.x ?? 0
       },
       get y() {
-        return props.y ?? 0;
-      },
-    });
+        return props.y ?? 0
+      }
+    })
 
     labelDrag = useDrag({
       onDragStart: handleDragStart,
       onDragMove: handleDragMove,
       onDragEnd: handleDragEnd,
       get x() {
-        return props.dx ?? 0;
+        return props.dx ?? 0
       },
       get y() {
-        return props.dy ?? 0;
-      },
-    });
+        return props.dy ?? 0
+      }
+    })
 
     return () => (
       <>
@@ -169,7 +169,7 @@ export const EditableAnnotation = defineComponent({
             onTouchstart={subjectDrag.dragStart}
             onTouchmove={subjectDrag.dragMove}
             onTouchend={subjectDrag.dragEnd}
-            cursor={subjectDrag.isDragging ? "grabbing" : "grab"}
+            cursor={subjectDrag.isDragging ? 'grabbing' : 'grab'}
             {...defaultDragHandleProps}
             {...(props.subjectDragHandleProps || {})}
           />
@@ -194,14 +194,14 @@ export const EditableAnnotation = defineComponent({
             onTouchstart={labelDrag.dragStart}
             onTouchmove={labelDrag.dragMove}
             onTouchend={labelDrag.dragEnd}
-            cursor={labelDrag.isDragging ? "grabbing" : "grab"}
+            cursor={labelDrag.isDragging ? 'grabbing' : 'grab'}
             {...defaultDragHandleProps}
             {...(props.labelDragHandleProps || {})}
           />
         )}
       </>
-    );
-  },
-});
+    )
+  }
+})
 
-export default EditableAnnotation;
+export default EditableAnnotation

@@ -1,5 +1,5 @@
-import { Point } from "@visx-vue/point";
+import { Point } from '@visx-vue/point'
 
 export default function createPoint({ x, y }: Partial<Point>, horizontal: boolean) {
-  return new Point(horizontal ? { x, y } : { x: y, y: x });
+  return new Point(horizontal ? { x, y } : { x: y, y: x })
 }

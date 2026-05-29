@@ -1,12 +1,12 @@
-import type { AxisScale } from "@visx-vue/axis";
-import { voronoi } from "@visx-vue/voronoi";
-import type { NearestDatumArgs, NearestDatumReturnType } from "../types";
+import type { AxisScale } from '@visx-vue/axis'
+import { voronoi } from '@visx-vue/voronoi'
+import type { NearestDatumArgs, NearestDatumReturnType } from '../types'
 
 /* finds the datum nearest to svgMouseX/Y using a voronoi */
 export default function findNearestDatumXY<
   XScale extends AxisScale,
   YScale extends AxisScale,
-  Datum extends object,
+  Datum extends object
 >({
   width,
   height,
@@ -15,28 +15,28 @@ export default function findNearestDatumXY<
   xAccessor,
   yAccessor,
   point,
-  data,
+  data
 }: NearestDatumArgs<XScale, YScale, Datum>): NearestDatumReturnType<Datum> {
-  if (!point) return null;
+  if (!point) return null
 
-  const scaledX = (d: Datum) => Number(xScale(xAccessor(d)));
-  const scaledY = (d: Datum) => Number(yScale(yAccessor(d)));
+  const scaledX = (d: Datum) => Number(xScale(xAccessor(d)))
+  const scaledY = (d: Datum) => Number(yScale(yAccessor(d)))
 
   // Create a voronoi for each datum's x,y coordinate
   const voronoiInstance = voronoi({
     x: scaledX,
     y: scaledY,
     width,
-    height,
-  });
+    height
+  })
 
-  const nearestDatum = voronoiInstance(data).find(point.x, point.y);
+  const nearestDatum = voronoiInstance(data).find(point.x, point.y)
 
-  if (!nearestDatum) return null;
+  if (!nearestDatum) return null
 
-  const { data: datum, index } = nearestDatum;
-  const distanceX = Math.abs(scaledX(datum) - point.x);
-  const distanceY = Math.abs(scaledY(datum) - point.y);
+  const { data: datum, index } = nearestDatum
+  const distanceX = Math.abs(scaledX(datum) - point.x)
+  const distanceY = Math.abs(scaledY(datum) - point.y)
 
-  return { datum, index, distanceX, distanceY };
+  return { datum, index, distanceX, distanceY }
 }
