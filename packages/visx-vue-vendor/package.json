@@ -1,6 +1,6 @@
 {
   "name": "@visx-vue/vendor",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "vendored packages for visx-vue",
   "type": "module",
   "exports": {
@@ -11,7 +11,7 @@
         "default": "./dist/d3-*.mjs"
       },
       "require": {
-        "types": "./dist/d3-*.d.cts",
+        "types": "./dist/index.d.cts",
         "default": "./dist/d3-*.cjs"
       }
     },

@@ -17,7 +17,6 @@ import * as Group from "@visx-vue/group";
 import * as Heatmap from "@visx-vue/heatmap";
 import * as Hierarchy from "@visx-vue/hierarchy";
 import * as Legend from "@visx-vue/legend";
-import * as Maps from "@visx-vue/maps";
 import * as Marker from "@visx-vue/marker";
 import * as MockData from "@visx-vue/mock-data";
 import * as Network from "@visx-vue/network";
@@ -57,7 +56,6 @@ export {
   Heatmap,
   Hierarchy,
   Legend,
-  Maps,
   Marker,
   MockData,
   Network,
