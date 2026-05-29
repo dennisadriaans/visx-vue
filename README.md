@@ -45,7 +45,7 @@ Each package is standalone. Peer dependency: `vue ^3.4.0`.
 
 ## Packages
 
-39 packages organized by visualization concern.
+40 packages organized by visualization concern.
 
 ### Primitives
 

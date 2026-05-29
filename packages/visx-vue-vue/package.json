@@ -1,6 +1,6 @@
 {
   "name": "@visx-vue/vue",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "One stop install for all visx-vue packages",
   "type": "module",
   "main": "./dist/index.cjs",

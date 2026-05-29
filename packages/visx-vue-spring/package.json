@@ -1,6 +1,6 @@
 {
   "name": "@visx-vue/spring",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "visx animated components for Vue using spring transitions",
   "type": "module",
   "main": "./dist/index.cjs",

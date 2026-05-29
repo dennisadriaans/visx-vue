@@ -20,7 +20,10 @@
     "rolldown": "1.0.0-rc.9",
     "timezone-mock": "^1.4.2",
     "typescript": "^5.9.3",
-    "vue": "^3.4.21"
+    "vite-plus": "0.1.22",
+    "vue": "^3.4.21",
+    "zod": "^3.25.76",
+    "zod-to-json-schema": "^3.25.2"
   },
   "packageManager": "pnpm@9.15.3"
 }

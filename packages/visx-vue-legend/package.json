@@ -1,6 +1,6 @@
 {
   "name": "@visx-vue/legend",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "visx legend components for vue",
   "type": "module",
   "main": "./dist/index.cjs",
